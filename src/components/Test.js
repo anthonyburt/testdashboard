@@ -1,4 +1,6 @@
 import React from 'react'
+import Moment from 'react-moment'
+import 'moment-timezone'
 
 class Test extends React.Component {
 
@@ -6,25 +8,25 @@ class Test extends React.Component {
     return (
       <div className='pa3 bg-black-05 ma3'>
         <div>
-          {this.props.test.id}&nbsp;
+          Date: <Moment format="YYYY/MM/DD kk:mm" date={this.props.test.createdAt} />
         </div>
         <div className='pt3'>
-          {this.props.test.product}&nbsp;
+          Product: {this.props.test.products.name}&nbsp;
         </div>
         <div className='pt3'>
-          {this.props.test.product}&nbsp;
+          Build Number: {this.props.test.buildNumber}&nbsp;
         </div>
         <div className='pt3'>
-          {this.props.test.os}&nbsp;
+          Testname: {this.props.test.testname}&nbsp;
         </div>
         <div className='pt3'>
-          {this.props.test.browser}&nbsp;
+          OS: {this.props.test.os}&nbsp;
         </div>
         <div className='pt3'>
-          {this.props.test.buildNumber}&nbsp;
+          Browser: {this.props.test.browser}&nbsp;
         </div>
         <div className='pt3'>
-          {this.props.test.testStatus}&nbsp;
+          Status: {this.props.test.testStatus}&nbsp;
         </div>
       </div>
     )
