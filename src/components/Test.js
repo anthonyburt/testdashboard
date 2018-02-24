@@ -8,7 +8,7 @@ class Test extends React.Component {
     return (
       <div className='pa3 bg-black-05 ma3'>
         <div>
-          Date: <Moment format="YYYY/MM/DD kk:mm" date={this.props.test.createdAt} />
+          Date: <Moment format="MMMM DD, YYYY @ hh:mm a" date={this.props.test.createdAt} />
         </div>
         <div className='pt3'>
           Product: {this.props.test.products.name}&nbsp;
