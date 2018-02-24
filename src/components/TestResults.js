@@ -7,7 +7,9 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import Moment from 'react-moment'
 import 'moment-timezone'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory'
+import Gridz from '../components/Gridz'
+
 
 class TestResults extends React.Component {
 	render () {
@@ -43,9 +45,9 @@ class TestResults extends React.Component {
           {quarter: 4, earnings: 12000}
         ];
 
-
 		return (
 		    <div className='w-100 flex justify-center'>
+		        <Gridz></Gridz>
                 <div className=''>
                     <VictoryChart
                         theme={VictoryTheme.material}
@@ -103,6 +105,7 @@ class TestResults extends React.Component {
                         className="-striped -highlight"
 					/>
 				</div>
+
 			</div>
         )
     }
