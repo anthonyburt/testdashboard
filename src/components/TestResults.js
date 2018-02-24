@@ -7,6 +7,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import Moment from 'react-moment'
 import 'moment-timezone'
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory';
 
 class TestResults extends React.Component {
 	render () {
@@ -14,23 +15,78 @@ class TestResults extends React.Component {
 			return (<div className='w-100 flex justify-center'>Loading...</div>)
         }
 
-        const data1  = [{
-                         name: 'Tanner Linsley',
-                         age: 26,
-                         friend: {
-                         name: 'Jason Maurer',
-                         age: 23
-                         }
-                     }]
+        const data2012 = [
+          {quarter: 1, earnings: 13000},
+          {quarter: 2, earnings: 16500},
+          {quarter: 3, earnings: 14250},
+          {quarter: 4, earnings: 19000}
+        ];
+
+        const data2013 = [
+          {quarter: 1, earnings: 15000},
+          {quarter: 2, earnings: 12500},
+          {quarter: 3, earnings: 19500},
+          {quarter: 4, earnings: 13000}
+        ];
+
+        const data2014 = [
+          {quarter: 1, earnings: 11500},
+          {quarter: 2, earnings: 13250},
+          {quarter: 3, earnings: 20000},
+          {quarter: 4, earnings: 15500}
+        ];
+
+        const data2015 = [
+          {quarter: 1, earnings: 18000},
+          {quarter: 2, earnings: 13250},
+          {quarter: 3, earnings: 15000},
+          {quarter: 4, earnings: 12000}
+        ];
+
 
 		return (
 		    <div className='w-100 flex justify-center'>
-			    <div className='w-20' >
-			    {this.props.data.allTestResultses.map((test) =>
-			        <Test key={test.id} test={test} refresh={() => this.props.data.refetch()} />
-			    )}
-				</div>
-				<div div className='w-60'>
+                <div className=''>
+                    <VictoryChart
+                        theme={VictoryTheme.material}
+                        domainPadding={20}
+                    >
+                        <VictoryAxis
+                          // tickValues specifies both the number of ticks and where
+                          // they are placed on the axis
+                          tickValues={[1, 2, 3, 4]}
+                          tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+                        />
+                        <VictoryAxis
+                          dependentAxis
+                          // tickFormat specifies how ticks should be displayed
+                          tickFormat={(x) => (`$${x / 1000}k`)}
+                        />
+                        <VictoryStack>
+                            <VictoryBar
+                                data={data2012}
+                                x="quarter"
+                                y="earnings"
+                            />
+                            <VictoryBar
+                                data={data2013}
+                                x="quarter"
+                                y="earnings"
+                            />
+                            <VictoryBar
+                                data={data2014}
+                                x="quarter"
+                                y="earnings"
+                            />
+                            <VictoryBar
+                                data={data2015}
+                                x="quarter"
+                                y="earnings"
+                            />
+                        </VictoryStack>
+                    </VictoryChart>
+                </div>
+				<div className=''>
 					<ReactTable
 						data={this.props.data.allTestResultses}
 						columns={columns}
@@ -40,7 +96,7 @@ class TestResults extends React.Component {
                                 desc: true
                             }
                         ]}
-                        defaultPageSize={5}
+                        defaultPageSize={10}
                             style={{
                             height: "400px" // This will force the table body to overflow and scroll, since there is not enough room
                         }}
