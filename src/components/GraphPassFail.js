@@ -21,7 +21,6 @@ class GraphPassFail extends React.Component {
         return (
 
             <VictoryChart
-
                 domainPadding={20}
                 theme={VictoryTheme.material}
             >
@@ -45,10 +44,10 @@ class GraphPassFail extends React.Component {
                         y="results"
                     />
                     <VictoryBar
-                            data={passes}
-                            x="testrun"
-                            y="results"
-                        />
+                        data={passes}
+                        x="testrun"
+                        y="results"
+                    />
                 </VictoryStack>
             </VictoryChart>
         )
