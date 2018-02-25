@@ -36,6 +36,11 @@ class BarGraphPassFail extends React.Component {
                 />
                 <VictoryStack
                     colorScale={["red", "green"]}
+                    style={{
+                        data: {
+                            fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
+                        },
+                    }}
                 >
                     <VictoryBar
                         labelComponent={<VictoryTooltip/>}

@@ -27,7 +27,7 @@ class PieGraphBrowsers extends React.Component {
         return (
         <div>
             <div className="flex justify-center">
-                <img alt="browser" src={require('../images/ios-logo.png')} width="100" height="50" />
+                <img alt="browser" src={require('../images/ios-logo.png')} style={{maxWidth: 100, maxHeight: 50}} />
             </div>
             <VictoryPie
                 style={{
