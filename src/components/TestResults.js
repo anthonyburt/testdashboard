@@ -24,10 +24,10 @@ class TestResults extends React.Component {
 		        <div key="a">
                     <GraphPassFail/>
                 </div>
-				<div key="b">
-				    {/*<TableResults/>*/}
-				</div>
-			<div key="c">grid 3</div>
+                <div key="b">
+                    <TableResults allTestResultses={this.props.data.allTestResultses}/>
+                </div>
+                <div key="c">grid 3</div>
           </ReactGridLayout>
         )
     }

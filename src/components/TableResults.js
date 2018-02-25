@@ -9,7 +9,7 @@ class TableResults extends React.Component {
     render () {
         return (
             <ReactTable
-                data={this.props.data.allTestResultses}
+                data={this.props.allTestResultses}
                 columns={columns}
                 defaultSorted={[
                     {

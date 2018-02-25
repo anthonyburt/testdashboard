@@ -21,6 +21,7 @@ class GraphPassFail extends React.Component {
         return (
 
             <VictoryChart
+
                 domainPadding={20}
                 theme={VictoryTheme.material}
             >
@@ -35,7 +36,9 @@ class GraphPassFail extends React.Component {
                     // tickFormat specifies how ticks should be displayed
                     tickFormat={(x) => (`${x}`)}
                 />
-                <VictoryStack>
+                <VictoryStack
+                    colorScale={["green", "red"]}
+                >
                     <VictoryBar
                         data={fails}
                         x="testrun"
