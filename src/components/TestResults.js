@@ -41,16 +41,16 @@ class TestResults extends React.Component {
                     <PieGraphBrowsers browser={this.state.ios}/>
                 </div>
                 <div key="b">
-                    <PieGraphBrowsers browser={this.state.ios}/>
+                    <PieGraphBrowsers browser={this.state.edge}/>
                 </div>
                 <div key="c">
-                    <PieGraphBrowsers browser={this.state.ios}/>
+                    <PieGraphBrowsers browser={this.state.chrome}/>
                 </div>
                 <div key="d">
-                    <PieGraphBrowsers browser={this.state.ios}/>
+                    <PieGraphBrowsers browser={this.state.firefox}/>
                 </div>
                 <div key="e">
-                    <BarGraphPassFail browser={this.state.ios}/>
+                    <BarGraphPassFail/>
                 </div>
                 <div key="f">
                     <TableResults allTestResultses={this.props.data.allTestResultses}/>

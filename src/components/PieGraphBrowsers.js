@@ -1,18 +1,23 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 
+import img_ios from '../images/ios-logo.png'
+import img_edge from '../images/ms_edge.png'
+import img_chrome from '../images/chrome.png'
+import img_firefox from '../images/firefox.png'
+
 class PieGraphBrowsers extends React.Component {
 
     renderBrowser(param) {
         switch(param) {
             case 'ios':
-                return '../images/ios-logo.png'
+                return img_ios
             case "edge":
-                return '../images/ms_edge.png'
+                return img_edge
             case "chrome":
-                return '../images/chrome.png'
+                return img_chrome
             case "firefox":
-                return '../images/firefox.png'
+                return img_firefox
             default:
                 return '404'
         }
@@ -27,7 +32,7 @@ class PieGraphBrowsers extends React.Component {
         return (
         <div>
             <div className="flex justify-center">
-                <img alt="browser" src={require(imageFile)} style={{maxWidth: 100, maxHeight: 50}} />
+                <img alt="browser" src={imageFile} style={{maxWidth: 100, maxHeight: 50}} />
             </div>
             <VictoryPie
                 style={{
