@@ -30,12 +30,19 @@ class PieGraphBrowsers extends React.Component {
                 <img alt="browser" src={require('../images/ios-logo.png')} width="100" height="50" />
             </div>
             <VictoryPie
+                style={{
+                    data: {
+                        fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
+                    },
+                    labels: { fill: "white", fontSize: 15 }
+                }}
                 colorScale={["green", "red"]}
                 startAngle={-90}
                 endAngle={90}
+                labelRadius={70}
                 data={[
-                    { x: " ", y: randomPassNumber },
-                    { x: " ", y: remainderFail }
+                    { x: randomPassNumber + "%", y: randomPassNumber },
+                    { x: remainderFail + "%", y: remainderFail }
                 ]}
             />
         </div>
