@@ -3,7 +3,12 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
-import Typography from 'material-ui/Typography';
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import Typography from 'material-ui/Typography'
+import Button from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
+import MenuIcon from 'material-ui-icons/Menu'
 
 import BarGraphPassFail from '../components/BarGraphPassFail'
 import PieGraphBrowsers from '../components/PieGraphBrowsers'
@@ -28,7 +33,19 @@ class TestResults extends React.Component {
         }
 
 		return (
-		        <Grid container>
+            <div>
+                  <AppBar position="static">
+                    <Toolbar>
+                      <IconButton color="inherit" aria-label="Menu">
+                        <MenuIcon />
+                      </IconButton>
+                      <Typography variant="title" color="inherit" >
+                        Test Dashboard
+                      </Typography>
+                    </Toolbar>
+                  </AppBar>
+
+		        <Grid container paddingTop="25">
                     <Grid container spacing={24} justify='center'>
                         <Grid item xs={3}>
                             <Paper>
@@ -73,6 +90,7 @@ class TestResults extends React.Component {
                         </Grid>
                     </Grid>
                 </Grid>
+            </div>
         )
     }
 }
