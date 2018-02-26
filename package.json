@@ -23,7 +23,7 @@
     "react-scripts": "1.1.1",
     "react-table": "^6.7.6",
     "semantic-ui-css": "^2.3.0",
-    "semantic-ui-react": "^0.78.2",
+    "semantic-ui-react": "^0.78.3",
     "tachyons": "^4.9.1",
     "typeface-roboto": "0.0.54",
     "victory": "^0.25.6"

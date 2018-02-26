@@ -41,8 +41,6 @@ class PieGraphBrowsers extends React.Component {
                         labels: { fill: "white", fontSize: 15 }
                     }}
                     colorScale={["green", "red"]}
-                    startAngle={-90}
-                    endAngle={90}
                     labelRadius={70}
                     data={[
                         { x: randomPassNumber + "%", y: randomPassNumber },
