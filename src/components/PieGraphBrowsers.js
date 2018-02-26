@@ -1,5 +1,6 @@
 import React from 'react'
-import { VictoryPie, VictoryTooltip } from 'victory'
+import { VictoryPie, VictoryTooltip, VictoryLegend, VictoryContainer } from 'victory'
+import Grid from 'material-ui/Grid'
 
 import img_ios from '../images/ios-logo.png'
 import img_edge from '../images/ms_edge.png'
@@ -30,26 +31,24 @@ class PieGraphBrowsers extends React.Component {
 	    var remainderFail =  100-randomPassNumber
 
         return (
-        <div>
-            <div className="flex justify-center">
-                <img alt="browser" src={imageFile} style={{maxWidth: 100, maxHeight: 50}} />
-            </div>
-            <VictoryPie
-                style={{
-                    data: {
-                        fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
-                    },
-                    labels: { fill: "white", fontSize: 15 }
-                }}
-                colorScale={["green", "red"]}
-                startAngle={-90}
-                endAngle={90}
-                labelRadius={70}
-                data={[
-                    { x: randomPassNumber + "%", y: randomPassNumber },
-                    { x: remainderFail + "%", y: remainderFail }
-                ]}
-            />
+            <div>
+                <center><img alt="browser" src={imageFile} style={{maxWidth: 100, maxHeight: 50}} /></center>
+                <VictoryPie
+                    style={{
+                        data: {
+                            fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
+                        },
+                        labels: { fill: "white", fontSize: 15 }
+                    }}
+                    colorScale={["green", "red"]}
+                    startAngle={-90}
+                    endAngle={90}
+                    labelRadius={70}
+                    data={[
+                        { x: randomPassNumber + "%", y: randomPassNumber },
+                        { x: remainderFail + "%", y: remainderFail }
+                    ]}
+                />
         </div>
         )
 	}
