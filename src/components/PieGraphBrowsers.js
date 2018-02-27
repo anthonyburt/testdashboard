@@ -1,6 +1,5 @@
 import React from 'react'
-import { VictoryPie, VictoryTooltip, VictoryLegend, VictoryContainer } from 'victory'
-import Grid from 'material-ui/Grid'
+import { VictoryPie } from 'victory'
 
 import img_ios from '../images/ios-logo.png'
 import img_edge from '../images/ms_edge.png'

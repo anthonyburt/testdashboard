@@ -8,7 +8,9 @@ import Typography from 'material-ui/Typography'
 
 import BarGraphPassFail from '../components/BarGraphPassFail'
 import PieGraphBrowsers from '../components/PieGraphBrowsers'
+import LineGraph from '../components/LineGraph'
 import TableResults from '../components/TableResults'
+
 
 
 class TestResults extends React.Component {
@@ -33,24 +35,25 @@ class TestResults extends React.Component {
                 <Grid container spacing={24} justify='center'>
                     <Grid item xs={3}>
                         <Paper>
+                            <Typography variant="headline" component="h2">
+                                Tribe Health
+                            </Typography>
                             <BarGraphPassFail/>
                         </Paper>
                     </Grid>
                     <Grid item xs={6}>
                         <Paper>
+                            <Typography variant="headline" component="h2">
+                                Test Run Summary
+                            </Typography>
                             <TableResults allTestResultses={this.props.data.allTestResultses}/>
                         </Paper>
                     </Grid>
                 </Grid>
 
-                <Grid container justify='center' spacing={24}>
-                    <Grid item xs={4} >
-                        <Typography variant="headline" component="h2">
-                            Browser Health
-                        </Typography>
-                    </Grid>
-                </Grid>
-
+                <Typography variant="headline" component="h2">
+                    Browser Health
+                </Typography>
                 <Grid container spacing={24}>
                     <Grid item xs={2}>
                         <Paper>
@@ -72,6 +75,14 @@ class TestResults extends React.Component {
                             <PieGraphBrowsers browser={this.state.firefox}/>
                         </Paper>
                     </Grid>
+                    <Grid item xs={2}>
+                        <Paper>
+                            <Typography variant="headline" component="h2">
+                                Test Runs / Day
+                            </Typography>
+                            <LineGraph/>
+                        </Paper>
+                        </Grid>
                 </Grid>
             </Grid>
         )
