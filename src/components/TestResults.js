@@ -1,9 +1,7 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Grid from 'material-ui/Grid'
-import Paper from 'material-ui/Paper'
-import Typography from 'material-ui/Typography'
+import { Container, Grid, Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 
 import BarGraphPassFail from '../components/BarGraphPassFail'
@@ -27,64 +25,51 @@ class TestResults extends React.Component {
 
 	render () {
 	   if (this.props.data.loading) {
-			return (<div className='w-100 flex justify-center'>Loading...</div>)
+			return (
+              <Dimmer active inverted>
+                <Loader inverted content='Loading' />
+              </Dimmer>
+			)
         }
 
 		return (
-            <Grid container paddingTop="25">
-                <Grid container spacing={24} justify='center'>
-                    <Grid item xs={3}>
-                        <Paper>
-                            <Typography variant="headline" component="h2">
-                                Tribe Health
-                            </Typography>
-                            <BarGraphPassFail/>
-                        </Paper>
+                <Container>
+                    <Grid celled='internally' textAlign="center">
+                        <Grid.Row>
+                            <Grid.Column width={8}>
+                                <BarGraphPassFail/>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <LineGraph/>
+                            </Grid.Column>
+                        </Grid.Row>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Paper>
-                            <Typography variant="headline" component="h2">
-                                Test Run Summary
-                            </Typography>
-                            <TableResults allTestResultses={this.props.data.allTestResultses}/>
-                        </Paper>
-                    </Grid>
-                </Grid>
 
-                <Typography variant="headline" component="h2">
-                    Browser Health
-                </Typography>
-                <Grid container spacing={24}>
-                    <Grid item xs={2}>
-                        <Paper>
-                            <PieGraphBrowsers browser={this.state.chrome}/>
-                        </Paper>
+                    <Grid celled textAlign="center">
+                        <Grid.Row >
+                            <b>Browser Health</b>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <Grid.Column width={4}>
+                                <PieGraphBrowsers browser={this.state.chrome}/>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <PieGraphBrowsers browser={this.state.ios}/>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <PieGraphBrowsers browser={this.state.edge}/>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <PieGraphBrowsers browser={this.state.firefox}/>
+                            </Grid.Column>
+                        </Grid.Row>
                     </Grid>
-                    <Grid item xs={2}>
-                        <Paper>
-                            <PieGraphBrowsers browser={this.state.ios}/>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Paper>
-                            <PieGraphBrowsers browser={this.state.edge}/>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Paper>
-                            <PieGraphBrowsers browser={this.state.firefox}/>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Paper>
-                            <Typography variant="headline" component="h2">
-                                Test Runs / Day
-                            </Typography>
-                            <LineGraph/>
-                        </Paper>
-                        </Grid>
-                </Grid>
-            </Grid>
+
+                    <Container>
+                        <TableResults allTestResultses={this.props.data.allTestResultses}/>
+                    </Container>
+                </Container>
         )
     }
 }

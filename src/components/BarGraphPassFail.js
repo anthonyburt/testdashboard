@@ -1,5 +1,5 @@
 import React from 'react'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryStack, VictoryTooltip } from 'victory'
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryStack, VictoryTooltip, VictoryLabel } from 'victory'
 
 class BarGraphPassFail extends React.Component {
 	render () {
@@ -22,7 +22,12 @@ class BarGraphPassFail extends React.Component {
 
             <VictoryChart
                 domainPadding={20}
+                animate={{
+                    duration: 1000,
+                    onLoad: { duration: 500 }
+                }}
             >
+                <VictoryLabel text="Tribe Health" x={225} y={30} textAnchor="middle"/>
                 <VictoryAxis
                     // tickValues specifies both the number of ticks and where
                     // they are placed on the axis

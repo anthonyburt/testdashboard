@@ -45,6 +45,10 @@ class PieGraphBrowsers extends React.Component {
                         { x: randomPassNumber + "%", y: randomPassNumber },
                         { x: remainderFail + "%", y: remainderFail }
                     ]}
+                    animate={{
+                        duration: 1000,
+                        onLoad: { duration: 500 }
+                    }}
                 />
         </div>
         )
