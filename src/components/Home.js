@@ -23,8 +23,16 @@ class Home extends React.Component {
     render () {
         return (
             <Container>
-                    <Grid textAlign="center" divided>
+                    <Grid textAlign="center">
                         <Grid.Row>
+                            <Grid.Column width={8}>
+                                <font size='20'>E-Commerce</font>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <font size='20'>Payments</font>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row >
                             <Grid.Column width={8}>
                                  <ProductStats />
                             </Grid.Column>

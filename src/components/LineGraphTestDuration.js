@@ -28,7 +28,7 @@ class LineGraphTestDuration extends React.Component {
                     style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}
                     colorScale={[ "#891ebf", "#4286f4" ]}
                     data={[
-                        { name: "Ecomm" }
+                        { name: "E-Comm" }
                     ]}
                 />
 
