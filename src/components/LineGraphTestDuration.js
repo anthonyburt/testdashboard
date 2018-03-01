@@ -1,7 +1,7 @@
 import React from 'react'
 import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryLabel } from 'victory'
 
-class LineGraph extends React.Component {
+class LineGraphTestDuration extends React.Component {
 	render () {
 
         return (
@@ -22,36 +22,36 @@ class LineGraph extends React.Component {
                 <VictoryLegend x={90} y={0}
                     titleOrientation="left"
                     orientation="horizontal"
-                    title="Test Runs per Week"
+                    title="Test Failures per Day"
                     centerTitle
-                    gutter={20}
+                    gutter={40}
                     style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}
-                    colorScale={[ "#4286f4" ]}
+                    colorScale={[ "#891ebf", "#4286f4" ]}
                     data={[
-                        { name: "Payments" }
+                        { name: "Ecomm" }
                     ]}
                 />
 
                 <VictoryLine
                     style={{
-                        data: { stroke: "#4286f4" },
-                        parent: { border: "3px solid #ccc"}
+                        data: { stroke: "#891ebf" },
+                        parent: { border: "3px solid #ccc"},
                     }}
                     data={[
-                        { x: "2/3/18",  y: 3 },
-                        { x: "2/10/18", y: 5 },
-                        { x: "2/17/18", y: 6 },
-                        { x: "2/24/18", y: 2 },
-                        { x: "3/3/18",  y: 1 },
+                        { x: "2/3/18",  y: 30 },
+                        { x: "2/10/18", y: 25 },
+                        { x: "2/17/18", y: 20 },
+                        { x: "2/24/18", y: 15 },
+                        { x: "3/3/18",  y: 10 },
                         { x: "3/10/18", y: 7 },
-                        { x: "3/17/18", y: 5 },
-                        { x: "3/24/18",  y: 2 },
-                        { x: "3/31/18", y: 5 },
-                        { x: "4/7/18", y: 6 },
-                        { x: "4/14/18", y: 2 },
-                        { x: "4/21/18",  y: 7 },
-                        { x: "4/28/18", y: 2 },
-                        { x: "5/5/18", y: 1 }
+                        { x: "3/17/18", y: 3 },
+                        { x: "3/24/18",  y: 15 },
+                        { x: "3/31/18", y: 14 },
+                        { x: "4/7/18", y: 18 },
+                        { x: "4/14/18", y: 5 },
+                        { x: "4/21/18",  y: 4 },
+                        { x: "4/28/18", y: 7 },
+                        { x: "5/5/18", y: 3 }
                     ]}
                 />
             </VictoryChart>
@@ -59,4 +59,4 @@ class LineGraph extends React.Component {
 	}
 }
 
-export default LineGraph
+export default LineGraphTestDuration

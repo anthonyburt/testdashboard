@@ -3,13 +3,10 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Container, Grid, Dimmer, Loader, Segment } from 'semantic-ui-react'
 
-
 import BarGraphPassFail from '../components/BarGraphPassFail'
 import PieGraphBrowsers from '../components/PieGraphBrowsers'
-import LineGraph from '../components/LineGraph'
+import LineGraph from '../components/LineGraphTestDuration'
 import TableResults from '../components/TableResults'
-
-
 
 class TestResults extends React.Component {
 
@@ -27,7 +24,7 @@ class TestResults extends React.Component {
 	   if (this.props.data.loading) {
 			return (
               <Dimmer active inverted>
-                <Loader inverted content='Loading' />
+                <Loader size='massive' inverted content='Looking for Cheese...' />
               </Dimmer>
 			)
         }

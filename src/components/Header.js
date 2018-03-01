@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import { Dropdown, Segment, Menu, Icon, Sidebar } from 'semantic-ui-react'
-import TestResults from '../components/TestResults'
+import { Link } from 'react-router-dom'
 
-class SidebarTopPush extends Component {
+class Header extends Component {
 
-
-  render() {
+render() {
     return (
         <Segment.Group>
             <Segment>
                 <Menu>
                     <Menu.Item icon='home'>
-                      Home
+                      <Link to='/'>Home</Link>
                     </Menu.Item>
                     <Dropdown text='E-Commerce' pointing className='link item'>
                       <Dropdown.Menu>
-                        <Dropdown.Header>Tribes</Dropdown.Header>
+                        <Dropdown.Item><Link to='/ecommerce'>Tribe Home</Link></Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item>Shop X</Dropdown.Item>
                         <Dropdown.Item>Checkout</Dropdown.Item>
@@ -25,7 +24,7 @@ class SidebarTopPush extends Component {
                     </Dropdown>
                     <Dropdown text='Payments' pointing className='link item'>
                       <Dropdown.Menu>
-                        <Dropdown.Header>Tribes</Dropdown.Header>
+                        <Dropdown.Item><Link to='/payments'>Tribe Home</Link></Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item>Tribe 1</Dropdown.Item>
                         <Dropdown.Item>Tribe 2</Dropdown.Item>
@@ -34,17 +33,9 @@ class SidebarTopPush extends Component {
                     </Dropdown>
                 </Menu>
             </Segment>
-            <Segment attached='bottom'>
-            <TestResults></TestResults>
-           </Segment>
-           </Segment.Group>
-
-
-
-    
-
+        </Segment.Group>
     )
   }
 }
 
-export default SidebarTopPush
+export default Header
