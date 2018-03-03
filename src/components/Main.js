@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import EcommMain from './EcommMain'
-import PaymentsMain from './PaymentsMain'
+import ShopX from './ShopX'
 
 class Main extends Component {
 
@@ -10,8 +10,10 @@ class Main extends Component {
     return (
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/ecommerce' component={EcommMain}/>
-          <Route path='/payments' component={PaymentsMain}/>
+          <Route path='/shopx' component={ShopX}/>
+          <Route path='/checkout' component={EcommMain}/>
+          <Route path='/orderassist' component={EcommMain}/>
+          <Route path='/ordermanagement' component={EcommMain}/>
         </Switch>
     )
   }
