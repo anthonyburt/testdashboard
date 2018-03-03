@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Dropdown, Segment, Menu, Icon, Sidebar } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import Helmet from 'react-helmet'
 
 class Header extends Component {
 
@@ -13,7 +14,7 @@ class Header extends Component {
 
         return (
 
-            <Menu size='mini' icon='labeled' pointing secondary>
+            <Menu size='mini' icon='labeled' pointing secondary class="blah">
                 <Menu.Item name='home'  active={activeItem === 'home'} onClick={this.handleItemClick}>
                     <Icon name='home'/>
                     <Link to='/'>Home</Link>
@@ -21,6 +22,10 @@ class Header extends Component {
                 <Menu.Item name='shopx'  active={activeItem === 'shopx'} onClick={this.handleItemClick}>
                     <Icon name='shopping bag'/>
                     <Link to='/shopx'>Shop X</Link>
+                </Menu.Item>
+                <Menu.Item name='checkout' active={activeItem === 'checkout'} onClick={this.handleItemClick}>
+                    <Icon name='credit card alternative'/>
+                    <Link to='/checkout'>Checkout</Link>
                 </Menu.Item>
                 <Menu.Item name='orderassist' active={activeItem === 'orderassist'} onClick={this.handleItemClick}>
                     <Icon name='doctor'/>

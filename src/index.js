@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 import { ApolloProvider } from 'react-apollo'
 import 'semantic-ui-css/semantic.min.css'
+import './index.css'
 import 'typeface-roboto'
 import App from './components/App';
 

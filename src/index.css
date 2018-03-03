@@ -10,3 +10,11 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+.home-stats
+{
+  padding-top: 25px;
+}
+.home-linegraph-runs-per-week
+{
+  padding-top: 75px;
+}

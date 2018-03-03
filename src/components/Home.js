@@ -1,5 +1,6 @@
 import React from 'react'
 import {  Grid, Image, Statistic, Icon } from 'semantic-ui-react'
+import Helmet from 'react-helmet'
 
 import LineGraph from './LineGraph'
 import TableResults from './TableResults'
@@ -20,7 +21,7 @@ class Home extends React.Component {
 
     render () {
         return (
-        <div>
+        <div class="home-stats">
             <Statistic.Group widths='four'>
                 <Statistic color='violet'>
                     <Statistic.Value>42,154</Statistic.Value>
@@ -46,6 +47,7 @@ class Home extends React.Component {
                 </Statistic>
             </Statistic.Group>
 
+            <div class="home-linegraph-runs-per-week">
             <Grid centered aligned relaxed='very'>
                 <Grid.Row >
                     <Grid.Column width={8} centered>
@@ -53,7 +55,7 @@ class Home extends React.Component {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-
+            </div>
         </div>
 
 
