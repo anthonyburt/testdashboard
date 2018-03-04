@@ -38,6 +38,10 @@ class BarGraphPassFail extends React.Component {
                     dependentAxis
                     // tickFormat specifies how ticks should be displayed
                     tickFormat={(x) => (`${x}`)}
+                    label="Test Runs"
+                    style={{
+                        axisLabel: {fontSize: 10, padding: 35}
+                    }}
                 />
                 <VictoryStack
                     colorScale={["red", "green"]}

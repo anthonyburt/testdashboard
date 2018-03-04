@@ -1,14 +1,11 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
-
-const panes = [
-  { menuItem: 'Summary', render: () => <Tab.Pane loading>Tab 1 Content</Tab.Pane> },
-  { menuItem: 'UI', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-  { menuItem: 'API', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-]
+import Helmet from 'react-helmet'
 
 const ShopX = () => (
-  <Tab panes={panes} />
+    <div>
+        <Helmet bodyAttributes={{style: 'background-color : #c8e6c9'}}/>
+    </div>
 )
 
 export default ShopX

@@ -48,10 +48,10 @@ class LineGraphTestDuration extends React.Component {
                         axisLabel: {fontSize: 10, padding: 35}
                     }}
                  />
-                <VictoryLegend x={160} y={0}
+                <VictoryLegend x={150} y={0}
                     titleOrientation="left"
                     orientation="horizontal"
-                    title=""
+                    title="Test Runs"
                     centerTitle
                     gutter={20}
                     style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}

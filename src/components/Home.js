@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Grid, Image, Statistic, Icon } from 'semantic-ui-react'
+import {  Grid, Image, Statistic, Icon, Item, Button, Label, Container, Table, Header } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import LineGraph from './LineGraph'
@@ -7,6 +7,12 @@ import TableResults from './TableResults'
 import LineGraphTestDuration from './LineGraphTestDuration'
 import PieGraphBrowsers from './PieGraphProductHealth'
 import ProductStats from './ProductStats'
+import BarGraphPassFail from '../components/BarGraphPassFail'
+
+import img_ios from '../images/ios-logo.png'
+import img_edge from '../images/ms_edge.png'
+import img_chrome from '../images/chrome.svg'
+import img_firefox from '../images/firefox.png'
 
 class Home extends React.Component {
     constructor() {
@@ -19,21 +25,24 @@ class Home extends React.Component {
         }
     }
 
+
     render () {
+
         return (
-        <div class="home-stats">
+        <div class="home-stats" >
+            <Helmet bodyAttributes={{style: 'background-color : #c8e6c9'}}/>
             <Statistic.Group widths='four'>
                 <Statistic color='violet'>
                     <Statistic.Value>42,154</Statistic.Value>
-                    <Statistic.Label>Tests Ran</Statistic.Label>
+                    <Statistic.Label>Tests Processed</Statistic.Label>
                 </Statistic>
-                <Statistic color='teal'>
+                <Statistic color='orange'>
                     <Statistic.Value>220:45:56</Statistic.Value>
-                    <Statistic.Label>Hours Saved</Statistic.Label>
+                    <Statistic.Label>Time Spent</Statistic.Label>
                 </Statistic>
                 <Statistic color='green'>
                     <Statistic.Value>
-                        <Icon name='bullseye' />
+                        <Icon name='thumbs up' />
                         94%
                     </Statistic.Value>
                     <Statistic.Label color='teal'>Success</Statistic.Label>
@@ -48,15 +57,18 @@ class Home extends React.Component {
             </Statistic.Group>
 
             <div class="home-linegraph-runs-per-week">
-            <Grid centered aligned relaxed='very'>
+            <Grid centered >
                 <Grid.Row >
-                    <Grid.Column width={8} centered>
-                         <LineGraphTestDuration />
+                    <Grid.Column width={8} floated='left'>
+                        <LineGraphTestDuration/>
+                    </Grid.Column>
+                    <Grid.Column width={8} floated='left'>
+                         <BarGraphPassFail/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-            </div>
         </div>
+    </div>
 
 
         )
