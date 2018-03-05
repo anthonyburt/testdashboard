@@ -14,7 +14,7 @@ class Header extends Component {
 
         return (
 
-            <Menu color='black' size='mini' icon='labeled' pointing secondary class="blah">
+            <Menu color='blue' inverted size='mini' icon='labeled' pointing secondary class="blah">
                 <Menu.Item name='home'  active={activeItem === 'home'} onClick={this.handleItemClick}>
                     <Icon name='home'/>
                     <Link to='/'>Home</Link>

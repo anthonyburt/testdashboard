@@ -30,7 +30,7 @@ class Home extends React.Component {
 
         return (
         <div class="home-stats" >
-            <Helmet bodyAttributes={{style: 'background-color : #c8e6c9'}}/>
+            <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
             <Statistic.Group widths='four'>
                 <Statistic color='violet'>
                     <Statistic.Value>42,154</Statistic.Value>

@@ -27,7 +27,7 @@ class BarGraphPassFail extends React.Component {
                     onLoad: { duration: 500 }
                 }}
             >
-                <VictoryLabel text="Tribe Health" x={225} y={30} textAnchor="middle"/>
+                <VictoryLabel text="Squad Health" x={225} y={12} textAnchor="middle" />
                 <VictoryAxis
                     // tickValues specifies both the number of ticks and where
                     // they are placed on the axis
@@ -40,7 +40,7 @@ class BarGraphPassFail extends React.Component {
                     tickFormat={(x) => (`${x}`)}
                     label="Test Runs"
                     style={{
-                        axisLabel: {fontSize: 10, padding: 35}
+                        axisLabel: {fontSize: 15, padding: 35}
                     }}
                 />
                 <VictoryStack

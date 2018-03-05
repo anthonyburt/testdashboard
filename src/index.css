@@ -12,9 +12,17 @@ html {
 }
 .home-stats
 {
-  padding-top: 25px;
+  padding-top: 50px;
 }
 .home-linegraph-runs-per-week
 {
   padding-top: 75px;
+}
+
+.builtwith {
+  height: 200px;
+  width: 200px;
+  border: 1px solid red;
+  display: table-cell;
+  vertical-align: bottom;
 }
