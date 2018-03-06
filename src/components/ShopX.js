@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Grid, Image, Statistic, Icon, Item, Button, Label, Container, Table, Header, Segment } from 'semantic-ui-react'
+import {  Grid, Icon, Table, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import PieGraphBrowsers from './PieGraphBrowsers'
 

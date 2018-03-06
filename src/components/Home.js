@@ -1,30 +1,13 @@
 import React from 'react'
-import {  Grid, Image, Statistic, Icon, Item, Button, Label, Container, Table, Header, Segment } from 'semantic-ui-react'
+import {  Grid, Statistic, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
-import LineGraph from './LineGraph'
-import TableResults from './TableResults'
 import LineGraphTestDuration from './LineGraphTestDuration'
-import PieGraphBrowsers from './PieGraphProductHealth'
-import ProductStats from './ProductStats'
 import BarGraphPassFail from '../components/BarGraphPassFail'
 
-import img_ios from '../images/ios-logo.png'
-import img_edge from '../images/ms_edge.png'
-import img_chrome from '../images/chrome.svg'
-import img_firefox from '../images/firefox.png'
+
 
 class Home extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            ios: 'ios',
-            edge: 'edge',
-            chrome: 'chrome',
-            firefox: 'firefox'
-        }
-    }
-
 
     render () {
 

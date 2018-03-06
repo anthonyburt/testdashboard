@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Dropdown, Segment, Menu, Icon, Sidebar } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import Helmet from 'react-helmet'
 
 class Header extends Component {
 

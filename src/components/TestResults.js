@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Container, Grid, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
 
 import BarGraphPassFail from '../components/BarGraphPassFail'
 import PieGraphBrowsers from '../components/PieGraphBrowsers'

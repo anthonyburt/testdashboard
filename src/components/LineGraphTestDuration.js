@@ -1,5 +1,5 @@
 import React from 'react'
-import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryLabel, VictoryScatter } from 'victory'
+import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter } from 'victory'
 
 class LineGraphTestDuration extends React.Component {
 	render () {

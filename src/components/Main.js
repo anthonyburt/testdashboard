@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import EcommMain from './EcommMain'
 import ShopX from './ShopX'
-import {Helmet} from 'react-helmet'
 
 class Main extends Component {
 
