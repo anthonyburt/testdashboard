@@ -55,7 +55,7 @@ class LineGraphTestDuration extends React.Component {
                     centerTitle
                     gutter={20}
                     style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}
-                    colorScale={[ "#891ebf", "#4286f4" ]}
+                    colorScale={[ "#334d5c", "#45b29d" ]}
                     data={[
                         { name: "UI" },
                         { name: "API" }
@@ -65,13 +65,13 @@ class LineGraphTestDuration extends React.Component {
                 <VictoryLine
                      interpolation='natural'
                     style={{
-                        data: { stroke: "#891ebf" },
+                        data: { stroke: "#334d5c" },
                         parent: { border: "3px solid #ccc"},
                     }}
                     data={selenium}
                 />
                 <VictoryScatter
-                    style={{ data: { fill: "#891ebf" } }}
+                    style={{ data: { fill: "#334d5c" } }}
                     size={4}
                     data={selenium}
                     animate={{
@@ -83,13 +83,13 @@ class LineGraphTestDuration extends React.Component {
                 <VictoryLine
                     interpolation='natural'
                     style={{
-                        data: { stroke: "#4286f4" },
+                        data: { stroke: "#45b29d" },
                         parent: { border: "3px solid #ccc"}
                     }}
                     data={api}
                 />
                 <VictoryScatter
-                    style={{ data: { fill: "#4286f4" } }}
+                    style={{ data: { fill: "#45b29d" } }}
                     size={4}
                     data={api}
                     animate={{

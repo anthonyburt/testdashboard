@@ -1,21 +1,21 @@
 import React from 'react'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryStack, VictoryTooltip, VictoryLabel } from 'victory'
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
 
 class BarGraphPassFail extends React.Component {
 	render () {
 
-        const fails = [
-          {tribe: 1, results: 20, label:"fails"},
-          {tribe: 2, results: 4, label:"fails"},
-          {tribe: 3, results: 20, label:"fails"},
-          {tribe: 4, results: 50, label:"fails"}
+        const ui = [
+          {tribe: 1, results: 550, label:"UI"},
+          {tribe: 2, results: 250, label:"UI"},
+          {tribe: 3, results: 425, label:"UI"},
+          {tribe: 4, results: 25, label:"UI"}
         ];
 
-        const passes = [
-          {tribe: 1, results: 10, label:"passes"},
-          {tribe: 2, results: 9, label:"passes"},
-          {tribe: 3, results: 0, label:"passes"},
-          {tribe: 4, results: 20, label:"passes"}
+        const api = [
+          {tribe: 1, results: 130, label:"API"},
+          {tribe: 2, results: 90, label:"API"},
+          {tribe: 3, results: 225, label:"API"},
+          {tribe: 4, results: 80, label:"API"}
         ];
 
         return (
@@ -27,7 +27,7 @@ class BarGraphPassFail extends React.Component {
                     onLoad: { duration: 500 }
                 }}
             >
-                <VictoryLabel text="Squad Health" x={225} y={12} textAnchor="middle" />
+                <VictoryLabel text="Test Runs" x={225} y={12} textAnchor="middle" />
                 <VictoryAxis
                     // tickValues specifies both the number of ticks and where
                     // they are placed on the axis
@@ -38,13 +38,13 @@ class BarGraphPassFail extends React.Component {
                     dependentAxis
                     // tickFormat specifies how ticks should be displayed
                     tickFormat={(x) => (`${x}`)}
-                    label="Test Runs"
                     style={{
                         axisLabel: {fontSize: 15, padding: 35}
                     }}
                 />
-                <VictoryStack
-                    colorScale={["red", "green"]}
+                <VictoryGroup
+                    offset={20}
+                    colorScale={"qualitative"}
                     style={{
                         data: {
                             fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
@@ -53,17 +53,17 @@ class BarGraphPassFail extends React.Component {
                 >
                     <VictoryBar
                         labelComponent={<VictoryTooltip/>}
-                        data={fails}
+                        data={ui}
                         x="tribe"
                         y="results"
                     />
                     <VictoryBar
                     labelComponent={<VictoryTooltip/>}
-                        data={passes}
+                        data={api}
                         x="tribe"
                         y="results"
                     />
-                </VictoryStack>
+                </VictoryGroup>
             </VictoryChart>
         )
 	}
