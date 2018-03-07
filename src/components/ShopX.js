@@ -1,30 +1,52 @@
 import React, { Component } from 'react'
-import {  Grid, Icon, Table, Segment, Accordion } from 'semantic-ui-react'
+import {  Grid, Icon, Table, Segment, Dropdown, Label } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import PieGraphBrowsers from './PieGraphBrowsers'
+import ResultsFeed from './ResultsFeed'
+
+
+const optionsTestHarness = [
+  { key: 1, text: 'UI', value: 1 },
+  { key: 2, text: 'API', value: 2 }
+]
+
+const optionsBrowser = [
+  { key: 1, text: 'Safari', value: 1 },
+  { key: 2, text: 'Firefox', value: 2 },
+  { key: 2, text: 'Chrome', value: 3 },
+  { key: 2, text: 'Edge', value: 4 }
+]
+
+const optionsTestStatus = [
+  { key: 1, text: 'All', value: 1 },
+  { key: 2, text: 'Success', value: 2 },
+  { key: 2, text: 'Failure', value: 3 },
+  { key: 2, text: 'Skipped', value: 4 }
+]
 
 export default class ShopX extends Component {
-  state = { activeIndex: 0 };
+    constructor() {
+        super();
 
-    handleClick = (e, titleProps) => {
-        const { index } = titleProps
-        const { activeIndex } = this.state
-        const newIndex = activeIndex === index ? -1 : index
-
-        this.setState({ activeIndex: newIndex })
+        this.state = {
+          value: 1
+        }
     }
 
-  render() {
-      const { activeIndex } = this.state;
+    handleChange = (e, { value }) => this.setState({ value })
 
-      return (
-        <div>
+    render() {
+        const { value } = this.state
+
+        return (
+
+            <div>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
             <Grid centered >
                 <Grid.Row >
                     <Grid.Column width={8} floated='left'>
                         <Segment.Group >
-                            <Segment color='grey' inverted>Selenium</Segment>
+                            <Segment color='blue' inverted>Selenium</Segment>
                                 <Segment>
                                     <Segment>
                                     <Grid>
@@ -94,7 +116,7 @@ export default class ShopX extends Component {
                         </Grid.Column>
                     <Grid.Column width={8} floated='left'>
                     <Segment.Group >
-                        <Segment color='grey' inverted>API</Segment>
+                        <Segment color='blue' inverted>API</Segment>
                             <Segment>
                             <Segment>
                                 <Grid>
@@ -160,24 +182,56 @@ export default class ShopX extends Component {
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
-                    <Segment.Group >
-                        <Segment>
-                        <Grid.Column width={16} >
-                            <Accordion fluid styled>
-                               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                                 <Icon name='dropdown' />
-                                 What is a dog?
-                               </Accordion.Title>
-                               <Accordion.Content active={activeIndex === 0}>
-                                 <p>
-                                   A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a
-                                   {' '}welcome guest in many households across the world.
-                                 </p>
-                               </Accordion.Content>
-                           </Accordion>
-                        </Grid.Column>
-                        </Segment>
-                    </Segment.Group>
+                    <Grid.Column width={16} >
+                        <Segment.Group >
+
+
+                                                     <Segment color='blue' inverted size='mini'>
+                                                                <Label attached='top left'>
+                                                                    <Icon name='time' />Last Synced: 8 hours ago
+                                                                  </Label></Segment>
+                                                                  <Segment color='blue' inverted>
+                                <Grid columns={3} verticalAlign='middle'>
+                                    <Grid.Column width={3}>
+                                        <div>Harness</div>
+                                        <Dropdown
+                                                    onChange={this.handleChange}
+                                                    options={optionsTestHarness}
+                                                    placeholder='Choose an option'
+                                                    selection
+                                                    value={value}
+                                                    floating
+                                          />
+                                      </Grid.Column>
+                                    <Grid.Column width={3}>
+                                    <div>Browser</div>
+                                          <Dropdown
+                                                  onChange={this.handleChange}
+                                                  options={optionsBrowser}
+                                                  placeholder='Choose an option'
+                                                  selection
+                                                  value={value}
+                                                  floating
+                                        />
+                                      </Grid.Column>
+                                    <Grid.Column width={3}>
+                                   <div>Status</div>
+                                        <Dropdown
+                                                  onChange={this.handleChange}
+                                                  options={optionsTestStatus}
+                                                  placeholder='Choose an option'
+                                                  selection
+                                                  value={value}
+                                                  floating
+                                        />
+                                      </Grid.Column>
+                                </Grid>
+                            </Segment>
+                            <Segment>
+                                <ResultsFeed />
+                            </Segment>
+                        </Segment.Group>
+                    </Grid.Column>
                 </Grid.Row>
 
             </Grid>
