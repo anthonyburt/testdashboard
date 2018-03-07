@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
-import {  Grid, Icon, Table, Segment, Dropdown, Label } from 'semantic-ui-react'
+import {  Grid, Icon, Table, Segment, Dropdown } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import PieGraphBrowsers from './PieGraphBrowsers'
 import ResultsFeed from './ResultsFeed'
 
+const optionsTestRuns = [
+    { key: 1, text: '#6 03/07/18 02:02:00', value: 1 },
+    { key: 2, text: '#5 03/07/18 01:02:00', value: 2 },
+    { key: 3, text: '#4 03/06/18 11:02:00', value: 3 },
+    { key: 4, text: '#3 03/05/18 10:02:00', value: 4 },
+    { key: 5, text: '#2 03/04/18 15:02:00', value: 5 },
+    { key: 6, text: '#1 03/03/18 15:02:00', value: 6 },
+]
 
 const optionsTestHarness = [
   { key: 1, text: 'UI', value: 1 },
@@ -13,15 +21,15 @@ const optionsTestHarness = [
 const optionsBrowser = [
   { key: 1, text: 'Safari', value: 1 },
   { key: 2, text: 'Firefox', value: 2 },
-  { key: 2, text: 'Chrome', value: 3 },
-  { key: 2, text: 'Edge', value: 4 }
+  { key: 3, text: 'Chrome', value: 3 },
+  { key: 4, text: 'Edge', value: 4 }
 ]
 
 const optionsTestStatus = [
   { key: 1, text: 'All', value: 1 },
   { key: 2, text: 'Success', value: 2 },
-  { key: 2, text: 'Failure', value: 3 },
-  { key: 2, text: 'Skipped', value: 4 }
+  { key: 3, text: 'Failure', value: 3 },
+  { key: 4, text: 'Skipped', value: 4 }
 ]
 
 export default class ShopX extends Component {
@@ -29,8 +37,10 @@ export default class ShopX extends Component {
         super();
 
         this.state = {
-          value: 1
+          value: 1,
+          activeItem: 'shopx'
         }
+
     }
 
     handleChange = (e, { value }) => this.setState({ value })
@@ -104,7 +114,6 @@ export default class ShopX extends Component {
                                                             <Table.Cell>00:54:22</Table.Cell>
                                                             <Table.Cell>0</Table.Cell>
                                                         </Table.Row>
-
                                                     </Table.Body>
                                                 </Table>
                                             </Grid.Column>
@@ -184,56 +193,62 @@ export default class ShopX extends Component {
                 <Grid.Row>
                     <Grid.Column width={16} >
                         <Segment.Group >
+                            <Segment color='blue' inverted> Test Details</Segment>
+                                <Segment>
+                                    <Segment>
+                                    <Grid columns={2} verticalAlign='top'>
 
-
-                                                     <Segment color='blue' inverted size='mini'>
-                                                                <Label attached='top left'>
-                                                                    <Icon name='time' />Last Synced: 8 hours ago
-                                                                  </Label></Segment>
-                                                                  <Segment color='blue' inverted>
-                                <Grid columns={3} verticalAlign='middle'>
-                                    <Grid.Column width={3}>
-                                        <div>Harness</div>
-                                        <Dropdown
+                                        <Grid.Column width={3}>
+                                            <div>Harness</div>
+                                                <Dropdown
+                                                    key='dropDownTestHarness'
                                                     onChange={this.handleChange}
                                                     options={optionsTestHarness}
                                                     placeholder='Choose an option'
                                                     selection
                                                     value={value}
                                                     floating
-                                          />
+                                                />
+                                            <div>Test Run</div>
+                                                <Dropdown
+                                                    key='dropDownTestRuns'
+                                                    onChange={this.handleChange}
+                                                    options={optionsTestRuns}
+                                                    placeholder='Choose an option'
+                                                    selection
+                                                    value={value}
+                                                    floating
+                                                />
+                                            <div>Browser</div>
+                                                <Dropdown
+                                                    key='dropDownBrowser'
+                                                    onChange={this.handleChange}
+                                                    options={optionsBrowser}
+                                                    placeholder='Choose an option'
+                                                    selection
+                                                    value={value}
+                                                    floating
+                                                />
+                                            <div>Status</div>
+                                                <Dropdown
+                                                    key='dropDownTestStatus'
+                                                    onChange={this.handleChange}
+                                                    options={optionsTestStatus}
+                                                    placeholder='Choose an option'
+                                                    selection
+                                                    value={value}
+                                                    floating
+                                                />
+                                        </Grid.Column>
+                                        <Grid.Column width={13}>
+                                            <ResultsFeed />
                                       </Grid.Column>
-                                    <Grid.Column width={3}>
-                                    <div>Browser</div>
-                                          <Dropdown
-                                                  onChange={this.handleChange}
-                                                  options={optionsBrowser}
-                                                  placeholder='Choose an option'
-                                                  selection
-                                                  value={value}
-                                                  floating
-                                        />
-                                      </Grid.Column>
-                                    <Grid.Column width={3}>
-                                   <div>Status</div>
-                                        <Dropdown
-                                                  onChange={this.handleChange}
-                                                  options={optionsTestStatus}
-                                                  placeholder='Choose an option'
-                                                  selection
-                                                  value={value}
-                                                  floating
-                                        />
-                                      </Grid.Column>
-                                </Grid>
-                            </Segment>
-                            <Segment>
-                                <ResultsFeed />
+                                    </Grid>
+                                </Segment>
                             </Segment>
                         </Segment.Group>
                     </Grid.Column>
                 </Grid.Row>
-
             </Grid>
             </div>
         )

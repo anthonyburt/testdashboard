@@ -38,10 +38,10 @@ class PieGraphBrowsers extends React.Component {
                     }}
                     colorScale={["#999999", "#E85D0C", "#0078D7", "#F2B50F"]}
                     data={[
-                        { x: "20" + "%", y: "20", label: "apple"},
-                        { x: "20" + "%", y: "20", label: "firefox"},
-                        { x: "20" + "%", y: "20", label: "edge"},
-                        { x: "40" + "%", y: "40", label: "chrome" },
+                        { x: "20%", y: "20", label: "apple"},
+                        { x: "20%", y: "20", label: "firefox"},
+                        { x: "20%", y: "20", label: "edge"},
+                        { x: "40%", y: "40", label: "chrome" },
                     ]}
                     animate={{
                         duration: 1000,

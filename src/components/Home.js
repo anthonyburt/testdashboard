@@ -8,6 +8,12 @@ import BarGraphPassFail from '../components/BarGraphPassFail'
 
 
 class Home extends React.Component {
+    constructor () {
+        super();
+        this.state = {
+            activeItem: 'home'
+        };
+    }
 
     render () {
 
@@ -52,7 +58,7 @@ class Home extends React.Component {
                         <Segment.Group >
                         <Segment color="blue" inverted >Quick Look</Segment>
                             <Segment>
-                                <div class="home-linegraph-runs-per-week">
+                                <div>
                                     <Grid centered >
                                         <Grid.Row >
                                             <Grid.Column width={8} floated='left'>

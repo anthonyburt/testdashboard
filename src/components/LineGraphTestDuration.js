@@ -41,7 +41,6 @@ class LineGraphTestDuration extends React.Component {
                     }}
                     offsetX={-100}
                 />
-                <VictoryAxis/>
                 <VictoryAxis dependentAxis
                     label="Time (hr)"
                     style={{
