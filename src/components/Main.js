@@ -5,6 +5,9 @@ import EcommMain from './EcommMain'
 import ShopX from './ShopX'
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
@@ -14,8 +17,9 @@ class Main extends Component {
                     render={(props) => <Home {...props} activeItem="home" />}
                     />
                 }/>
-                <Route path='/shopx' render={ ()  => <ShopX
-                    activeItem={'shopx'}
+                <Route
+                    path='/shopx'
+                    render={(props) => <ShopX {...props} activeItem="shopx" />}
                     />
                 }/>
                 <Route path='/checkout' component={EcommMain}/>
