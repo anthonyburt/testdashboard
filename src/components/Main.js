@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Home from './Home'
 import EcommMain from './EcommMain'
 import ShopX from './ShopX'
 
 class Main extends Component {
 
-  render() {
-    return (
-        <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route path='/shopx' component={ShopX}/>
-          <Route path='/checkout' component={EcommMain}/>
-          <Route path='/orderassist' component={EcommMain}/>
-          <Route path='/ordermanagement' component={EcommMain}/>
-        </Switch>
-    )
-  }
+    render() {
+        return (
+            <Switch>
+                <Route
+                    exact path='/'
+                    render={(props) => <Home {...props} activeItem="home" />}
+                    />
+                }/>
+                <Route path='/shopx' render={ ()  => <ShopX
+                    activeItem={'shopx'}
+                    />
+                }/>
+                <Route path='/checkout' component={EcommMain}/>
+                <Route path='/orderassist' component={EcommMain}/>
+                <Route path='/ordermanagement' component={EcommMain}/>
+                <Redirect to="/" />
+            </Switch>
+        )
+    }
 }
 
 export default Main

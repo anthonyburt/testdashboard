@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {  Grid, Statistic, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
@@ -8,17 +8,20 @@ import BarGraphPassFail from '../components/BarGraphPassFail'
 
 
 class Home extends React.Component {
-    constructor () {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            activeItem: 'home'
-        };
+          value: 1
+        }
+
     }
+
 
     render () {
 
         return (
-        <div>
+        <div class='home-stats'>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
             <Segment.Group>
                     <Segment>

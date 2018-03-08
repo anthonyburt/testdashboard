@@ -33,12 +33,11 @@ const optionsTestStatus = [
 ]
 
 export default class ShopX extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-          value: 1,
-          activeItem: 'shopx'
+          value: 1
         }
 
     }
@@ -50,7 +49,9 @@ export default class ShopX extends Component {
 
         return (
 
-            <div>
+            <div class='home-stats'>
+            <Segment.Group>
+            <Segment>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
             <Grid centered >
                 <Grid.Row >
@@ -250,6 +251,8 @@ export default class ShopX extends Component {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+            </Segment>
+            </Segment.Group>
             </div>
         )
     }
