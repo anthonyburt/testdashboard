@@ -20,7 +20,7 @@ class Header extends Component {
                         <Icon name='home' />
                         Home
                     </Menu.Item>
-                    <Menu.Item as={ NavLink } activeClassName="active" name='shopx'  active={this.props.activeItem === 'shopx'} onClick={this.handleItemClick} to='shopx'>
+                    <Menu.Item as={ NavLink } name='shopx'  active={this.props.activeItem === 'shopx'} onClick={this.handleItemClick} to='shopx'>
                         <Icon name='shopping bag'/>
                         Shop X
                     </Menu.Item>
