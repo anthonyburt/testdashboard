@@ -26,7 +26,7 @@ class Header extends Component {
                 this.setState({activeItem: 'ordermanagement'})
                 break;
             default:
-                this.setState({activeItem: ''})
+                this.setState({activeItem: 'home'})
           }
        }
 
