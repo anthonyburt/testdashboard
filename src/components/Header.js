@@ -8,6 +8,28 @@ class Header extends Component {
         this.state = {activeItem: ''}
     }
 
+    componentDidMount() {
+          switch(document.location.pathname) {
+            case "/home":
+                this.setState({activeItem: 'home'})
+                break;
+            case "/shopx":
+                this.setState({activeItem: 'shopx'})
+                break;
+            case "/checkout":
+                this.setState({activeItem: 'checkout'})
+                break;
+            case "/orderassist":
+                this.setState({activeItem: 'orderassist'})
+                break;
+            case "/ordermanagement":
+                this.setState({activeItem: 'ordermanagement'})
+                break;
+            default:
+                this.setState({activeItem: ''})
+          }
+       }
+
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
