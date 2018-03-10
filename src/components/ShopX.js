@@ -49,7 +49,7 @@ export default class ShopX extends Component {
 
         return (
 
-            <div class='home-stats'>
+            <div className='home-stats'>
             <Segment.Group>
             <Segment>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
