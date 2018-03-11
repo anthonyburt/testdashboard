@@ -20,4 +20,4 @@ const testService = {
   }
 };
 
-export default testServiceS;
+export default testService;

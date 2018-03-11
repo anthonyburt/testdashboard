@@ -4,55 +4,18 @@ const ReadPreference = require('mongodb').ReadPreference;
 require('./mongo').connect();
 
 function get(req, res) {
-  const docquery = TestResults.find({}).read(ReadPreference.NEAREST);
-  docquery
-    .exec()
-    .then(restaurants => {
-      res.json(restaurants);
-    })
-    .catch(err => {
-      res.status(500).send(err);
+
+    const queryIWant = TestResults.aggregate([{ $group: { _id: "null", "total_duration": { $sum: "$duration" }, "total_tests": { $sum: 1 }, "total_passes": { $sum: { $cond : { if: { $eq: ["$status", true]}, then: 1, else: 0 } } }, "total_fails": { $sum: { $cond : { if: { $eq: ["$status", false]}, then: 1, else: 0 } } } } } ]).pretty();
+
+    const docquery = TestResults.aggregate([ {$group: { _id: null, count: { $sum: 1} } } ]);
+    docquery
+        .exec()
+        .then(stats => {
+            res.json(stats);
+        })
+        .catch(err => {
+        res.status(500).send(err);
     });
 }
 
-function create(req, res) {
-  const { id, testname, status } = req.body;
-
-  const testResult = new Restaurants({ id, name, cuisine });
-  testResult
-    .save()
-    .then(() => {
-      res.json(testResult);
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-}
-
-function update(req, res) {
-  const { id, testname, status } = req.body;
-
-  TestResults.findOne({ id })
-    .then(testResult => {
-      testResult.id = name;
-      testResult.testname = cuisine;
-      testResult.save().then(res.json(testResult));
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-}
-
-function destroy(req, res) {
-  const { id } = req.params;
-
-  TestResults.findOneAndRemove({ id })
-    .then(testResult => {
-      res.json(testResult);
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-}
-
-module.exports = { get, create, update, destroy };
+module.exports = { get };

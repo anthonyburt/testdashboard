@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {  Grid, Statistic, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
+
+import api from '../api'
 
 import LineGraphTestDuration from './LineGraphTestDuration'
 import BarGraphPassFail from '../components/BarGraphPassFail'
@@ -12,16 +14,19 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-          value: 1
+          overall_stats: []
         }
+    }
 
+    componentDidMount() {
+        api.get().then(json => this.setState({ overall_stats: json }))
     }
 
 
     render () {
 
         return (
-        <div class='home-stats'>
+        <div className='home-stats'>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
             <Segment.Group>
                     <Segment>

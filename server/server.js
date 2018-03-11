@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000'); //TODO seems to be using port 5000 instead of 3000, super confused
+var port = normalizePort(process.env.PORT || '5000'); //TODO seems to be using port 5000 instead of 3000, super confused
 app.set('port', port);
 console.error('port: ' + port); //TODO update to not be an error?
 

@@ -6,9 +6,6 @@ import ShopX from './ShopX'
 import Header from './Header'
 
 class App extends Component {
-    constructor() {
-        super();
-    }
 
     render() {
 
