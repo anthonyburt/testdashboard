@@ -18,7 +18,7 @@ Below you will find some information on how to perform common tasks.<br>
 `npm install`
 `start the mongo server`
 `node server/server.js`
-`npm start`
+`npm start`  
 
 ## Folder Structure
 
