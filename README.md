@@ -13,12 +13,12 @@ Below you will find some information on how to perform common tasks.<br>
 
 ## Starting Project
 
-node must be installed
-mongo db must be installed
-npm install
-start the mongo server
-node server/server.js
-npm start
+`node must be installed`
+`mongo db must be installed`
+`npm install`
+`start the mongo server`
+`node server/server.js`
+`npm start`
 
 ## Folder Structure
 
