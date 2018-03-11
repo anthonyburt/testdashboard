@@ -1,6 +1,8 @@
 import React from 'react'
 import {  Grid, Statistic, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
+import moment from 'moment'
+import momentDuration from 'moment-duration-format'
 
 import api from '../api'
 
@@ -22,6 +24,15 @@ class Home extends React.Component {
         api.get().then(json => this.setState({ overall_stats: json }))
     }
 
+    formatDuration(inTime) {
+       const converted = moment.duration(inTime,"seconds").format("hh:mm:ss", {trim:false})
+
+       return (
+           <div>{converted}</div>
+       )
+   }
+
+
 
     render () {
 
@@ -38,24 +49,24 @@ class Home extends React.Component {
                         <Segment>
                             <Statistic.Group widths='four'>
                                 <Statistic color='violet'>
-                                    <Statistic.Value>42,154</Statistic.Value>
+                                    <Statistic.Value>{this.state.overall_stats.map((item,i) => item.total_tests)}</Statistic.Value>
                                     <Statistic.Label>Tests Processed</Statistic.Label>
                                 </Statistic>
                                 <Statistic color='orange'>
-                                    <Statistic.Value>220:45:56</Statistic.Value>
+                                    <Statistic.Value>{this.state.overall_stats.map((item,i) => this.formatDuration(item.total_duration))}</Statistic.Value>
                                     <Statistic.Label>Time Spent</Statistic.Label>
                                 </Statistic>
                                 <Statistic color='green'>
                                     <Statistic.Value>
                                         <Icon name='thumbs up' />
-                                        94%
+                                        {this.state.overall_stats.map((item,i) => item.total_passes)}
                                     </Statistic.Value>
                                     <Statistic.Label color='teal'>Success</Statistic.Label>
                                 </Statistic>
                                 <Statistic color='red'>
                                     <Statistic.Value>
                                         <Icon name='thumbs down' />
-                                        6%
+                                        {this.state.overall_stats.map((item,i) => item.total_fails)}
                                     </Statistic.Value>
                                     <Statistic.Label>Failures</Statistic.Label>
                                 </Statistic>
