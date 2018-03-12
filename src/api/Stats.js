@@ -2,10 +2,10 @@ const baseAPI = '/api';
 
 const statsService = {
 
-  get() {
+  getOverallHistory() {
     return new Promise((resolve, reject) => {
         console.log("get stats");
-        fetch(`${baseAPI}/stats`, {
+        fetch(`${baseAPI}/stats/overallhistory`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -17,7 +17,25 @@ const statsService = {
             reject(err);
         });
     });
-  }
+  },
+
+  getQuickLookLineGraphTestDuration() {
+      return new Promise((resolve, reject) => {
+          console.log("get line graph duration");
+          fetch(`${baseAPI}/stats/linegraphduration`, {
+              headers : {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              }
+          })
+          .then(response => response.json())
+          .then(json => resolve(json))
+          .catch(err => {
+              reject(err);
+          });
+      });
+    }
+
 };
 
 export default statsService;

@@ -3,7 +3,7 @@ const ReadPreference = require('mongodb').ReadPreference;
 
 require('./mongo').connect();
 
-function get(req, res) {
+function getOverallHistory(req, res) {
 
     const docquery = TestResults.aggregate(
         [{
@@ -40,4 +40,29 @@ function get(req, res) {
     });
 }
 
-module.exports = { get };
+function getQuickLookLineGraphTestDuration(req, res) {
+
+    const docquery = TestResults.aggregate(
+        [{
+            $group : {
+                _id: {
+               testDay: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } }
+                },
+                "duration_by_day" : {
+                    $sum: "$duration"
+                }
+            }
+       }]
+    );
+
+    docquery
+        .exec()
+        .then(stats => {
+            res.json(stats);
+        })
+        .catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+module.exports = { getOverallHistory, getQuickLookLineGraphTestDuration };

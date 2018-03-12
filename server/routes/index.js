@@ -3,8 +3,12 @@ const router = express.Router();
 
 const statsService = require('../stats-service');
 
-router.get('/stats', (req, res) => {
-  statsService.get(req, res);
+router.get('/stats/overallhistory', (req, res) => {
+  statsService.getOverallHistory(req, res);
+});
+
+router.get('/stats/linegraphduration', (req, res) => {
+  statsService.getQuickLookLineGraphTestDuration(req, res);
 });
 
 

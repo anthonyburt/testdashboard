@@ -1,8 +1,6 @@
 import React from 'react'
-import {  Grid, Statistic, Icon, Label, Segment } from 'semantic-ui-react'
+import {  Grid, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
-import moment from 'moment'
-import momentDuration from 'moment-duration-format'
 
 import statsService from '../api/Stats.js'
 
@@ -17,12 +15,14 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-          overall_stats: []
+          overall_stats: [],
+          linegraph_duration: []
         }
     }
 
     componentDidMount() {
-        statsService.get().then(json => this.setState({ overall_stats: json }))
+        statsService.getOverallHistory().then(json => this.setState({ overall_stats: json }))
+        statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
     }
 
     render () {
