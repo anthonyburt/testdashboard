@@ -4,8 +4,9 @@ import Helmet from 'react-helmet'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
 
-import api from '../api'
+import statsService from '../api/Stats.js'
 
+import OverallHistory from './OverallHistory.js'
 import LineGraphTestDuration from './LineGraphTestDuration'
 import BarGraphPassFail from '../components/BarGraphPassFail'
 
@@ -21,7 +22,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        api.get().then(json => this.setState({ overall_stats: json }))
+        statsService.get().then(json => this.setState({ overall_stats: json }))
     }
 
     formatDuration(inTime) {
@@ -32,46 +33,21 @@ class Home extends React.Component {
        )
    }
 
-
-
     render () {
 
         return (
-        <div className='home-stats'>
-            <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
-            <Segment.Group>
+            <div className='home-stats'>
+                <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
+                <Segment.Group>
                     <Segment>
                         <Segment.Group>
-                        <Segment color='blue' inverted >Overall History
-                        <Label attached='top right'>
-                            <Icon name='time' />Synced: 8 hours ago
-                          </Label></Segment>
-                        <Segment>
-                            <Statistic.Group widths='four'>
-                                <Statistic color='violet'>
-                                    <Statistic.Value>{this.state.overall_stats.map((item,i) => item.total_tests)}</Statistic.Value>
-                                    <Statistic.Label>Tests Processed</Statistic.Label>
-                                </Statistic>
-                                <Statistic color='orange'>
-                                    <Statistic.Value>{this.state.overall_stats.map((item,i) => this.formatDuration(item.total_duration))}</Statistic.Value>
-                                    <Statistic.Label>Time Spent</Statistic.Label>
-                                </Statistic>
-                                <Statistic color='green'>
-                                    <Statistic.Value>
-                                        <Icon name='thumbs up' />
-                                        {this.state.overall_stats.map((item,i) => item.total_passes)}
-                                    </Statistic.Value>
-                                    <Statistic.Label color='teal'>Success</Statistic.Label>
-                                </Statistic>
-                                <Statistic color='red'>
-                                    <Statistic.Value>
-                                        <Icon name='thumbs down' />
-                                        {this.state.overall_stats.map((item,i) => item.total_fails)}
-                                    </Statistic.Value>
-                                    <Statistic.Label>Failures</Statistic.Label>
-                                </Statistic>
-                            </Statistic.Group>
-                        </Segment>
+                            <Segment color='blue' inverted >Overall History
+                                <Label attached='top right'>
+                                    <Icon name='time' />Synced: 8 hours ago
+                                  </Label></Segment>
+                                <Segment>
+                                    <OverallHistory overall_stats = {this.state.overall_stats} />
+                                </Segment>
                         </Segment.Group >
 
                         <Segment.Group >
@@ -93,9 +69,7 @@ class Home extends React.Component {
                         </Segment.Group>
                     </Segment>
                 </Segment.Group>
-        </div>
-
-
+            </div>
         )
     }
 }

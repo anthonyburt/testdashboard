@@ -1,6 +1,6 @@
 const baseAPI = '/api';
 
-const testService = {
+const statsService = {
 
   get() {
     return new Promise((resolve, reject) => {
@@ -14,10 +14,10 @@ const testService = {
         .then(response => response.json())
         .then(json => resolve(json))
         .catch(err => {
-        reject(err);
+            reject(err);
         });
     });
   }
 };
 
-export default testService;
+export default statsService;

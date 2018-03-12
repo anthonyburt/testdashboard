@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const testResultsService = require('../testresults-service');
+const statsService = require('../stats-service');
 
 router.get('/stats', (req, res) => {
-  testResultsService.get(req, res);
+  statsService.get(req, res);
 });
 
 
