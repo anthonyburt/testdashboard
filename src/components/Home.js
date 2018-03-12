@@ -25,14 +25,6 @@ class Home extends React.Component {
         statsService.get().then(json => this.setState({ overall_stats: json }))
     }
 
-    formatDuration(inTime) {
-       const converted = moment.duration(inTime,"seconds").format("hh:mm:ss", {trim:false})
-
-       return (
-           <div>{converted}</div>
-       )
-   }
-
     render () {
 
         return (
