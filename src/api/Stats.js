@@ -5,7 +5,7 @@ const statsService = {
   getOverallHistory() {
     return new Promise((resolve, reject) => {
         console.log("get stats");
-        fetch(`${baseAPI}/stats/overallhistory`, {
+        fetch(`${baseAPI}/stats/quicklook`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

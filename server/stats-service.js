@@ -43,17 +43,21 @@ function getOverallHistory(req, res) {
 function getQuickLookLineGraphTestDuration(req, res) {
 
     const docquery = TestResults.aggregate(
-        [{
-            $group : {
-                _id: {
-               testDay: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } }
-                },
-                "duration_by_day" : {
-                    $sum: "$duration"
-                }
-            }
-       }]
-    );
+        [
+        	{ $group : {_id: { harness: "$harness", testDay: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } }
+        			},
+        			"duration_by_day" : {
+        				$sum: "$duration"
+        			},
+        			"end_date_sort" : { $first: "$end_date"},
+        		}
+        	},
+        	{ $sort :
+        		{
+        			"harness": 1, "end_date_sort" : 1
+        		}
+        	}
+        ]);
 
     docquery
         .exec()

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const statsService = require('../stats-service');
 
-router.get('/stats/overallhistory', (req, res) => {
+router.get('/stats/quicklook', (req, res) => {
   statsService.getOverallHistory(req, res);
 });
 
