@@ -49,7 +49,7 @@ class Home extends React.Component {
                                     <Grid centered >
                                         <Grid.Row >
                                             <Grid.Column width={8} floated='left'>
-                                                <LineGraphTestDuration/>
+                                                <LineGraphTestDuration linegraph_duration = {this.state.linegraph_duration} />
                                             </Grid.Column>
                                             <Grid.Column width={8} floated='left'>
                                                  <BarGraphPassFail/>

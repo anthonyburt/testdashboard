@@ -47,5 +47,8 @@
       "target": "http://localhost:5000",
       "secure": false
     }
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
   }
 }

@@ -44,20 +44,25 @@ function getQuickLookLineGraphTestDuration(req, res) {
 
     const docquery = TestResults.aggregate(
         [
-        	{ $group : {_id: { harness: "$harness", testDay: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } }
-        			},
-        			"duration_by_day" : {
-        				$sum: "$duration"
-        			},
-        			"end_date_sort" : { $first: "$end_date"},
-        		}
-        	},
-        	{ $sort :
-        		{
-        			"harness": 1, "end_date_sort" : 1
-        		}
-        	}
-        ]);
+            {
+                $group: {
+                    _id: { harness: "$harness", x: "$end_date"},
+                    total_time:{ $sum: "$duration"}
+                }
+            },
+                { $group: {
+                    _id: "$_id.harness",
+                    v: { $push: {x: "$_id.x", y: "$total_time"}}
+                }
+            },
+            {
+                $group: {
+                    _id: "",
+                    data: {$push: "$$ROOT"}
+                }
+            }
+        ]
+    );
 
     docquery
         .exec()
