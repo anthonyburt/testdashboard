@@ -14,6 +14,7 @@
     "graphql": "^0.13.1",
     "graphql-tag": "^2.8.0",
     "install": "^0.10.4",
+    "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.14",
@@ -34,6 +35,7 @@
     "semantic-ui-react": "^0.78.3",
     "tachyons": "^4.9.1",
     "typeface-roboto": "0.0.54",
+    "underscore": "^1.8.3",
     "victory": "^0.25.6"
   },
   "scripts": {

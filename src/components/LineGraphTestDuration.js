@@ -1,15 +1,24 @@
 import React from 'react'
 import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter } from 'victory'
+import _ from 'underscore'
 
 class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    const list = this.props.linegraph_duration
+	    const timeList = this.props.linegraph_duration.forEach(function (element, idx) {
+            console.log(element); // index
+        });
 
-	    const timeList = list.map((element, idx) =>
-            <li key={idx}>{idx} : {element}</li>
-        )
+        var arr = _.values(this.props.linegraph_duration)
+
+        //this is only getting the first set of items in arr?
+        const r = arr.map((item,i) => ({
+               harness: item.data[i]._id,
+               x: item.data[i].v[i].x,
+               y: item.data[i].v[i].y
+         }));
+
 
         const selenium
                 = [
@@ -41,6 +50,7 @@ class LineGraphTestDuration extends React.Component {
 
             <div>
                 {timeList}
+                {console.log(r)}
 
 
                 <VictoryChart
