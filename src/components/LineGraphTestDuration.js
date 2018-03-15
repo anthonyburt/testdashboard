@@ -6,14 +6,12 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    const timeList = this.props.linegraph_duration.forEach(function (element, idx) {
-            console.log(element); // index
-        });
+	    const timeList = this.props.linegraph_duration[0]
 
         var arr = _.values(this.props.linegraph_duration)
 
         //this is only getting the first set of items in arr?
-        const r = arr.map((item,i) => ({
+        const r = timeList.map((item,i) => ({
                harness: item.data[i]._id,
                x: item.data[i].v[i].x,
                y: item.data[i].v[i].y
@@ -44,14 +42,10 @@ class LineGraphTestDuration extends React.Component {
                         { x: "3/24/18",  y: 80 }
                 ]
 
-
-
         return (
 
             <div>
-                {timeList}
-                {console.log(r)}
-
+                {console.log(timeList)}
 
                 <VictoryChart
                     animate={{
