@@ -13,19 +13,6 @@ class LineGraphTestDuration extends React.Component {
         }
 
     }
-
-    stupidSort(a,b) {
-        console.log("in here")
-        console.log(a)
-        console.log(b)
-        if (a[0] === b[0]) {
-            return 0;
-        }
-        else {
-            return (a[0] < b[0]) ? -1 : 1;
-        }
-    }
-
     componentDidMount() {
         statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
     }
@@ -51,7 +38,6 @@ class LineGraphTestDuration extends React.Component {
          });
 
         {console.log(api)}
-           {console.log(items)}
 
         return (
 
