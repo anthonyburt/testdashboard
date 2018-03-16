@@ -6,46 +6,45 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    const timeList = this.props.linegraph_duration[0]
-
-        var arr = _.values(this.props.linegraph_duration)
+        const graph_array = this.props.linegraph_duration.map((item,i) => ({
+            selenium: item.data[0].v,
+            api: item.data[1].v
+        }));
 
         //this is only getting the first set of items in arr?
-        const r = timeList.map((item,i) => ({
-               harness: item.data[i]._id,
-               x: item.data[i].v[i].x,
-               y: item.data[i].v[i].y
-         }));
 
 
-        const selenium
-                = [
-                        { x: "2/02/18",  y: 0 },
-                        { x: "2/10/18", y: 20 },
-                        { x: "2/17/18", y: 30 },
-                        { x: "2/24/18", y: 70 },
-                        { x: "3/3/18",  y: 80 },
-                        { x: "3/10/18", y: 90 },
-                        { x: "3/17/18", y: 100 },
-                        { x: "3/24/18",  y: 150 }
+        const graph =
+        [
+            { "api":
+                [
+                    { x: "2/02/18",  y: 0 },
+                    { x: "2/10/18", y: 20 },
+                    { x: "2/17/18", y: 30 },
+                    { x: "2/24/18", y: 70 },
+                    { x: "3/3/18",  y: 80 },
+                    { x: "3/10/18", y: 90 },
+                    { x: "3/17/18", y: 100 },
+                    { x: "3/24/18",  y: 150 }
+                ],
+                 "selenium": [
+                    { x: "2/02/18",  y: 0 },
+                    { x: "2/10/18", y: 5 },
+                    { x: "2/17/18", y: 10 },
+                    { x: "2/24/18", y: 15 },
+                    { x: "3/3/18",  y: 20 },
+                    { x: "3/10/18", y: 40 },
+                    { x: "3/17/18", y: 60 },
+                    { x: "3/24/18",  y: 80 }
                 ]
-
-        const api
-                = [
-                        { x: "2/02/18",  y: 0 },
-                        { x: "2/10/18", y: 5 },
-                        { x: "2/17/18", y: 10 },
-                        { x: "2/24/18", y: 15 },
-                        { x: "3/3/18",  y: 20 },
-                        { x: "3/10/18", y: 40 },
-                        { x: "3/17/18", y: 60 },
-                        { x: "3/24/18",  y: 80 }
-                ]
+            }
+        ]
 
         return (
 
             <div>
-                {console.log(timeList)}
+
+                {console.log(graph_array[0].api)}
 
                 <VictoryChart
                     animate={{
@@ -85,12 +84,12 @@ class LineGraphTestDuration extends React.Component {
                             data: { stroke: "#334d5c" },
                             parent: { border: "3px solid #ccc"},
                         }}
-                        data={selenium}
+                        data={graph_array.api}
                     />
                     <VictoryScatter
                         style={{ data: { fill: "#334d5c" } }}
                         size={4}
-                        data={selenium}
+                        data={graph_array.api}
                         animate={{
                             duration: 2000,
                             onLoad: { duration: 1000 }
@@ -103,12 +102,12 @@ class LineGraphTestDuration extends React.Component {
                             data: { stroke: "#45b29d" },
                             parent: { border: "3px solid #ccc"}
                         }}
-                        data={api}
+                        data={graph[0].selenium}
                     />
                     <VictoryScatter
                         style={{ data: { fill: "#45b29d" } }}
                         size={4}
-                        data={api}
+                        data={graph[0].selenium}
                         animate={{
                             duration: 2000,
                             onLoad: { duration: 1000 }
