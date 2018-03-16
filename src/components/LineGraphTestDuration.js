@@ -9,7 +9,9 @@ class LineGraphTestDuration extends React.Component {
         super(props)
 
         this.state = {
-          linegraph_duration: []
+          linegraph_duration: [],
+          api: [],
+          selenium: []
         }
 
     }
@@ -19,7 +21,7 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    if(this.props.linegraph_duration === undefined) {
+	    if(this.state.linegraph_duration === undefined || this.state.api === undefined || this.state.selenium === undefined) {
 	        return (
                 <Dimmer active>
                     <Loader size='large'>Loading</Loader>
@@ -27,17 +29,17 @@ class LineGraphTestDuration extends React.Component {
             )
         }
 
-        var api = this.state.linegraph_duration.map((item) =>  item.data[0].v)
-        var selenium = this.state.linegraph_duration.map((item) =>  item.data[1].v)
+        this.state.api = this.state.linegraph_duration.map((item) =>  item.data[0].v)
+        this.state.selenium = this.state.linegraph_duration.map((item) =>  item.data[1].v)
 
-        api.sort(function (a, b) {
+        {console.log(this.state.api)}
+
+        this.state.api.sort(function (a, b) {
             console.log("what")
             console.log(a.y)
             console.log(b.y)
             return a.y - b.y;
          });
-
-        {console.log(api)}
 
         return (
 
@@ -82,12 +84,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#334d5c" },
                                 parent: { border: "3px solid #ccc"},
                             }}
-                            data={selenium[0]}
+                            data={this.state.selenium[0]}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#334d5c" } }}
                             size={4}
-                            data={selenium[0]}
+                            data={this.state.selenium[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
@@ -100,12 +102,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#45b29d" },
                                 parent: { border: "3px solid #ccc"}
                             }}
-                            data={api[0]}
+                            data={this.state.api[0]}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#45b29d" } }}
                             size={4}
-                            data={api[0]}
+                            data={this.state.api[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
