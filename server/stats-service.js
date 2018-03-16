@@ -46,7 +46,7 @@ function getQuickLookLineGraphTestDuration(req, res) {
         [
             {
                 $group: {
-                    _id: { harness: "$harness", x: "$end_date"},
+                    _id: { harness: "$harness", x: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } } },
                     total_time:{ $sum: "$duration"}
                 }
             },
@@ -55,6 +55,10 @@ function getQuickLookLineGraphTestDuration(req, res) {
                     v: { $push: {x: "$_id.x", y: "$total_time"}}
                 }
             },
+             { $sort: {
+                                    "x": 1
+                                }
+                            },
             {
                 $group: {
                     _id: "",

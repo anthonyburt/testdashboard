@@ -2,15 +2,26 @@ import React from 'react'
 import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter } from 'victory'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
+import statsService from '../api/Stats.js'
+
 class LineGraphTestDuration extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props)
+
+        this.state = {
+          linegraph_duration: []
+        }
+
+    }
+
+    componentDidMount() {
+        statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
     }
 
 
 	render () {
 
-	    if(this.props.linegraph_duration == undefined) {
+	    if(this.props.linegraph_duration === undefined) {
 	        return (
                 <Dimmer active>
                     <Loader size='large'>Loading</Loader>
@@ -18,48 +29,12 @@ class LineGraphTestDuration extends React.Component {
             )
         }
 
-        var graph_array = this.props.linegraph_duration.map((item) => ({
-           selenium: item.data[0].v,
-           api: item.data[1].v
-        }));
-
-
-        const graph =
-        [
-            { "api":
-                [
-                    { x: "2/02/18",  y: 0 },
-                    { x: "2/10/18", y: 20 },
-                    { x: "2/17/18", y: 30 },
-                    { x: "2/24/18", y: 70 },
-                    { x: "3/3/18",  y: 80 },
-                    { x: "3/10/18", y: 90 },
-                    { x: "3/17/18", y: 100 },
-                    { x: "3/24/18",  y: 150 }
-                ],
-                 "selenium": [
-                    { x: "2/02/18",  y: 0 },
-                    { x: "2/10/18", y: 5 },
-                    { x: "2/17/18", y: 10 },
-                    { x: "2/24/18", y: 15 },
-                    { x: "3/3/18",  y: 20 },
-                    { x: "3/10/18", y: 40 },
-                    { x: "3/17/18", y: 60 },
-                    { x: "3/24/18",  y: 80 }
-                ]
-            }
-        ]
+        var api = this.state.linegraph_duration.map((item) =>  item.data[0].v)
+        var selenium = this.state.linegraph_duration.map((item) =>  item.data[1].v)
 
         return (
 
             <div>
-
-                {/*
-                    This errors out and i'm not sure why, getting undefined on selenium
-                    console.log(graph_array[0].selenium)
-                */}
-                console.log(graph_array[0])
-
                 <VictoryChart
                     animate={{
                         duration: 2000,
@@ -98,12 +73,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#334d5c" },
                                 parent: { border: "3px solid #ccc"},
                             }}
-                            data={graph.api}
+                            data={selenium[0]}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#334d5c" } }}
                             size={4}
-                            data={graph.api}
+                            data={selenium[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
@@ -116,12 +91,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#45b29d" },
                                 parent: { border: "3px solid #ccc"}
                             }}
-                            data={graph.selenium}
+                            data={api[0]}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#45b29d" } }}
                             size={4}
-                            data={graph.selenium}
+                            data={api[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
