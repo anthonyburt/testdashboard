@@ -1,17 +1,27 @@
 import React from 'react'
 import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter } from 'victory'
-import _ from 'underscore'
+import { Loader, Dimmer } from 'semantic-ui-react'
 
 class LineGraphTestDuration extends React.Component {
+     constructor(props) {
+        super(props)
+    }
+
 
 	render () {
 
-        const graph_array = this.props.linegraph_duration.map((item,i) => ({
-            selenium: item.data[0].v,
-            api: item.data[1].v
-        }));
+	    if(this.props.linegraph_duration == undefined) {
+	        return (
+                <Dimmer active>
+                    <Loader size='large'>Loading</Loader>
+                </Dimmer>
+            )
+        }
 
-        //this is only getting the first set of items in arr?
+        var graph_array = this.props.linegraph_duration.map((item) => ({
+           selenium: item.data[0].v,
+           api: item.data[1].v
+        }));
 
 
         const graph =
@@ -44,7 +54,11 @@ class LineGraphTestDuration extends React.Component {
 
             <div>
 
-                {console.log(graph_array[0].api)}
+                {/*
+                    This errors out and i'm not sure why, getting undefined on selenium
+                    console.log(graph_array[0].selenium)
+                */}
+                console.log(graph_array[0])
 
                 <VictoryChart
                     animate={{
@@ -54,66 +68,66 @@ class LineGraphTestDuration extends React.Component {
                 >
                     <VictoryAxis axisLabelComponent
                         style={{
-                            tickLabels: { angle: -40, fontSize: 10, padding: 15}
-                        }}
-                        offsetX={-100}
-                    />
-                    <VictoryAxis dependentAxis
-                        label="Time (hr)"
-                        style={{
-                            axisLabel: {fontSize: 10, padding: 35}
-                        }}
-                     />
-                    <VictoryLegend x={150} y={0}
-                        titleOrientation="left"
-                        orientation="horizontal"
-                        title="Test Runs"
-                        centerTitle
-                        gutter={20}
-                        style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}
-                        colorScale={[ "#334d5c", "#45b29d" ]}
-                        data={[
-                            { name: "UI" },
-                            { name: "API" }
-                        ]}
-                    />
+                                tickLabels: { angle: -40, fontSize: 10, padding: 15}
+                            }}
+                            offsetX={-100}
+                        />
+                        <VictoryAxis dependentAxis
+                            label="Time (hr)"
+                            style={{
+                                axisLabel: {fontSize: 10, padding: 35}
+                            }}
+                         />
+                        <VictoryLegend x={150} y={0}
+                            titleOrientation="left"
+                            orientation="horizontal"
+                            title="Test Runs"
+                            centerTitle
+                            gutter={20}
+                            style={{ border: { stroke: "black" }, title: {fontSize: 10 } }}
+                            colorScale={[ "#334d5c", "#45b29d" ]}
+                            data={[
+                                { name: "UI" },
+                                { name: "API" }
+                            ]}
+                        />
 
-                    <VictoryLine
-                         interpolation='natural'
-                        style={{
-                            data: { stroke: "#334d5c" },
-                            parent: { border: "3px solid #ccc"},
-                        }}
-                        data={graph_array.api}
-                    />
-                    <VictoryScatter
-                        style={{ data: { fill: "#334d5c" } }}
-                        size={4}
-                        data={graph_array.api}
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                        }}
-                    />
+                        <VictoryLine
+                             interpolation='natural'
+                            style={{
+                                data: { stroke: "#334d5c" },
+                                parent: { border: "3px solid #ccc"},
+                            }}
+                            data={graph.api}
+                        />
+                        <VictoryScatter
+                            style={{ data: { fill: "#334d5c" } }}
+                            size={4}
+                            data={graph.api}
+                            animate={{
+                                duration: 2000,
+                                onLoad: { duration: 1000 }
+                            }}
+                        />
 
-                    <VictoryLine
-                        interpolation='natural'
-                        style={{
-                            data: { stroke: "#45b29d" },
-                            parent: { border: "3px solid #ccc"}
-                        }}
-                        data={graph[0].selenium}
-                    />
-                    <VictoryScatter
-                        style={{ data: { fill: "#45b29d" } }}
-                        size={4}
-                        data={graph[0].selenium}
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                        }}
-                    />
-                </VictoryChart>
+                        <VictoryLine
+                            interpolation='natural'
+                            style={{
+                                data: { stroke: "#45b29d" },
+                                parent: { border: "3px solid #ccc"}
+                            }}
+                            data={graph.selenium}
+                        />
+                        <VictoryScatter
+                            style={{ data: { fill: "#45b29d" } }}
+                            size={4}
+                            data={graph.selenium}
+                            animate={{
+                                duration: 2000,
+                                onLoad: { duration: 1000 }
+                            }}
+                        />
+                    </VictoryChart>
                 </div>
             )
         }
