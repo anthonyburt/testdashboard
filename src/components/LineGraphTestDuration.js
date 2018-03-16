@@ -13,10 +13,22 @@ class LineGraphTestDuration extends React.Component {
           api: [],
           selenium: []
         }
-
     }
+
     componentDidMount() {
         statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
+    }
+
+    sortDate(a, b) {
+        if (a.x < b.x) {
+            return -1;
+        }
+        if (a.x > b.x) {
+            return 1;
+        }
+
+        // names must be equal
+        return 0;
     }
 
 	render () {
@@ -32,18 +44,13 @@ class LineGraphTestDuration extends React.Component {
         this.state.api = this.state.linegraph_duration.map((item) =>  item.data[0].v)
         this.state.selenium = this.state.linegraph_duration.map((item) =>  item.data[1].v)
 
-        {console.log(this.state.api)}
+        if(this.state.api[0]) this.state.api[0].sort(this.sortDate)
+        if(this.state.selenium[0]) this.state.selenium[0].sort(this.sortDate)
 
-        this.state.api.sort(function (a, b) {
-            console.log("what")
-            console.log(a.y)
-            console.log(b.y)
-            return a.y - b.y;
-         });
+        if(this.state.api[0]) console.log(this.state.api[0])
+        if(this.state.selenium[0]) console.log(this.state.selenium[0])
 
         return (
-
-
 
             <div>
                 <VictoryChart
