@@ -4,7 +4,6 @@ const statsService = {
 
   getOverallHistory() {
     return new Promise((resolve, reject) => {
-        console.log("get stats");
         fetch(`${baseAPI}/stats/quicklook`, {
             headers : {
                 'Content-Type': 'application/json',
@@ -21,7 +20,6 @@ const statsService = {
 
   getQuickLookLineGraphTestDuration() {
       return new Promise((resolve, reject) => {
-          console.log("get line graph duration");
           fetch(`${baseAPI}/stats/linegraphduration`, {
               headers : {
                   'Content-Type': 'application/json',

@@ -22,7 +22,6 @@ class Home extends React.Component {
 
     componentDidMount() {
         statsService.getOverallHistory().then(json => this.setState({ overall_stats: json }))
-        statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
     }
 
     render () {

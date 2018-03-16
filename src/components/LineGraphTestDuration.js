@@ -14,10 +14,21 @@ class LineGraphTestDuration extends React.Component {
 
     }
 
+    stupidSort(a,b) {
+        console.log("in here")
+        console.log(a)
+        console.log(b)
+        if (a[0] === b[0]) {
+            return 0;
+        }
+        else {
+            return (a[0] < b[0]) ? -1 : 1;
+        }
+    }
+
     componentDidMount() {
         statsService.getQuickLookLineGraphTestDuration().then(json => this.setState({ linegraph_duration: json }))
     }
-
 
 	render () {
 
@@ -32,7 +43,19 @@ class LineGraphTestDuration extends React.Component {
         var api = this.state.linegraph_duration.map((item) =>  item.data[0].v)
         var selenium = this.state.linegraph_duration.map((item) =>  item.data[1].v)
 
+        api.sort(function (a, b) {
+            console.log("what")
+            console.log(a.y)
+            console.log(b.y)
+            return a.y - b.y;
+         });
+
+        {console.log(api)}
+           {console.log(items)}
+
         return (
+
+
 
             <div>
                 <VictoryChart
