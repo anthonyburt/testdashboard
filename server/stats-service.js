@@ -78,4 +78,19 @@ function getQuickLookLineGraphTestDuration(req, res) {
     });
 }
 
-module.exports = { getOverallHistory, getQuickLookLineGraphTestDuration };
+function getLastSyncTime(req, res) {
+
+    const docquery = TestResults.find( {}, {"end_date":1, _id:0}).sort({"end_date": -1}).limit(1);
+
+    docquery
+        .exec()
+        .then(stats => {
+            res.json(stats);
+        })
+        .catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+
+module.exports = { getOverallHistory, getQuickLookLineGraphTestDuration, getLastSyncTime };

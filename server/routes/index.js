@@ -11,5 +11,9 @@ router.get('/stats/linegraphduration', (req, res) => {
   statsService.getQuickLookLineGraphTestDuration(req, res);
 });
 
+router.get('/stats/lastsync', (req, res) => {
+  statsService.getLastSyncTime(req, res);
+});
+
 
 module.exports = router;

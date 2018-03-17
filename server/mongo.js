@@ -7,6 +7,7 @@ const mongoUri = `mongodb://localhost:${env.port}/${env.dbName}`;
 
 
 function connect() {
+    mongoose.set('debug', true)
     return mongoose.connect(mongoUri)
 };
 

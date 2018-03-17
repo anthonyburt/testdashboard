@@ -1,6 +1,7 @@
 import React from 'react'
 import {  Grid, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
+import moment from 'moment'
 
 import statsService from '../api/Stats.js'
 
@@ -16,12 +17,24 @@ class Home extends React.Component {
 
         this.state = {
           overall_stats: [],
-          linegraph_duration: []
+          linegraph_duration: [],
+          lastSync: []
         }
     }
 
     componentDidMount() {
         statsService.getOverallHistory().then(json => this.setState({ overall_stats: json }))
+        statsService.getLastSyncTime().then(json => this.setState({ lastSync: json }))
+    }
+
+     formatSync(inTime) {
+        var start = moment(inTime);
+        var end = moment();
+        const converted = end.to(start);
+
+        return (
+          <div>{converted}</div>
+        )
     }
 
     render () {
@@ -32,10 +45,13 @@ class Home extends React.Component {
                 <Segment.Group>
                     <Segment>
                         <Segment.Group>
-                            <Segment color='blue' inverted >Overall History
-                                <Label attached='top right'>
-                                    <Icon name='time' />Synced: 8 hours ago
-                                  </Label></Segment>
+                            <Segment color='blue' inverted raised>Overall History
+                                <Label attached='top right' size='small' inverted color='teal' icon='time'>
+                                    <Icon name='time' />
+                                    Synced
+                                    <Label.Detail>{this.state.lastSync.map((item,i) => this.formatSync(item.end_date) )} </Label.Detail>
+                                  </Label>
+                                  </Segment>
                                 <Segment>
                                     <OverallHistory overall_stats = {this.state.overall_stats} />
                                 </Segment>
