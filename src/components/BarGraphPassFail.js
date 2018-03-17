@@ -1,22 +1,38 @@
 import React from 'react'
+import axios from 'axios'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
+import { Loader, Dimmer } from 'semantic-ui-react'
 
 class BarGraphPassFail extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+          bargraph_data: [],
+          api: [],
+          selenium: []
+        }
+    }
+
+    componentDidMount() {
+        axios.get(`api/stats/totaltestruns`)
+          .then(res => {
+            const bargraph_data = res.data;
+            this.setState({ bargraph_data });
+            this.state.api = this.state.bargraph_data.map((item) =>  item.data[0].v)
+            this.state.selenium = this.state.bargraph_data.map((item) =>  item.data[1].v)
+          })
+    }
+
 	render () {
 
-        const ui = [
-          {tribe: 1, results: 550, label:"UI"},
-          {tribe: 2, results: 250, label:"UI"},
-          {tribe: 3, results: 425, label:"UI"},
-          {tribe: 4, results: 25, label:"UI"}
-        ];
-
-        const api = [
-          {tribe: 1, results: 130, label:"API"},
-          {tribe: 2, results: 90, label:"API"},
-          {tribe: 3, results: 225, label:"API"},
-          {tribe: 4, results: 80, label:"API"}
-        ];
+        if( this.state.selenium[0] === undefined) {
+            return (
+                <Dimmer inverted active>
+                    <Loader size='tiny'>Loading</Loader>
+                </Dimmer>
+            )
+        }
 
         return (
 
@@ -53,15 +69,15 @@ class BarGraphPassFail extends React.Component {
                 >
                     <VictoryBar
                         labelComponent={<VictoryTooltip/>}
-                        data={ui}
-                        x="tribe"
-                        y="results"
+                        data={this.state.selenium[0]}
+                        x="squad"
+                        y="test_count"
                     />
                     <VictoryBar
                     labelComponent={<VictoryTooltip/>}
-                        data={api}
-                        x="tribe"
-                        y="results"
+                        data={this.state.api[0]}
+                        x="squad"
+                        y="test_count"
                     />
                 </VictoryGroup>
             </VictoryChart>

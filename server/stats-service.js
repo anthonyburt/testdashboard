@@ -40,19 +40,19 @@ function getOverallHistory(req, res) {
     });
 }
 
-function getQuickLookLineGraphTestDuration(req, res) {
+function getQuickLookLineGraphTestStatus(req, res) {
 
     const docquery = TestResults.aggregate(
         [
             {
                 $group: {
-                    _id: { harness: "$harness", x: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } } },
-                    total_time:{ $sum: "$duration"}
+                    _id: { status: "$status", x: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } } },
+                    total_status:{ $sum: 1}
                 }
             },
                 { $group: {
-                    _id: "$_id.harness",
-                    v: { $push: {x: "$_id.x", y: "$total_time"}}
+                    _id: "$_id.status",
+                    v: { $push: {x: "$_id.x", y: "$total_status"}}
                 }
             },
              { $sort: {
@@ -92,5 +92,33 @@ function getLastSyncTime(req, res) {
     });
 }
 
+function getTotalTestRuns(req, res) {
 
-module.exports = { getOverallHistory, getQuickLookLineGraphTestDuration, getLastSyncTime };
+    const docquery = TestResults.aggregate([
+        { "$sort": { "squad": 1 } },
+        {"$group":{
+            "_id":{"harness":"$harness","squad":"$squad"},
+            "test_count":{"$sum": 1}
+        }},
+        {"$group":{
+            "_id":"$_id.harness",
+            "v":{"$push":{"squad":"$_id.squad","test_count":"$test_count", "label:": "$_id.harness"}}
+        }},
+        {"$group": {
+            "_id": "",
+            "data": {"$push": "$$ROOT"}
+        }}
+    ]);
+
+    docquery
+        .exec()
+        .then(stats => {
+            res.json(stats);
+        })
+        .catch(err => {
+        res.status(500).send(err);
+    });
+}
+
+
+module.exports = { getOverallHistory, getQuickLookLineGraphTestStatus, getLastSyncTime, getTotalTestRuns };

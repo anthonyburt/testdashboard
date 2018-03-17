@@ -10,7 +10,7 @@ class Home extends React.Component {
        const converted = moment.duration(inTime,"seconds").format("hh:mm:ss", {trim:false})
 
        return (
-           <div>{converted}</div>
+           <div key="time">{converted}</div>
        )
    }
 

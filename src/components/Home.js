@@ -6,7 +6,7 @@ import moment from 'moment'
 import statsService from '../api/Stats.js'
 
 import OverallHistory from './OverallHistory.js'
-import LineGraphTestDuration from './LineGraphTestDuration'
+import LineGraphStatusCount from './LineGraphStatusCounts'
 import BarGraphPassFail from '../components/BarGraphPassFail'
 
 
@@ -17,7 +17,7 @@ class Home extends React.Component {
 
         this.state = {
           overall_stats: [],
-          linegraph_duration: [],
+          linegraph_status: [],
           lastSync: []
         }
     }
@@ -33,7 +33,7 @@ class Home extends React.Component {
         const converted = end.to(start);
 
         return (
-          <div>{converted}</div>
+          <div key="sync">{converted}</div>
         )
     }
 
@@ -46,8 +46,8 @@ class Home extends React.Component {
                     <Segment>
                         <Segment.Group>
                             <Segment color='blue' inverted raised>Overall History
-                                <Label attached='top right' size='small' inverted color='teal' icon='time'>
-                                    <Icon name='time' />
+                                <Label attached='top right' size='small' color='grey'>
+                                    <Icon color='lime' name='time' />
                                     Synced
                                     <Label.Detail>{this.state.lastSync.map((item,i) => this.formatSync(item.end_date) )} </Label.Detail>
                                   </Label>
@@ -64,7 +64,7 @@ class Home extends React.Component {
                                     <Grid centered >
                                         <Grid.Row >
                                             <Grid.Column width={8} floated='left'>
-                                                <LineGraphTestDuration linegraph_duration = {this.state.linegraph_duration} />
+                                                <LineGraphStatusCount linegraph_status = {this.state.linegraph_duration} />
                                             </Grid.Column>
                                             <Grid.Column width={8} floated='left'>
                                                  <BarGraphPassFail/>

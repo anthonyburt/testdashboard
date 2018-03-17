@@ -48,7 +48,24 @@ const statsService = {
           reject(err);
       });
     });
+    },
+
+    getTotalTestRuns() {
+        return new Promise((resolve, reject) => {
+          fetch(`${baseAPI}/stats/totaltestruns`, {
+              headers : {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              }
+          })
+          .then(response => response.json())
+          .then(json => resolve(json))
+          .catch(err => {
+              reject(err);
+          });
+        });
     }
+
 }
 
 export default statsService;

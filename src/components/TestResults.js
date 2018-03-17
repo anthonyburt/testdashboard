@@ -5,7 +5,7 @@ import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
 
 import BarGraphPassFail from '../components/BarGraphPassFail'
 import PieGraphBrowsers from '../components/PieGraphBrowsers'
-import LineGraph from '../components/LineGraphTestDuration'
+import LineGraph from '../components/LineGraphStatusCounts'
 import TableResults from '../components/TableResults'
 
 class TestResults extends React.Component {
