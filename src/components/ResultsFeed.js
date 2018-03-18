@@ -38,7 +38,7 @@ class ResultsFeed extends Component {
         ]
 
         return (
-              <Accordion defaultActiveIndex={-1} panels={rootPanels} fluid styled />
+              <Accordion defaultActiveIndex={-1} panels={rootPanels} exclusive={false} fluid styled />
         )
     }
 

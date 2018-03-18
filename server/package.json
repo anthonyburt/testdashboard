@@ -12,6 +12,9 @@
     "react-dom": "^15.6.1"
   },
   "scripts": {
-    "start": "./server.js"
+    "start": "server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
   }
 }

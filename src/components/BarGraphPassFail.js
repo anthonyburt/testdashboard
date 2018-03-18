@@ -3,8 +3,6 @@ import axios from 'axios'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
-import statsService from '../api/Stats.js'
-
 class BarGraphPassFail extends React.Component {
     constructor(props) {
         super(props)
@@ -42,7 +40,7 @@ class BarGraphPassFail extends React.Component {
                 domainPadding={20}
                 animate={{
                     duration: 1000,
-                    onLoad: { duration: 500 }
+                    onLoad: { duration: 1000 }
                 }}
             >
                 <VictoryLabel text="Test Runs" x={225} y={12} textAnchor="middle" />
@@ -70,13 +68,14 @@ class BarGraphPassFail extends React.Component {
                     }}
                 >
                     <VictoryBar
-                        labelComponent={<VictoryTooltip/>}
+
                         data={this.state.selenium[0]}
+                        labelComponent={<VictoryTooltip/>}
                         x="squad"
                         y="test_count"
                     />
                     <VictoryBar
-                    labelComponent={<VictoryTooltip/>}
+                        labelComponent={<VictoryTooltip/>}
                         data={this.state.api[0]}
                         x="squad"
                         y="test_count"

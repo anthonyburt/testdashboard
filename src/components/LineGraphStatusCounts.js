@@ -1,9 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
-import statsService from '../api/Stats.js'
 
 class LineGraphTestDuration extends React.Component {
     constructor(props) {
@@ -40,14 +39,13 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    if( this.state.success[0] === undefined) {
+	    if( this.state.success[0] === undefined || this.state.failures[0] === undefined) {
             return (
                 <Dimmer inverted active>
                     <Loader size='tiny'>Loading</Loader>
                 </Dimmer>
             )
         }
-
 
 
         if(this.state.success[0]) this.state.success[0].sort(this.sortDate)
@@ -58,7 +56,7 @@ class LineGraphTestDuration extends React.Component {
             <div>
                 <VictoryChart
                     animate={{
-                        duration: 500,
+                        duration: 1000,
                         onLoad: { duration: 1000 }
                     }}
                 >
@@ -74,6 +72,7 @@ class LineGraphTestDuration extends React.Component {
                             style={{
                                 axisLabel: {fontSize: 10, padding: 40}
                             }}
+                            tickFormat={(x) => (`${x}`)}
                          />
 
 

@@ -70,7 +70,7 @@ export default class ShopX extends Component {
                                                     <Table.Header>
                                                         <Table.Row>
                                                             <Table.HeaderCell></Table.HeaderCell>
-                                                            <Table.HeaderCell>Last Ran</Table.HeaderCell>
+                                                            <Table.HeaderCell>Last Run</Table.HeaderCell>
                                                             <Table.HeaderCell>Duration</Table.HeaderCell>
                                                             <Table.HeaderCell>Failture Rate</Table.HeaderCell>
                                                          </Table.Row>
@@ -139,7 +139,7 @@ export default class ShopX extends Component {
                                                 <Table.Header>
                                                     <Table.Row>
                                                         <Table.HeaderCell></Table.HeaderCell>
-                                                        <Table.HeaderCell>Last Ran</Table.HeaderCell>
+                                                        <Table.HeaderCell>Last Run</Table.HeaderCell>
                                                         <Table.HeaderCell>Duration</Table.HeaderCell>
                                                         <Table.HeaderCell>Failture Rate</Table.HeaderCell>
                                                      </Table.Row>

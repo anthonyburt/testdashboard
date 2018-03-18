@@ -55,10 +55,6 @@ function getQuickLookLineGraphTestStatus(req, res) {
                     v: { $push: {x: "$_id.x", y: "$total_status"}}
                 }
             },
-             { $sort: {
-                                    "x": 1
-                                }
-                            },
             {
                 $group: {
                     _id: "",
@@ -95,14 +91,14 @@ function getLastSyncTime(req, res) {
 function getTotalTestRuns(req, res) {
 
     const docquery = TestResults.aggregate([
-        { "$sort": { "squad": 1 } },
+        {"$sort": { "squad": 1 } },
         {"$group":{
-            "_id":{"harness":"$harness","squad":"$squad"},
+            "_id":{"harness": "$harness","squad": "$squad"},
             "test_count":{"$sum": 1}
         }},
         {"$group":{
-            "_id":"$_id.harness",
-            "v":{"$push":{"squad":"$_id.squad","test_count":"$test_count", "label:": "$_id.harness"}}
+            "_id": "$_id.harness",
+            "v":{"$push":{ "squad":"$_id.squad", "test_count":"$test_count", "label": "$_id.harness"}}
         }},
         {"$group": {
             "_id": "",
