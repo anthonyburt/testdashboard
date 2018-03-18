@@ -5,7 +5,6 @@ import momentDuration from 'moment-duration-format'
 
 class Home extends React.Component {
 
-
     formatDuration(inTime) {
        const converted = moment.duration(inTime,"seconds").format("hh:mm:ss", {trim:false})
 

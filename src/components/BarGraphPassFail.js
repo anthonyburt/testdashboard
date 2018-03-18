@@ -3,6 +3,8 @@ import axios from 'axios'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
+import statsService from '../api/Stats.js'
+
 class BarGraphPassFail extends React.Component {
     constructor(props) {
         super(props)
@@ -19,8 +21,8 @@ class BarGraphPassFail extends React.Component {
           .then(res => {
             const bargraph_data = res.data;
             this.setState({ bargraph_data });
-            this.state.api = this.state.bargraph_data.map((item) =>  item.data[0].v)
-            this.state.selenium = this.state.bargraph_data.map((item) =>  item.data[1].v)
+            this.setState({ api: this.state.bargraph_data.map((item) =>  item.data[0].v) })
+            this.setState({ selenium: this.state.bargraph_data.map((item) =>  item.data[1].v) })
           })
     }
 

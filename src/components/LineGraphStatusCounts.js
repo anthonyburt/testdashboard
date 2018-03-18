@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { VictoryChart, VictoryLine, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
+import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
 import { Loader, Dimmer } from 'semantic-ui-react'
+
+import statsService from '../api/Stats.js'
 
 class LineGraphTestDuration extends React.Component {
     constructor(props) {
@@ -19,8 +21,8 @@ class LineGraphTestDuration extends React.Component {
            .then(res => {
              const linegraph_status = res.data;
              this.setState({ linegraph_status });
-             this.state.failures = this.state.linegraph_status.map((item) =>  item.data[0].v)
-             this.state.success = this.state.linegraph_status.map((item) =>  item.data[1].v)
+             this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[0].v) })
+             this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[1].v) })
            })
     }
 
@@ -46,6 +48,8 @@ class LineGraphTestDuration extends React.Component {
             )
         }
 
+
+
         if(this.state.success[0]) this.state.success[0].sort(this.sortDate)
         if(this.state.failures[0]) this.state.failures[0].sort(this.sortDate)
 
@@ -67,7 +71,6 @@ class LineGraphTestDuration extends React.Component {
                         />
                         <VictoryAxis dependentAxis
                             label="Status"
-                             tickFormat={(x) => (`${x}`)}
                             style={{
                                 axisLabel: {fontSize: 10, padding: 40}
                             }}
