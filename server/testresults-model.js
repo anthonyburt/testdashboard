@@ -9,5 +9,5 @@ const testResultsSchema = new Schema({
     harness: String
 });
 
-const TestResults = mongoose.model('ecommresults', testResultsSchema);
+const TestResults = mongoose.model('ecomsmall', testResultsSchema);
 module.exports = TestResults;

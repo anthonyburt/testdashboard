@@ -11,7 +11,8 @@ class LineGraphTestDuration extends React.Component {
         this.state = {
           linegraph_status: [],
           success: [],
-          failures: []
+          failures: [],
+          skipped: []
         }
     }
 
@@ -22,6 +23,7 @@ class LineGraphTestDuration extends React.Component {
              this.setState({ linegraph_status });
              this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[0].v) })
              this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[1].v) })
+             this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[2].v) })
            })
     }
 
@@ -50,6 +52,7 @@ class LineGraphTestDuration extends React.Component {
 
         if(this.state.success[0]) this.state.success[0].sort(this.sortDate)
         if(this.state.failures[0]) this.state.failures[0].sort(this.sortDate)
+        if(this.state.skipped[0]) this.state.failures[0].sort(this.sortDate)
 
         return (
 
@@ -106,6 +109,23 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#db2828" } }}
                             size={4}
                             data={this.state.failures[0]}
+                            animate={{
+                                duration: 2000,
+                                onLoad: { duration: 1000 }
+                            }}
+                        />
+                        <VictoryLine
+                            interpolation='natural'
+                            style={{
+                                data: { stroke: "#FFFF00" },
+                                parent: { border: "3px solid #ccc"}
+                            }}
+                            data={this.state.skipped[0]}
+                        />
+                        <VictoryScatter
+                            style={{ data: { fill: "#FFFF00" } }}
+                            size={4}
+                            data={this.state.skipped[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
