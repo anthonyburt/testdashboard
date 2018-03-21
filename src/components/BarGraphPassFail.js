@@ -26,7 +26,7 @@ class BarGraphPassFail extends React.Component {
 
 	render () {
 
-        if( this.state.selenium[0] === undefined) {
+        if( this.state.selenium[0] === undefined || this.state.api === undefined) {
             return (
                 <Dimmer inverted active>
                     <Loader size='tiny'>Loading</Loader>
@@ -48,7 +48,7 @@ class BarGraphPassFail extends React.Component {
                     // tickValues specifies both the number of ticks and where
                     // they are placed on the axis
                     tickValues={[1, 2, 3, 4]}
-                    tickFormat={["Shop X", "Checkout", "OA", "Order Mgmt"]}
+                    tickFormat={["Checkout", "Inventory Mgmt", "OA", "Shop X"]}
                 />
                 <VictoryAxis
                     dependentAxis
