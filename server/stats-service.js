@@ -17,18 +17,25 @@ function getOverallHistory(req, res) {
                 "total_passes": {
                     $sum: {
                         $cond : {
-                            if: { $eq: ["$status", true]}, then: 1, else: 0 }
+                            if: { $eq: ["$result", "Passed"]}, then: 1, else: 0 }
                     }
                 },
                 "total_fails": {
                     $sum: {
                         $cond : {
-                            if: { $eq: ["$status", false]}, then: 1, else: 0 }
+                            if: { $eq: ["$result", "Failed"]}, then: 1, else: 0 }
+                    }
+                },
+                "total_skipped": {
+                    $sum: {
+                        $cond : {
+                            if: { $eq: ["$result", "Skipped"]}, then: 1, else: 0 }
                     }
                 }
             }
         }]
     );
+
 
     docquery
         .exec()
@@ -46,12 +53,12 @@ function getQuickLookLineGraphTestStatus(req, res) {
         [
             {
                 $group: {
-                    _id: { status: "$status", x: { $dateToString: { format: "%Y-%m-%d", date: "$end_date" } } },
+                    _id: { result: "$result", x:  "$date"  },
                     total_status:{ $sum: 1}
                 }
             },
                 { $group: {
-                    _id: "$_id.status",
+                    _id: "$_id.result",
                     v: { $push: {x: "$_id.x", y: "$total_status"}}
                 }
             },
@@ -76,7 +83,7 @@ function getQuickLookLineGraphTestStatus(req, res) {
 
 function getLastSyncTime(req, res) {
 
-    const docquery = TestResults.find( {}, {"end_date":1, _id:0}).sort({"end_date": -1}).limit(1);
+    const docquery = TestResults.find( {}, {"date":1, _id:0}).sort({"date": -1}).limit(1);
 
     docquery
         .exec()

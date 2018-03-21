@@ -1,5 +1,5 @@
 const port = 27017;
-const dbName = 'test3';
+const dbName = 'testroot';
 
 module.exports = {
   port,
