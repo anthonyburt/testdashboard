@@ -5,35 +5,42 @@ require('./mongo').connect();
 
 function getOverallHistory(req, res) {
 
-    const docquery = TestResults.aggregate(
-        [{
-            $group: {
-                _id: "null",
-                "total_duration": {
-                    $sum: "$duration"
-                },
-                "total_tests": {
-                    $sum: 1 },
-                "total_passes": {
-                    $sum: {
-                        $cond : {
-                            if: { $eq: ["$result", "Passed"]}, then: 1, else: 0 }
-                    }
-                },
-                "total_fails": {
-                    $sum: {
-                        $cond : {
-                            if: { $eq: ["$result", "Failed"]}, then: 1, else: 0 }
-                    }
-                },
-                "total_skipped": {
-                    $sum: {
-                        $cond : {
-                            if: { $eq: ["$result", "Skipped"]}, then: 1, else: 0 }
+    const docquery = TestResults.aggregate([
+            {
+                $group: {
+                    _id: "null",
+                    "total_duration": {
+                        $sum: "$duration"
+                    },
+                    "total_tests": {
+                        $sum: 1 },
+                    "total_passes": {
+                        $sum: {
+                            $cond : {
+                                if: { $eq: ["$result", "Passed"]}, then: 1, else: 0 }
+                        }
+                    },
+                    "total_fails": {
+                        $sum: {
+                            $cond : {
+                                if: { $eq: ["$result", "Failed"]}, then: 1, else: 0 }
+                        }
+                    },
+                    "total_skipped": {
+                        $sum: {
+                            $cond : {
+                                if: { $eq: ["$result", "Skipped"]}, then: 1, else: 0 }
+                        }
+                    },
+                    "total_inconclusive": {
+                        $sum: {
+                            $cond : {
+                                if: { $eq: ["$result", "Inconclusive"]}, then: 1, else: 0 }
+                        }
                     }
                 }
             }
-        }]
+        ]
     );
 
 
@@ -51,6 +58,7 @@ function getQuickLookLineGraphTestStatus(req, res) {
 
     const docquery = TestResults.aggregate(
         [
+            { "$sort": { "result": 1 } },
             {
                 $group: {
                     _id: { result: "$result", x:  "$date"  },

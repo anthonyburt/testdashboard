@@ -16,7 +16,7 @@ class Home extends React.Component {
     render () {
 
         return (
-            <Statistic.Group widths='five'>
+            <Statistic.Group widths='six' size='tiny'>
                 <Statistic color='violet'>
                     <Statistic.Value>{this.props.overall_stats.map((item,i) => item.total_tests)}</Statistic.Value>
                     <Statistic.Label>Tests Processed</Statistic.Label>
@@ -41,10 +41,17 @@ class Home extends React.Component {
                 </Statistic>
                 <Statistic color='yellow'>
                     <Statistic.Value>
-                        <Icon name='attention' />
+                        <Icon name='exclamation' />
                         {this.props.overall_stats.map((item,i) => item.total_skipped)}
                     </Statistic.Value>
                     <Statistic.Label>Skipped</Statistic.Label>
+                </Statistic>
+                <Statistic color='grey'>
+                    <Statistic.Value>
+                        <Icon name='question' />
+                        {this.props.overall_stats.map((item,i) => item.total_inconclusive)}
+                    </Statistic.Value>
+                    <Statistic.Label>Inconclusive</Statistic.Label>
                 </Statistic>
             </Statistic.Group>
         )

@@ -23,11 +23,28 @@ class ResultsFeed extends Component {
         })
     }
 
-     getStatusColor(result) {
-           const color = result === "Passed" ? "green" : "red"
+    getStatusColor(result) {
+       const color = result === "Passed" ? "green" : "red"
 
-           return color;
-       }
+       return color;
+    }
+
+    generateStepPanels(stepSize) {
+        const panels = _.times(stepSize.length, i => ({
+              title: {
+                content: stepSize[i],
+                key: `title-${i}`,
+              },
+              content: {
+                content: (
+                    stepSize[i]
+                ),
+                  key: `content-${i}`,
+                },
+              }))
+
+          return panels;
+    }
 
 
     render() {
@@ -40,7 +57,7 @@ class ResultsFeed extends Component {
             )
         }
 
-        const panels = _.times(this.state.test_data.length, i => ({
+        const rootPanels = _.times(this.state.test_data.length, i => ({
           title: {
             content: <Label color={this.getStatusColor(this.state.test_data[i].result)}
                 content={this.state.test_data[i].description} />,
@@ -73,7 +90,7 @@ class ResultsFeed extends Component {
                           </Table.Row>
                       </Table.Body>
                   </Table>
-                  <Comments />
+                   <Accordion.Accordion panels={this.generateStepPanels(this.state.test_data[i].teststeps)} />
                 </div>
             ),
             key: `content-${i}`,
@@ -83,7 +100,7 @@ class ResultsFeed extends Component {
         {console.log(this.state.test_data)}
 
         return (
-             <Accordion fluid styled exclusive={false} panels={panels}/>
+             <Accordion fluid styled exclusive={false} panels={rootPanels}/>
         )
     }
 

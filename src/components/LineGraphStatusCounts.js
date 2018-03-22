@@ -12,7 +12,8 @@ class LineGraphTestDuration extends React.Component {
           linegraph_status: [],
           success: [],
           failures: [],
-          skipped: []
+          skipped: [],
+          inconclusive: []
         }
     }
 
@@ -21,9 +22,10 @@ class LineGraphTestDuration extends React.Component {
            .then(res => {
              const linegraph_status = res.data;
              this.setState({ linegraph_status });
-             this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-             this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-             this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[2].v) })
+             this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
+             this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
+             this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
+             this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
            })
     }
 
@@ -41,7 +43,8 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    if( this.state.success[0] === undefined || this.state.failures[0] === undefined || this.state.skipped[0] === undefined ) {
+	    if( this.state.success[0] === undefined || this.state.failures[0] === undefined
+	        || this.state.skipped[0] === undefined || this.state.inconclusive[0] === undefined) {
             return (
                 <Dimmer inverted active>
                     <Loader size='tiny'>Loading</Loader>
@@ -52,6 +55,7 @@ class LineGraphTestDuration extends React.Component {
         if(this.state.success[0]) this.state.success[0].sort(this.sortDate)
         if(this.state.failures[0]) this.state.failures[0].sort(this.sortDate)
         if(this.state.skipped[0]) this.state.skipped[0].sort(this.sortDate)
+        if(this.state.inconclusive[0]) this.state.inconclusive[0].sort(this.sortDate)
 
         return (
 
@@ -125,6 +129,23 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#FBBD08" } }}
                             size={4}
                             data={this.state.skipped[0]}
+                            animate={{
+                                duration: 2000,
+                                onLoad: { duration: 1000 }
+                            }}
+                        />
+                         <VictoryLine
+                            interpolation='natural'
+                            style={{
+                                data: { stroke: "#767676" },
+                                parent: { border: "3px solid #ccc"}
+                            }}
+                            data={this.state.inconclusive[0]}
+                        />
+                        <VictoryScatter
+                            style={{ data: { fill: "#767676" } }}
+                            size={4}
+                            data={this.state.inconclusive[0]}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }

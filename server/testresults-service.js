@@ -23,7 +23,8 @@ function getTestResult(req, res) {
                 description: 1,
                 harness: 1,
                 duration: 1,
-                dateofexecution: 1
+                dateofexecution: 1,
+                teststeps: 1
             }
         }
     ]);
