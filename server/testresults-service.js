@@ -4,11 +4,12 @@ const ReadPreference = require('mongodb').ReadPreference;
 require('./mongo').connect();
 
 function getTestResult(req, res) {
+    var squad = req.param('squad');
 
     const docquery = TestResults.aggregate([
         {
             $match: {
-                squad: "Inventory And Order Management"
+                squad: squad
            }
         }, {
             $sort: {
