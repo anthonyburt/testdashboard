@@ -14,6 +14,7 @@ html {
 {
   padding-top: 50px;
 }
+
 .home-linegraph-runs-per-week
 {
   padding-top: 75px;
@@ -25,4 +26,9 @@ html {
   border: 1px solid red;
   display: table-cell;
   vertical-align: bottom;
+}
+
+.test-details-search
+{
+  padding-top: 15px;
 }

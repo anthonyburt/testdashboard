@@ -4,12 +4,16 @@ const ReadPreference = require('mongodb').ReadPreference;
 require('./mongo').connect();
 
 function getTestResult(req, res) {
-    var squad = req.param('squad');
+    var squad_param = req.query.squad;
+    var harness_param = req.query.harness;
+    var result_param= req.query.status;
 
     const docquery = TestResults.aggregate([
         {
             $match: {
-                squad: squad
+                squad: squad_param,
+                harness: harness_param,
+                result: result_param
            }
         }, {
             $sort: {
