@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Icon, Grid,  Segment, Dropdown, Table, Accordion, Loader, Dimmer, Label } from 'semantic-ui-react'
+import {Button, Grid, Icon, Modal, Segment, Dropdown, Accordion, Loader, Dimmer, Label } from 'semantic-ui-react'
 import axios from 'axios'
 import _ from 'lodash'
 import DatePicker from 'react-datepicker'
-import moment from 'moment';
+import moment from 'moment'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import Comments from './Comments'
+import TestSummary from './TestSummary'
+import TestSteps from './TestSteps'
+import LastRunSummary from './LastRunSummary'
+import PieGraphBrowsers from './graphs/PieGraphBrowsers'
 
     const optionsTestHarness = [
         { key: 1, text: 'UI', value: 'Selenium' },
@@ -30,7 +34,8 @@ class TestDetails extends Component {
           harness: 'API',
           test_status: 'All',
           startDate: moment().subtract(30, 'd'),
-          endDate: moment().add(7, 'd')
+          endDate: moment().add(7, 'd'),
+          modal_visible : false
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -38,6 +43,14 @@ class TestDetails extends Component {
         this.handleChangeHarness = this.handleChangeHarness.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+    }
+
+    show() {
+        this.setState({ modal_visible: true })
+    }
+
+    hide() {
+        this.setState({ modal_visible: false })
     }
 
     handleChangeStart(date) {
@@ -76,7 +89,7 @@ class TestDetails extends Component {
 
     render() {
 
-        if( this.state.test_data === undefined) {
+        if( this.state.test_data === undefined ) {
             return (
                 <Dimmer inverted active>
                     <Loader size='tiny'>Loading</Loader>
@@ -95,42 +108,37 @@ class TestDetails extends Component {
           content: {
             content: (
                 <div>
-                  <Table celled color={this.getStatusColor(this.state.test_data[i].result)}>
-                      <Table.Header>
-                          <Table.Row>
-                              <Table.HeaderCell>Harness</Table.HeaderCell>
-                              <Table.HeaderCell>Date</Table.HeaderCell>
-                              <Table.HeaderCell>Testcase</Table.HeaderCell>
-                              <Table.HeaderCell>Result</Table.HeaderCell>
-                              <Table.HeaderCell>Message</Table.HeaderCell>
-                              <Table.HeaderCell>Duration</Table.HeaderCell>
-                              <Table.HeaderCell>Author</Table.HeaderCell>
-                          </Table.Row>
-                      </Table.Header>
-                      <Table.Body>
-                          <Table.Row>
-                              <Table.Cell>{this.state.test_data[i].harness}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].dateofexecution}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].testcase}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].result}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].message}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].duration}</Table.Cell>
-                              <Table.Cell>{this.state.test_data[i].author}</Table.Cell>
-                          </Table.Row>
-                      </Table.Body>
-                  </Table>
-                   <Table fixed size='small' celled basic='very' striped compact='very'>
-                     <Table.Body>
-                        {this.generateStepRows(this.state.test_data[i].teststeps)}
-                    </Table.Body>
-                    </Table>
+                  <TestSummary testRecord={this.state.test_data[i]}/>
+                  <div>
+                    <Modal dimmer='blurring' trigger={
+                        <Button floated ='right' color='black'>
+                            <Icon name='history' />
+                            History
+                        </Button>}>
+                        <Modal.Header>{this.state.test_data[i].description}</Modal.Header>
+                            <Modal.Content>
+                              <Grid>
+                                  <Grid.Row >
+                                      <Grid.Column width={6} >
+                                          <PieGraphBrowsers />
+                                      </Grid.Column>
+                                      <Grid.Column width={10} >
+                                          <LastRunSummary squad = {this.props.squad} />
+                                      </Grid.Column>
+                                  </Grid.Row>
+                                  <Grid.Row>
+                                    <TestSummary testRecord={this.state.test_data[i]}/>
+                                    </Grid.Row>
+                              </Grid>
+                            </Modal.Content>
+                        </Modal>
+                    </div>
+                    <TestSteps testSteps={this.state.test_data[i].teststeps}/>
                 </div>
             ),
             key: `content-${i}`,
           },
         }))
-
-        {console.log(this.state.test_data)}
 
         return (
             <Grid.Column width={16} >
@@ -203,7 +211,7 @@ class TestDetails extends Component {
 
             axios.get(`api/test`, {
                         params: {
-                            squad: this.state.squad,
+                            squad: this.props.squad,
                             harness: this.state.harness,
                             status: this.state.test_status,
                             startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
@@ -219,12 +227,11 @@ class TestDetails extends Component {
     }
 
     getStatusColor(result) {
-
         var color = "pink";
 
         if (result === 'Passed') {
           color = "green";
-        } else if (result == 'Failed') {
+        } else if (result === 'Failed') {
           color = "red";
         } else if (result === 'Skipped') {
           color = "yellow";
@@ -234,43 +241,6 @@ class TestDetails extends Component {
         return color;
 
     }
-
-    generateStepRows(steps) {
-        return (
-
-                steps.map((item, index, arr) => (
-                    <Table.Row key={index}>
-                        <Table.Cell>{item}</Table.Cell>
-                    </Table.Row>
-                ))
-
-        )
-    }
-
-    generateStepRowsWithFailure(steps) {
-        const { value } = this.state.value
-
-        return (
-            <div>
-            {
-                steps.map((item, index, arr) => {
-                    if (arr.length - 1 === index) {
-                        {console.log("in here")}
-                        <Table.Row>
-                            <Table.Cell>{item}</Table.Cell>
-                        </Table.Row>
-                    } else {
-                           {console.log("not in here")}
-                        <Table.Row>
-                            <Table.Cell color='red'>{item}</Table.Cell>
-                        </Table.Row>
-                    }
-                })
-            }
-            </div>
-        )
-    }
-
 }
 
 export default TestDetails

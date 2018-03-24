@@ -1,10 +1,10 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 
-import img_ios from '../images/ios-logo.png'
-import img_edge from '../images/ms_edge.png'
-import img_chrome from '../images/chrome.png'
-import img_firefox from '../images/firefox.png'
+import img_ios from '../../images/ios-logo.png'
+import img_edge from '../../images/ms_edge.png'
+import img_chrome from '../../images/chrome.png'
+import img_firefox from '../../images/firefox.png'
 
 class PieGraphBrowsers extends React.Component {
 

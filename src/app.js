@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Home from './Home'
-import ShopX from './ShopX'
-import Checkout from './Checkout'
-import OrderManagement from './OrderManagement'
-import OrderAssist from './OrderAssist'
-import Header from './Header'
+import Home from './pages/Home'
+import ShopX from './pages/ShopX'
+import Checkout from './pages/Checkout'
+import OrderManagement from './pages/OrderManagement'
+import OrderAssist from './pages/OrderAssist'
+import Header from './components/Header'
 
 class App extends Component {
 

@@ -31,7 +31,8 @@ function getTestResult(req, res) {
                 harness: 1,
                 duration: 1,
                 dateofexecution: 1,
-                teststeps: 1
+                teststeps: 1,
+                category: 1
             }
         }
     ]);

@@ -41,11 +41,11 @@ class Header extends Component {
                         <Icon name='home' />
                         Home
                     </Menu.Item>
-                    <Menu.Item as={ Link } name='shopx'  active={this.state.activeItem === 'shopx'} onClick={this.handleItemClick} to='shopx'>
+                    <Menu.Item as={ Link } name='shopx'  active={this.state.activeItem === 'shopx'} onClick={this.handleItemClick} to='/shopx'>
                         <Icon name='shopping bag'/>
                         Shop X
                     </Menu.Item>
-                    <Menu.Item as={ Link } name='checkout' active={this.state.activeItem === 'checkout'} onClick={this.handleItemClick} to='checkout'>
+                    <Menu.Item as={ Link } name='checkout' active={this.state.activeItem === 'checkout'} onClick={this.handleItemClick} to='/checkout'>
                         <Icon name='credit card alternative'/>
                         Checkout
                     </Menu.Item>

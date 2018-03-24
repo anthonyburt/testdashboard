@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import 'semantic-ui-css/semantic.min.css'
 import './index.css'
 import 'typeface-roboto'
-import App from './components/App'
+import App from './app'
 
 const httpLink = new HttpLink({
     uri: 'https://api.graph.cool/simple/v1/cjdz30buh2px90159fuptggd5'

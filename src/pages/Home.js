@@ -5,9 +5,9 @@ import moment from 'moment'
 
 import statsService from '../api/Stats.js'
 
-import OverallHistory from './OverallHistory.js'
-import LineGraphStatusCount from './LineGraphStatusCounts'
-import BarGraphPassFail from '../components/BarGraphPassFail'
+import OverallHistory from '../components/OverallHistory.js'
+import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
+import BarGraphPassFail from '../components/graphs/BarGraphPassFail'
 
 
 
