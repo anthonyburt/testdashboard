@@ -47,7 +47,7 @@ class Home extends React.Component {
                         <Segment.Group>
                             <Segment color='blue' inverted raised>Overall History
                                 <Label attached='top right' size='small' color='grey'>
-                                    <Icon color='lime' name='time' />
+                                    <Icon name='time' />
                                     Synced
                                     <Label.Detail>{this.state.lastSync.map((item,i) => this.formatSync(item.date) )} </Label.Detail>
                                   </Label>

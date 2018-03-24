@@ -6,15 +6,14 @@ import TestDetails from './TestDetails'
 
 
 
-export default class ShopX extends Component {
+export default class OrderAssist extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          squad: "Shop X"
+          squad: "Order Assist"
         }
     }
-
 
     render() {
 

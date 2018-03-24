@@ -14,23 +14,23 @@ import Comments from './Comments'
     ]
 
     const optionsTestStatus = [
-        { key: 1, text: 'Passed', value: 'Passed' },
-        { key: 2, text: 'Failed', value: 'Failed' },
-        { key: 3, text: 'Skipped', value: 'Skipped' },
-        { key: 4, text: 'Inconclusive', value: 'Inconclusive' }
+        { key: 1, text: 'All', value: 'All' },
+        { key: 2, text: 'Passed', value: 'Passed' },
+        { key: 3, text: 'Failed', value: 'Failed' },
+        { key: 4, text: 'Skipped', value: 'Skipped' },
+        { key: 5, text: 'Inconclusive', value: 'Inconclusive' }
     ]
 
 class TestDetails extends Component {
     constructor(props) {
         super(props)
 
-            this.state = {
-              test_data: [],
-              harness: 'API',
-              test_status: 'Passed',
-              squad: 'Inventory And Order Management',
-              startDate: moment(),
-              endDate: moment().add(7, 'd')
+        this.state = {
+          test_data: [],
+          harness: 'API',
+          test_status: 'All',
+          startDate: moment().subtract(30, 'd'),
+          endDate: moment().add(7, 'd')
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -61,9 +61,11 @@ class TestDetails extends Component {
     componentDidMount() {
         axios.get(`api/test`, {
             params: {
-                squad: this.state.squad,
+                squad: this.props.squad,
                 harness: this.state.harness,
-                status: this.state.test_status
+                status: this.state.test_status,
+                startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                enddate: moment(this.state.endDate).format('MM-DD-YYYY')
             }
         })
           .then(res => {
@@ -84,8 +86,10 @@ class TestDetails extends Component {
 
         const rootPanels = _.times(this.state.test_data.length, i => ({
           title: {
-            content: <Label color={this.getStatusColor(this.state.test_data[i].result)}
-                content={this.state.test_data[i].description} />,
+            content: <Label color={this.getStatusColor(this.state.test_data[i].result)}>
+                        {this.state.test_data[i].dateofexecution}
+                        <div>{this.state.test_data[i].description}</div>
+                      </Label>,
             key: `title-${i}`,
           },
           content: {
@@ -126,6 +130,8 @@ class TestDetails extends Component {
           },
         }))
 
+        {console.log(this.state.test_data)}
+
         return (
             <Grid.Column width={16} >
                 <Segment.Group >
@@ -133,7 +139,7 @@ class TestDetails extends Component {
                         <Segment>
                             <Segment>
                             <Grid columns={2} verticalAlign='top'>
-                                <Grid.Column width={2}>
+                                <Grid.Column width={3}>
                                     <div>Harness</div>
                                         <Dropdown
                                             key='dropDownTestHarness'
@@ -182,7 +188,7 @@ class TestDetails extends Component {
                                             </Button>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column width={14}>
+                                <Grid.Column width={13}>
                                      <Accordion fluid styled exclusive={false} panels={rootPanels}/>
                               </Grid.Column>
                             </Grid>
@@ -199,7 +205,9 @@ class TestDetails extends Component {
                         params: {
                             squad: this.state.squad,
                             harness: this.state.harness,
-                            status: this.state.test_status
+                            status: this.state.test_status,
+                            startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                            enddate: moment(this.state.endDate).format('MM-DD-YYYY')
                         }
                     })
                       .then(res => {

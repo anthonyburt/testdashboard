@@ -4,17 +4,14 @@ import Helmet from 'react-helmet'
 import PieGraphBrowsers from './PieGraphBrowsers'
 import TestDetails from './TestDetails'
 
-
-
-export default class ShopX extends Component {
+export default class InventoryMgmt extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          squad: "Shop X"
+          squad: "Inventory And Order Management"
         }
     }
-
 
     render() {
 

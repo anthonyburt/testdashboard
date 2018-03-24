@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Home from './Home'
-import EcommMain from './EcommMain'
 import ShopX from './ShopX'
+import Checkout from './Checkout'
+import OrderManagement from './OrderManagement'
+import OrderAssist from './OrderAssist'
 import Header from './Header'
 
 class App extends Component {
@@ -20,12 +22,24 @@ class App extends Component {
                     }/>
                     <Route
                         path='/shopx'
-                        render={(props) => <ShopX />}
+                        render={(props) => <ShopX squad="Shop X"/>}
                         />
                     }/>
-                    <Route path='/checkout' component={EcommMain}/>
-                    <Route path='/orderassist' component={EcommMain}/>
-                    <Route path='/ordermanagement' component={EcommMain}/>
+                    <Route
+                         path='/checkout'
+                         render={(props) => <Checkout squad="Checkout"/>}
+                         />
+                     }/>
+                    <Route
+                         path='/orderassist'
+                         render={(props) => <OrderAssist squad="Order Assist"/>}
+                         />
+                     }/>
+                    <Route
+                         path='/ordermanagement'
+                         render={(props) => <OrderManagement squad="Inventory And Order Management"/>}
+                         />
+                     }/>
                     <Redirect to="/" />
                 </Switch>
             </div>
