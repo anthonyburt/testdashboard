@@ -9,6 +9,7 @@ function getTestResult(req, res) {
     var result_param = req.query.status;
     var startdate_param = req.query.startdate;
     var enddate_param = req.query.enddate;
+    var testcase_param = req.query.testcase;
 
     const queryAllStatus = TestResults.aggregate([
         {
@@ -32,7 +33,9 @@ function getTestResult(req, res) {
                 duration: 1,
                 dateofexecution: 1,
                 teststeps: 1,
-                category: 1
+                testcase: 1,
+                category: 1,
+                squad: 1
             }
         }
     ]);
@@ -59,13 +62,54 @@ function getTestResult(req, res) {
                 harness: 1,
                 duration: 1,
                 dateofexecution: 1,
-                teststeps: 1
+                teststeps: 1,
+                testcase: 1,
+                category: 1,
+                squad: 1
             }
         }
     ]);
 
-    if(result_param === 'All'){
+    const queryTestCase = TestResults.aggregate([
+            {
+                $match: {
+                    squad: squad_param,
+                    harness: harness_param,
+                    testcase: testcase_param
+               }
+            }, {
+                $sort: {
+                    dateofexecution: -1
+                }
+            }, {
+                $project:{
+                    _id: 1,
+                    result: 1,
+                    author: 1,
+                    testcase: 1,
+                    description: 1,
+                    harness: 1,
+                    duration: 1,
+                    dateofexecution: 1,
+                    teststeps: 1,
+                    testcase: 1,
+                    category: 1,
+                    squad: 1
+                }
+            }
+        ]);
+
+    if(result_param === 'All' && testcase_param === undefined){
         queryAllStatus
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    } else if (testcase_param !== undefined) {
+        queryTestCase
             .exec()
             .then(stats => {
                 res.json(stats);

@@ -1,35 +1,101 @@
 import React, { Component } from 'react'
-import {Table} from 'semantic-ui-react'
+import {Table, Dimmer, Loader} from 'semantic-ui-react'
+import axios from 'axios'
+import moment from 'moment'
+import momentDuration from 'moment-duration-format'
 
 class TestSummary extends Component {
+    constructor(props) {
+    super(props)
+
+        this.state = {
+            test_data: [],
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.includeHistory === 'true') {
+            axios.get(`api/test`, {
+                params: {
+                    squad: this.props.testRecord.squad,
+                    harness: this.props.harness,
+                    status: 'All',
+                    testcase: this.props.testRecord.testcase
+
+                }
+            })
+            .then(res => {
+                const test_data = res.data
+                this.setState({ test_data })
+            })
+        }
+    }
 
     render() {
 
+        if (this.props.includeHistory === 'false')  {
+            return (
+                <Table celled color={this.getStatusColor(this.props.testRecord.result)}>
+                    {this.tableHeader()}
+                    {this.tableBody(this.props.testRecord)}
+                </Table>
+            )
+        }
+
+        if (this.state.test_data === undefined) {
+            return (
+                <Dimmer inverted active>
+                    <Loader size='tiny'>Loading</Loader>
+                </Dimmer>
+            )
+        }
+
+        if (this.props.includeHistory === 'true')  {
+                    return (
+
+                        this.state.test_data.map((item, index, arr) => (
+                            <Table celled color={this.getStatusColor(item.result)}>
+                                {this.tableHeader()}
+                                {this.tableBody(item)}
+                            </Table>
+                        ))
+                    )
+                }
+
         return (
-            <Table celled color={this.getStatusColor(this.props.testRecord.result)}>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Harness</Table.HeaderCell>
-                        <Table.HeaderCell>Date</Table.HeaderCell>
-                        <Table.HeaderCell>Testcase</Table.HeaderCell>
-                        <Table.HeaderCell>Result</Table.HeaderCell>
-                        <Table.HeaderCell>Message</Table.HeaderCell>
-                        <Table.HeaderCell>Duration</Table.HeaderCell>
-                        <Table.HeaderCell>Author</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>{this.props.testRecord.harness}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.dateofexecution}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.testcase}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.result}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.message}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.duration}</Table.Cell>
-                        <Table.Cell>{this.props.testRecord.author}</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
-            </Table>
+            <div>
+                missing history flag
+            </div>
+        )
+    }
+
+    tableHeader() {
+        return (
+           <Table.Header>
+               <Table.Row>
+                   <Table.HeaderCell>Harness</Table.HeaderCell>
+                   <Table.HeaderCell>Date</Table.HeaderCell>
+                   <Table.HeaderCell>Testcase</Table.HeaderCell>
+                   <Table.HeaderCell>Result</Table.HeaderCell>
+                   <Table.HeaderCell>Duration</Table.HeaderCell>
+                   <Table.HeaderCell>Author</Table.HeaderCell>
+               </Table.Row>
+           </Table.Header>
+       )
+    }
+
+    tableBody(record) {
+        return (
+            <Table.Body>
+                <Table.Row>
+                    <Table.Cell>{record.harness}</Table.Cell>
+                    <Table.Cell>{record.dateofexecution}</Table.Cell>
+                    <Table.Cell>{record.testcase}</Table.Cell>
+                    <Table.Cell>{record.result}</Table.Cell>
+                    <Table.Cell>{this.formatDuration(record.duration)}</Table.Cell>
+                    <Table.Cell>{record.author}</Table.Cell>
+                </Table.Row>
+            </Table.Body>
         )
     }
 
@@ -46,6 +112,15 @@ class TestSummary extends Component {
         }
         return color
     }
+
+    formatDuration(inTime) {
+        const converted = moment.duration(inTime,"seconds").format("hh:mm:ss", {trim:false})
+
+        return (
+            converted
+        )
+    }
+
 }
 
 export default TestSummary

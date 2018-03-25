@@ -26,16 +26,17 @@ import PieGraphBrowsers from './graphs/PieGraphBrowsers'
     ]
 
 class TestDetails extends Component {
-    constructor(props) {
+   constructor(props) {
+
         super(props)
 
         this.state = {
-          test_data: [],
-          harness: 'API',
-          test_status: 'All',
-          startDate: moment().subtract(30, 'd'),
-          endDate: moment().add(7, 'd'),
-          modal_visible : false
+            test_data: [],
+            harness: 'API',
+            test_status: 'All',
+            startDate: moment().subtract(30, 'd'),
+            endDate: moment().add(7, 'd'),
+            modal_visible : false
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -87,6 +88,23 @@ class TestDetails extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+    axios.get(`api/test`, {
+                params: {
+                    squad: nextProps.squad,
+                    harness: this.state.harness,
+                    status: this.state.test_status,
+                    startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                    enddate: moment(this.state.endDate).format('MM-DD-YYYY')
+                }
+            })
+              .then(res => {
+                const test_data = res.data
+                this.setState({ test_data })
+            })
+
+    }
+
     render() {
 
         if( this.state.test_data === undefined ) {
@@ -108,9 +126,9 @@ class TestDetails extends Component {
           content: {
             content: (
                 <div>
-                  <TestSummary testRecord={this.state.test_data[i]}/>
+                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' harness={this.state.harness}/>
                   <div>
-                    <Modal dimmer='blurring' trigger={
+                    <Modal  trigger={
                         <Button floated ='right' color='black'>
                             <Icon name='history' />
                             History
@@ -127,7 +145,7 @@ class TestDetails extends Component {
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]}/>
+                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.state.harness} />
                                     </Grid.Row>
                               </Grid>
                             </Modal.Content>
