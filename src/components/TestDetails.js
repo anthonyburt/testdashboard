@@ -4,6 +4,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import ReactJson from 'react-json-view'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import Comments from './Comments'
@@ -128,7 +129,25 @@ class TestDetails extends Component {
                 <div>
                   <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' harness={this.state.harness}/>
                   <div>
-                    <Modal  trigger={
+                      <Modal  size='large' trigger={
+                          <Button floated ='right' color='purple'>
+                              <Icon name='code' />
+                              Json
+                          </Button>}>
+                          <Modal.Header>{this.state.test_data[i].description} Json Response</Modal.Header>
+                              <Modal.Content>
+                                <Grid>
+                                    <Grid.Row >
+                                        <Grid.Column width={16} >
+                                            <ReactJson src={this.state.test_data[i].responseJson} theme="summerfruit:inverted" />
+                                        </Grid.Column>
+                                      </Grid.Row>
+                                </Grid>
+                              </Modal.Content>
+                          </Modal>
+                      </div>
+                  <div>
+                    <Modal  size='large' trigger={
                         <Button floated ='right' color='black'>
                             <Icon name='history' />
                             History

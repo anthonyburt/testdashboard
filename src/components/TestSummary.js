@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Table, Dimmer, Loader} from 'semantic-ui-react'
+import { Grid, Table, Dimmer, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
@@ -54,10 +54,25 @@ class TestSummary extends Component {
                     return (
 
                         this.state.test_data.map((item, index, arr) => (
-                            <Table celled color={this.getStatusColor(item.result)}>
-                                {this.tableHeader()}
-                                {this.tableBody(item)}
-                            </Table>
+                            <Grid>
+                                <Grid.Row columns={1}>
+                                    <Grid.Column>
+                                      <Table celled color={this.getStatusColor(item.result)}>
+                                          {this.tableHeader()}
+                                          {this.tableBody(item)}
+                                      </Table>
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column>
+                                        <Table basic='very' celled>
+                                            <Table.Body>
+                                                {this.testSteps(item.teststeps)}
+                                            </Table.Body>
+                                        </Table>
+                                    </Grid.Column>
+                                </Grid.Row>
+                              </Grid>
                         ))
                     )
                 }
@@ -73,9 +88,9 @@ class TestSummary extends Component {
         return (
            <Table.Header>
                <Table.Row>
-                   <Table.HeaderCell>Harness</Table.HeaderCell>
-                   <Table.HeaderCell>Date</Table.HeaderCell>
-                   <Table.HeaderCell>Testcase</Table.HeaderCell>
+                   <Table.HeaderCell width={2}>Harness</Table.HeaderCell>
+                   <Table.HeaderCell width={2}> Date</Table.HeaderCell>
+                   <Table.HeaderCell width={2}>Testcase</Table.HeaderCell>
                    <Table.HeaderCell>Result</Table.HeaderCell>
                    <Table.HeaderCell>Duration</Table.HeaderCell>
                    <Table.HeaderCell>Author</Table.HeaderCell>
@@ -97,6 +112,17 @@ class TestSummary extends Component {
                 </Table.Row>
             </Table.Body>
         )
+    }
+
+    testSteps(steps) {
+            return (
+                steps.map((item, index, arr) => (
+                    <Table.Row>
+                        <Table.Cell textAlign='center'><Icon name='thumbs up' color='green'/></Table.Cell>
+                        <Table.Cell>{item}</Table.Cell>
+                    </Table.Row>
+            )
+        ))
     }
 
     getStatusColor(result) {

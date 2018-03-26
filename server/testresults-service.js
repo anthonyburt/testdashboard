@@ -35,7 +35,8 @@ function getTestResult(req, res) {
                 teststeps: 1,
                 testcase: 1,
                 category: 1,
-                squad: 1
+                squad: 1,
+                responseJson: 1
             }
         }
     ]);
@@ -65,7 +66,8 @@ function getTestResult(req, res) {
                 teststeps: 1,
                 testcase: 1,
                 category: 1,
-                squad: 1
+                squad: 1,
+                responseJson: 1
             }
         }
     ]);
@@ -94,7 +96,8 @@ function getTestResult(req, res) {
                     teststeps: 1,
                     testcase: 1,
                     category: 1,
-                    squad: 1
+                    squad: 1,
+                    responseJson: 1
                 }
             }
         ]);
