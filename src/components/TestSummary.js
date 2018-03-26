@@ -6,25 +6,24 @@ import momentDuration from 'moment-duration-format'
 
 class TestSummary extends Component {
     constructor(props) {
-    super(props)
+        super(props)
 
         this.state = {
             test_data: [],
         }
     }
 
-    componentDidMount() {
-        if(this.props.includeHistory === 'true') {
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.showHistoryButton === 'false') {
             axios.get(`api/test`, {
                 params: {
-                    squad: this.props.testRecord.squad,
-                    harness: this.props.harness,
+                    squad: nextProps.squad,
+                    harness: nextProps.harness,
                     status: 'All',
-                    testcase: this.props.testRecord.testcase
-
+                    testcase: nextProps.testcase
                 }
             })
-            .then(res => {
+              .then(res => {
                 const test_data = res.data
                 this.setState({ test_data })
             })
@@ -32,8 +31,11 @@ class TestSummary extends Component {
     }
 
     render() {
+        {console.log(this.props.showHistoryButton)}
+        {console.log(this.props.testRecord.result)}
 
-        if (this.props.includeHistory === 'false')  {
+        if (this.props.showHistoryButton === 'true')  {
+            console.log("in true history button on test summary")
             return (
                 <Table celled color={this.getStatusColor(this.props.testRecord.result)}>
                     {this.tableHeader()}
@@ -50,9 +52,9 @@ class TestSummary extends Component {
             )
         }
 
-        if (this.props.includeHistory === 'true')  {
+        if (this.props.showHistoryButton === 'false')  {
+            console.log("in false history button on test summary")
                     return (
-
                         this.state.test_data.map((item, index, arr) => (
                             <Table celled color={this.getStatusColor(item.result)}>
                                 {this.tableHeader()}

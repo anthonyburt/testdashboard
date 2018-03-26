@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import {Button, Grid, Icon, Modal, Segment, Dropdown, Accordion, Loader, Dimmer, Label } from 'semantic-ui-react'
+import {Button, Grid, Icon, Segment, Dropdown, Loader, Dimmer } from 'semantic-ui-react'
 import axios from 'axios'
-import _ from 'lodash'
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
 
-import 'react-datepicker/dist/react-datepicker.css'
+import TestResultsAccordion from './TestResultsAccordion'
 import Comments from './Comments'
-import TestSummary from './TestSummary'
-import TestSteps from './TestSteps'
-import LastRunSummary from './LastRunSummary'
-import PieGraphBrowsers from './graphs/PieGraphBrowsers'
 
     const optionsTestHarness = [
         { key: 1, text: 'UI', value: 'Selenium' },
@@ -26,8 +22,7 @@ import PieGraphBrowsers from './graphs/PieGraphBrowsers'
     ]
 
 class TestDetails extends Component {
-   constructor(props) {
-
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -35,8 +30,7 @@ class TestDetails extends Component {
             harness: 'API',
             test_status: 'All',
             startDate: moment().subtract(30, 'd'),
-            endDate: moment().add(7, 'd'),
-            modal_visible : false
+            endDate: moment().add(7, 'd')
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -89,20 +83,19 @@ class TestDetails extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-    axios.get(`api/test`, {
-                params: {
-                    squad: nextProps.squad,
-                    harness: this.state.harness,
-                    status: this.state.test_status,
-                    startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
-                    enddate: moment(this.state.endDate).format('MM-DD-YYYY')
-                }
-            })
-              .then(res => {
-                const test_data = res.data
-                this.setState({ test_data })
-            })
-
+        axios.get(`api/test`, {
+            params: {
+                squad: nextProps.squad,
+                harness: this.state.harness,
+                status: this.state.test_status,
+                startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                enddate: moment(this.state.endDate).format('MM-DD-YYYY')
+            }
+        })
+          .then(res => {
+            const test_data = res.data
+            this.setState({ test_data })
+        })
     }
 
     render() {
@@ -114,49 +107,6 @@ class TestDetails extends Component {
                 </Dimmer>
             )
         }
-
-        const rootPanels = _.times(this.state.test_data.length, i => ({
-          title: {
-            content: <Label color={this.getStatusColor(this.state.test_data[i].result)}>
-                        {this.state.test_data[i].dateofexecution}
-                        <div>{this.state.test_data[i].description}</div>
-                      </Label>,
-            key: `title-${i}`,
-          },
-          content: {
-            content: (
-                <div>
-                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' harness={this.state.harness}/>
-                  <div>
-                    <Modal  trigger={
-                        <Button floated ='right' color='black'>
-                            <Icon name='history' />
-                            History
-                        </Button>}>
-                        <Modal.Header>{this.state.test_data[i].description}</Modal.Header>
-                            <Modal.Content>
-                              <Grid>
-                                  <Grid.Row >
-                                      <Grid.Column width={6} >
-                                          <PieGraphBrowsers />
-                                      </Grid.Column>
-                                      <Grid.Column width={10} >
-                                          <LastRunSummary squad = {this.props.squad} />
-                                      </Grid.Column>
-                                  </Grid.Row>
-                                  <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.state.harness} />
-                                    </Grid.Row>
-                              </Grid>
-                            </Modal.Content>
-                        </Modal>
-                    </div>
-                    <TestSteps testSteps={this.state.test_data[i].teststeps}/>
-                </div>
-            ),
-            key: `content-${i}`,
-          },
-        }))
 
         return (
             <Grid.Column width={16} >
@@ -215,7 +165,7 @@ class TestDetails extends Component {
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={13}>
-                                     <Accordion fluid styled exclusive={false} panels={rootPanels}/>
+                                     <TestResultsAccordion test_data={this.state.test_data} harness={this.state.harness} squad={this.props.squad} showHistoryButton='true'/>
                               </Grid.Column>
                             </Grid>
                         </Segment>
@@ -225,40 +175,23 @@ class TestDetails extends Component {
         )
     }
 
-     updateTestResults() {
+    updateTestResults() {
 
-            axios.get(`api/test`, {
-                        params: {
-                            squad: this.props.squad,
-                            harness: this.state.harness,
-                            status: this.state.test_status,
-                            startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
-                            enddate: moment(this.state.endDate).format('MM-DD-YYYY')
-                        }
-                    })
-                      .then(res => {
-                        const test_data = res.data
-                        this.setState({ test_data })
-                    })
-
-
+        axios.get(`api/test`, {
+            params: {
+                squad: this.props.squad,
+                harness: this.state.harness,
+                status: this.state.test_status,
+                startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                enddate: moment(this.state.endDate).format('MM-DD-YYYY')
+            }
+        })
+          .then(res => {
+            const test_data = res.data
+            this.setState({ test_data })
+        })
     }
 
-    getStatusColor(result) {
-        var color = "pink";
-
-        if (result === 'Passed') {
-          color = "green";
-        } else if (result === 'Failed') {
-          color = "red";
-        } else if (result === 'Skipped') {
-          color = "yellow";
-        } else if (result === 'Inconclusive') {
-            color = 'grey'
-        }
-        return color;
-
-    }
 }
 
 export default TestDetails
