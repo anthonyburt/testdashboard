@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Table, Dimmer, Loader} from 'semantic-ui-react'
+import { Grid, Table, Dimmer, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
@@ -56,7 +56,7 @@ class TestSummary extends Component {
             console.log("in false history button on test summary")
                     return (
                         this.state.test_data.map((item, index, arr) => (
-                            <Table celled color={this.getStatusColor(item.result)}>
+                            <Table celled color={this.getStatusColor(item.result)} >
                                 {this.tableHeader()}
                                 {this.tableBody(item)}
                             </Table>
@@ -102,7 +102,7 @@ class TestSummary extends Component {
     }
 
     getStatusColor(result) {
-        var color = "pink"
+        var color = "teal"
         if (result === 'Passed') {
           color = "green"
         } else if (result === 'Failed') {
