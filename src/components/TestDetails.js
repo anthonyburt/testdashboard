@@ -11,7 +11,8 @@ import Comments from './Comments'
 import TestSummary from './TestSummary'
 import TestSteps from './TestSteps'
 import LastRunSummary from './LastRunSummary'
-import PieGraphBrowsers from './graphs/PieGraphBrowsers'
+import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
+import PiePassFail from './graphs/PiePassFail'
 
     const optionsTestHarness = [
         { key: 1, text: 'UI', value: 'Selenium' },
@@ -134,7 +135,7 @@ class TestDetails extends Component {
                               <Icon name='code' />
                               Json
                           </Button>}>
-                          <Modal.Header>{this.state.test_data[i].description} Json Response</Modal.Header>
+                          <Modal.Header>JSON response for {this.state.test_data[i].description}</Modal.Header>
                               <Modal.Content>
                                 <Grid>
                                     <Grid.Row >
@@ -145,7 +146,7 @@ class TestDetails extends Component {
                                 </Grid>
                               </Modal.Content>
                           </Modal>
-                      </div>
+                  </div>
                   <div>
                     <Modal  size='large' trigger={
                         <Button floated ='right' color='black'>
@@ -154,13 +155,10 @@ class TestDetails extends Component {
                         </Button>}>
                         <Modal.Header>{this.state.test_data[i].description}</Modal.Header>
                             <Modal.Content>
-                              <Grid>
-                                  <Grid.Row >
-                                      <Grid.Column width={6} >
-                                          <PieGraphBrowsers />
-                                      </Grid.Column>
-                                      <Grid.Column width={10} >
-                                          <LastRunSummary squad = {this.props.squad} />
+                              <Grid centered>
+                                  <Grid.Row>
+                                      <Grid.Column width={8} >
+                                          <LineGraphStatusCounts />
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>

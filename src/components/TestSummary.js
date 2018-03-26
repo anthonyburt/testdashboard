@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Grid, Table, Dimmer, Icon, Loader} from 'semantic-ui-react'
+import { Modal, Button, Segment, Grid, Table, Dimmer, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
+import ReactJson from 'react-json-view'
 
 class TestSummary extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ class TestSummary extends Component {
                     return (
 
                         this.state.test_data.map((item, index, arr) => (
+                            <Segment>
                             <Grid>
                                 <Grid.Row columns={1}>
                                     <Grid.Column>
@@ -64,8 +66,28 @@ class TestSummary extends Component {
                                     </Grid.Column>
                                 </Grid.Row>
                                 <Grid.Row>
+                                    <Grid.Column floated='right'>
+                                      <Modal size='large' trigger={
+                                          <Button floated ='right' color='purple'>
+                                              <Icon name='code' />
+                                              Json
+                                          </Button>}>
+                                          <Modal.Header>JSON response for {item.description}</Modal.Header>
+                                              <Modal.Content>
+                                                <Grid>
+                                                    <Grid.Row >
+                                                        <Grid.Column width={16} >
+                                                            <ReactJson src={item.responseJson} theme="summerfruit:inverted" />
+                                                        </Grid.Column>
+                                                      </Grid.Row>
+                                                </Grid>
+                                              </Modal.Content>
+                                          </Modal>
+                                      </Grid.Column>
+                                 </Grid.Row>
+                                <Grid.Row>
                                     <Grid.Column>
-                                        <Table basic='very' celled>
+                                        <Table striped basic='very' celled>
                                             <Table.Body>
                                                 {this.testSteps(item.teststeps)}
                                             </Table.Body>
@@ -73,6 +95,7 @@ class TestSummary extends Component {
                                     </Grid.Column>
                                 </Grid.Row>
                               </Grid>
+                          </Segment>
                         ))
                     )
                 }
