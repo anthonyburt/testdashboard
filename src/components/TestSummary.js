@@ -100,7 +100,7 @@ class TestSummary extends Component {
     }
 
     getStatusColor(result) {
-        var color = "pink"
+        var color = "teal"
         if (result === 'Passed') {
           color = "green"
         } else if (result === 'Failed') {
