@@ -40,7 +40,7 @@ class Home extends React.Component {
     render () {
 
         return (
-            <div className='home-stats'>
+            <div >
                 <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
                 <Segment.Group>
                     <Segment>
