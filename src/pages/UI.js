@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 import TestDetails from '../components//TestDetails'
 import PiePassFail from '../components/graphs/PiePassFail'
 import LastRunSummary from '../components/LastRunSummary'
+import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
 export default class ShopX extends Component {
 
@@ -15,8 +16,28 @@ export default class ShopX extends Component {
             <Segment.Group>
             <Segment>
             <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
-            <Grid centered >
-                <Grid.Row >
+                <Grid columns={3} >
+                    <Grid.Row stretched>
+                      <Grid.Column>
+                        <Segment> <LineGraphStatusCounts/> </Segment>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Segment>
+
+                                        <PiePassFail squad = {this.props.squad} />
+
+
+                        </Segment>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Segment> <PiePassFail squad = {this.props.squad} /></Segment>
+                        <Segment>2</Segment>
+                        <Segment>3</Segment>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                <Grid>
+                <Grid.Row>
                     <Grid.Column width={16} floated='left' >
                         <Segment.Group >
                             <Segment color='blue' inverted>Selenium</Segment>
@@ -54,7 +75,6 @@ export default class ShopX extends Component {
                                 </Segment>
                             </Segment.Group>
                         </Grid.Column>
-
                 </Grid.Row>
                 <Grid.Row>
                     <TestDetails squad = {this.props.squad}/>
