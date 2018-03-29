@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {  Header, Grid, Segment, Card, Icon, Image } from 'semantic-ui-react'
+import {  Table, Header, Grid, Segment, Card, Icon, Image } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import TestDetails from '../components//TestDetails'
@@ -7,7 +7,7 @@ import PiePassFail from '../components/graphs/PiePassFail'
 import LastRunSummary from '../components/LastRunSummary'
 import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
-export default class ShopX extends Component {
+export default class UI_dash extends Component {
 
     render() {
 
@@ -15,11 +15,6 @@ export default class ShopX extends Component {
             <div>
             <Segment.Group>
                 <Segment>
-                <Header as='h2'>
-                    <Header.Content>
-                      E-commerce
-                    </Header.Content>
-                  </Header>
                 <Helmet bodyAttributes={{style: 'background-color : #fcfcfc'}}/>
                 <Grid columns={1}>
                     <Grid.Row centered columns={3}>
@@ -47,12 +42,22 @@ export default class ShopX extends Component {
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>
-                                          Last Run 5 hrs ago
+                                          Completed 5 hrs ago
                                         </span>
                                     </Card.Meta>
                                     <Card.Description>
-                                        Last Run Success Rate: 100%
-                                        <div>Previous Run Success Rate: 100%</div>
+                                        <Table>
+                                        <Table.Body>
+                                            <Table.Row>
+                                                <Table.Cell>Last Success Rate:</Table.Cell>
+                                                <Table.Cell>100%</Table.Cell>
+                                            </Table.Row>
+                                            <Table.Row>
+                                                <Table.Cell>Previous Success Rate:</Table.Cell>
+                                                <Table.Cell>100%</Table.Cell>
+                                            </Table.Row>
+                                        </Table.Body>
+                                        </Table>
                                     </Card.Description>
                                 </Card.Content>
                             </Card>
@@ -66,12 +71,22 @@ export default class ShopX extends Component {
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>
-                                          Last Run 5 hrs ago
+                                          Completed 5 hrs ago
                                         </span>
                                     </Card.Meta>
                                     <Card.Description>
-                                        Last Run Success Rate: 100%
-                                        <div>Previous Run Success Rate: 100%</div>
+                                        <Table>
+                                        <Table.Body>
+                                            <Table.Row>
+                                                <Table.Cell>Last Success Rate:</Table.Cell>
+                                                <Table.Cell>100%</Table.Cell>
+                                            </Table.Row>
+                                            <Table.Row>
+                                                <Table.Cell>Previous Success Rate:</Table.Cell>
+                                                <Table.Cell>100%</Table.Cell>
+                                            </Table.Row>
+                                        </Table.Body>
+                                        </Table>
                                     </Card.Description>
                                 </Card.Content>
                             </Card>
@@ -85,12 +100,22 @@ export default class ShopX extends Component {
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>
-                                          Last Run 5 hrs ago
+                                          Completed 5 hrs ago
                                         </span>
                                     </Card.Meta>
                                     <Card.Description>
-                                        Last Run Success Rate: 100%
-                                        <div>Previous Run Success Rate: 100%</div>
+                                       <Table>
+                                       <Table.Body>
+                                           <Table.Row>
+                                               <Table.Cell>Last Success Rate:</Table.Cell>
+                                               <Table.Cell>100%</Table.Cell>
+                                           </Table.Row>
+                                           <Table.Row>
+                                               <Table.Cell>Previous Success Rate:</Table.Cell>
+                                               <Table.Cell>100%</Table.Cell>
+                                           </Table.Row>
+                                       </Table.Body>
+                                       </Table>
                                     </Card.Description>
                                 </Card.Content>
                             </Card>
@@ -104,12 +129,22 @@ export default class ShopX extends Component {
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>
-                                          Last Run 5 hrs ago
+                                          Completed 5 hrs ago
                                         </span>
                                     </Card.Meta>
                                     <Card.Description>
-                                        Last Run Success Rate: 100%
-                                        <div>Previous Run Success Rate: 100%</div>
+                                       <Table>
+                                       <Table.Body>
+                                           <Table.Row>
+                                               <Table.Cell>Last Success Rate:</Table.Cell>
+                                               <Table.Cell>100%</Table.Cell>
+                                           </Table.Row>
+                                           <Table.Row>
+                                               <Table.Cell>Previous Success Rate:</Table.Cell>
+                                               <Table.Cell>100%</Table.Cell>
+                                           </Table.Row>
+                                       </Table.Body>
+                                       </Table>
                                     </Card.Description>
                                 </Card.Content>
                             </Card>
@@ -118,7 +153,7 @@ export default class ShopX extends Component {
                 </Grid>
                 <Grid>
                 <Grid.Row>
-                    <TestDetails squad = {this.props.squad}/>
+                    <TestDetails tribe = {this.props.tribe}/>
                 </Grid.Row>
             </Grid>
             </Segment>

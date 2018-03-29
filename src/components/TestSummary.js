@@ -21,7 +21,7 @@ class TestSummary extends Component {
         if(this.props.includeHistory === 'true') {
             axios.get(`api/test`, {
                 params: {
-                    squad: this.props.testRecord.squad,
+                    tribe: this.props.testRecord.tribe,
                     harness: this.props.harness,
                     status: 'All',
                     testcase: this.props.testRecord.testcase
@@ -140,12 +140,13 @@ class TestSummary extends Component {
         return (
            <Table.Header>
                <Table.Row>
-                   <Table.HeaderCell width={2}>Harness</Table.HeaderCell>
-                   <Table.HeaderCell width={2}> Date</Table.HeaderCell>
-                   <Table.HeaderCell width={2}>Testcase</Table.HeaderCell>
-                   <Table.HeaderCell>Result</Table.HeaderCell>
-                   <Table.HeaderCell>Duration</Table.HeaderCell>
-                   <Table.HeaderCell>Author</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Harness</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Service</Table.HeaderCell>
+                    <Table.HeaderCell width={3}>Testcase</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Result</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Date</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Duration</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Author</Table.HeaderCell>
                </Table.Row>
            </Table.Header>
        )
@@ -156,9 +157,10 @@ class TestSummary extends Component {
             <Table.Body>
                 <Table.Row>
                     <Table.Cell>{record.harness}</Table.Cell>
-                    <Table.Cell>{record.dateofexecution}</Table.Cell>
+                    <Table.Cell>{record.category}</Table.Cell>
                     <Table.Cell>{record.testcase}</Table.Cell>
                     <Table.Cell>{record.result}</Table.Cell>
+                    <Table.Cell>{record.dateofexecution}</Table.Cell>
                     <Table.Cell>{this.formatDuration(record.duration)}</Table.Cell>
                     <Table.Cell>{record.author}</Table.Cell>
                 </Table.Row>

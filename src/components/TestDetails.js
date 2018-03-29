@@ -14,9 +14,14 @@ import LastRunSummary from './LastRunSummary'
 import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
 import PiePassFail from './graphs/PiePassFail'
 
-    const optionsTestHarness = [
-        { key: 1, text: 'UI', value: 'Selenium' },
-        { key: 2, text: 'API', value: 'API' }
+    const optionsCategory = [
+        { key: 1, text: 'Address', value: 'Address' },
+        { key: 2, text: 'Direct', value: 'Direct' },
+        { key: 3, text: 'Email', value: 'Email' },
+        { key: 4, text: 'Pricing', value: 'Pricing' },
+        { key: 5, text: 'Product', value: 'Product' },
+        { key: 6, text: 'Store', value: 'Store' },
+        { key: 7, text: 'Salesforce', value: 'Salesforce' },
     ]
 
     const optionsTestStatus = [
@@ -35,6 +40,7 @@ class TestDetails extends Component {
         this.state = {
             test_data: [],
             harness: 'API',
+            category: 'Address',
             test_status: 'All',
             startDate: moment().subtract(30, 'd'),
             endDate: moment().add(7, 'd'),
@@ -43,7 +49,7 @@ class TestDetails extends Component {
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleChangeEnd = this.handleChangeEnd.bind(this);
-        this.handleChangeHarness = this.handleChangeHarness.bind(this);
+        this.handleChangeHarness = this.handleChangeService.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
     }
@@ -68,7 +74,7 @@ class TestDetails extends Component {
         });
     }
 
-    handleChangeHarness = (e, { value }) => this.setState({ harness: value })
+    handleChangeService = (e, { value }) => this.setState({ category: value })
 
     handleChangeStatus = (e, { value }) => this.setState({ test_status: value })
 
@@ -77,7 +83,8 @@ class TestDetails extends Component {
     componentDidMount() {
         axios.get(`api/test`, {
             params: {
-                squad: this.props.squad,
+                tribe: this.props.tribe,
+                category: this.state.category,
                 harness: this.state.harness,
                 status: this.state.test_status,
                 startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
@@ -93,7 +100,8 @@ class TestDetails extends Component {
     componentWillReceiveProps(nextProps) {
     axios.get(`api/test`, {
                 params: {
-                    squad: nextProps.squad,
+                    tribe: this.props.tribe,
+                    category: this.state.category,
                     harness: this.state.harness,
                     status: this.state.test_status,
                     startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
@@ -183,21 +191,21 @@ class TestDetails extends Component {
                             <Segment>
                             <Grid columns={2} verticalAlign='top'>
                                 <Grid.Column width={3}>
-                                    <div>Harness</div>
+                                    <div>Service</div>
                                         <Dropdown
-                                            key='dropDownTestHarness'
-                                            onChange={this.handleChangeHarness}
-                                            options={optionsTestHarness}
-                                            placeholder='Choose an option'
+                                            key='dropDownService'
+                                            onChange={this.handleChangeService}
+                                            options={optionsCategory}
+                                            placeholder='Choose a service'
                                             selection
-                                            value={this.state.harness}
+                                            value={this.state.category}
                                         />
                                         <div>Status</div>
                                         <Dropdown
                                             key='dropDownTestStatus'
                                             onChange={this.handleChangeStatus}
                                             options={optionsTestStatus}
-                                            placeholder='Choose an option'
+                                            placeholder='Choose a status'
                                             selection
                                             value={this.state.test_status}
                                         />
@@ -226,7 +234,7 @@ class TestDetails extends Component {
                                                 color='black' icon labelPosition='left'
                                                 onClick={this.handleSearch}
                                             >
-                                                <Icon size='large' name='find' />
+                                                <Icon size='large' name='search' />
                                                 Search
                                             </Button>
                                     </div>
@@ -246,7 +254,8 @@ class TestDetails extends Component {
 
             axios.get(`api/test`, {
                         params: {
-                            squad: this.props.squad,
+                            tribe: this.props.tribe,
+                            category: this.state.category,
                             harness: this.state.harness,
                             status: this.state.test_status,
                             startdate: moment(this.state.startDate).format('MM-DD-YYYY'),

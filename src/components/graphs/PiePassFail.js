@@ -50,7 +50,7 @@ class PiePassFail extends React.Component {
                             data: {
                                 fillOpacity: 0.9, stroke: "#000000", strokeWidth: 2
                             },
-                            parent: { maxWidth: "2%" }
+                            parent: { maxWidth: "50%" }
                         }}
                         colorScale={["#21ba45", "#db2828", "#FBBD08", "#767676" ]}
                         data={testResults}

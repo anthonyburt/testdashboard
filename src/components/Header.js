@@ -13,8 +13,8 @@ class Header extends Component {
             case "/home":
                 this.setState({activeItem: 'home'})
                 break;
-            case "/shopx":
-                this.setState({activeItem: 'shopx'})
+            case "/ecommerce":
+                this.setState({activeItem: 'ecommerce'})
                 break;
             case "/checkout":
                 this.setState({activeItem: 'checkout'})
@@ -36,22 +36,15 @@ class Header extends Component {
 
         return (
 
-                <Menu labeled color='blue'  size='massive'>
+                <Menu labeled="true" color='blue'  size='massive'>
                     <Menu.Item as={ Link } name='home' active={this.state.activeItem === 'home'} onClick={this.handleItemClick} to='/'>
                         <Icon name='home' />
+                        Home
                     </Menu.Item>
-                    <Dropdown item icon='cart' size='tiny' simple>
-                        <Dropdown.Menu>
-                            <Dropdown.Item as={ Link } to='/shopx'>API</Dropdown.Item>
-                            <Dropdown.Item as={ Link } to='/ui'>UI</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      <Dropdown item icon='credit card alternative' size='tiny' simple>
-                          <Dropdown.Menu>
-                              <Dropdown.Item as={ Link } to='/shopx'>API</Dropdown.Item>
-                              <Dropdown.Item as={ Link } to='/ui'>UI</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
+                    <Menu.Item as={ Link } name='ecommerce' active={this.state.activeItem === 'ecommerce'} onClick={this.handleItemClick} to='/ecommerce'>
+                        <Icon name='cart' />
+                        E-commerce
+                    </Menu.Item>
                 </Menu>
 
         )

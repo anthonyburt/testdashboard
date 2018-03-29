@@ -4,7 +4,8 @@ const ReadPreference = require('mongodb').ReadPreference;
 require('./mongo').connect();
 
 function getTestResult(req, res) {
-    var squad_param = req.query.squad;
+    var tribe_param = req.query.tribe;
+    var category_param = req.query.category;
     var harness_param = req.query.harness;
     var result_param = req.query.status;
     var startdate_param = req.query.startdate;
@@ -14,7 +15,8 @@ function getTestResult(req, res) {
     const queryAllStatus = TestResults.aggregate([
         {
             $match: {
-                squad: squad_param,
+                tribe: tribe_param,
+                category: category_param,
                 harness: harness_param,
                 date: {$gte: startdate_param, $lte: enddate_param}
            }
@@ -36,7 +38,8 @@ function getTestResult(req, res) {
                 testcase: 1,
                 category: 1,
                 squad: 1,
-                responseJson: 1
+                responseJson: 1,
+                tribe: 1
             }
         }
     ]);
@@ -44,8 +47,9 @@ function getTestResult(req, res) {
     const querySpecificStatus = TestResults.aggregate([
         {
             $match: {
-                squad: squad_param,
+                tribe: tribe_param,
                 harness: harness_param,
+                category: category_param,
                 result: result_param,
                 date: {$gte: startdate_param, $lte: enddate_param}
            }
@@ -67,7 +71,8 @@ function getTestResult(req, res) {
                 testcase: 1,
                 category: 1,
                 squad: 1,
-                responseJson: 1
+                responseJson: 1,
+                tribe: 1
             }
         }
     ]);
@@ -75,7 +80,7 @@ function getTestResult(req, res) {
     const queryTestCase = TestResults.aggregate([
             {
                 $match: {
-                    squad: squad_param,
+                    tribe: tribe_param,
                     harness: harness_param,
                     testcase: testcase_param
                }
@@ -97,7 +102,8 @@ function getTestResult(req, res) {
                     testcase: 1,
                     category: 1,
                     squad: 1,
-                    responseJson: 1
+                    responseJson: 1,
+                    tribe: 1
                 }
             }
         ]);
