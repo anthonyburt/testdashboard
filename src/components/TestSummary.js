@@ -21,7 +21,7 @@ class TestSummary extends Component {
         if(this.props.includeHistory === 'true') {
             axios.get(`api/test`, {
                 params: {
-                    tribe: this.props.testRecord.tribe,
+                    tribe: this.props.tribe,
                     harness: this.props.harness,
                     status: 'All',
                     testcase: this.props.testRecord.testcase

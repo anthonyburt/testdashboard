@@ -15,13 +15,14 @@ import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
 import PiePassFail from './graphs/PiePassFail'
 
     const optionsCategory = [
-        { key: 1, text: 'Address', value: 'Address' },
-        { key: 2, text: 'Direct', value: 'Direct' },
-        { key: 3, text: 'Email', value: 'Email' },
-        { key: 4, text: 'Pricing', value: 'Pricing' },
-        { key: 5, text: 'Product', value: 'Product' },
-        { key: 6, text: 'Store', value: 'Store' },
-        { key: 7, text: 'Salesforce', value: 'Salesforce' },
+        { key: 1, text: 'All', value: 'All'},
+        { key: 2, text: 'Address', value: 'Address' },
+        { key: 3, text: 'Direct', value: 'Direct' },
+        { key: 4, text: 'Email', value: 'Email' },
+        { key: 5, text: 'Pricing', value: 'Pricing' },
+        { key: 6, text: 'Product', value: 'Product' },
+        { key: 7, text: 'Store', value: 'Store' },
+        { key: 8, text: 'Salesforce', value: 'Salesforce' },
     ]
 
     const optionsTestStatus = [
@@ -40,7 +41,7 @@ class TestDetails extends Component {
         this.state = {
             test_data: [],
             harness: 'API',
-            category: 'Address',
+            category: 'All',
             test_status: 'All',
             startDate: moment().subtract(30, 'd'),
             endDate: moment().add(7, 'd'),
@@ -170,7 +171,7 @@ class TestDetails extends Component {
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.state.harness} />
+                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.state.harness} tribe={this.props.tribe} />
                                     </Grid.Row>
                               </Grid>
                             </Modal.Content>
