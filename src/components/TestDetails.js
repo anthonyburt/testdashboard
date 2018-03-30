@@ -99,7 +99,7 @@ class TestDetails extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-    axios.get(`api/test`, {
+        axios.get(`api/test`, {
                 params: {
                     tribe: this.props.tribe,
                     category: this.state.category,
@@ -113,7 +113,6 @@ class TestDetails extends Component {
                 const test_data = res.data
                 this.setState({ test_data })
             })
-
     }
 
     render() {
@@ -137,7 +136,7 @@ class TestDetails extends Component {
           content: {
             content: (
                 <div>
-                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' harness={this.state.harness}/>
+                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.state.harness}/>
                   <div>
                       <Modal  size='large' trigger={
                           <Button floated ='right' color='purple'>
@@ -167,7 +166,7 @@ class TestDetails extends Component {
                               <Grid centered>
                                   <Grid.Row>
                                       <Grid.Column width={8} >
-                                          <LineGraphStatusCounts />
+                                          <LineGraphStatusCounts tribe={this.props.tribe} harness={this.state.harness} testRecord={this.state.test_data[i].testcase} />
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
@@ -177,7 +176,7 @@ class TestDetails extends Component {
                             </Modal.Content>
                         </Modal>
                     </div>
-                    <TestSteps testSteps={this.state.test_data[i].teststeps}/>
+                <TestSteps testSteps={this.state.test_data[i].teststeps}/>
                 </div>
             ),
             key: `content-${i}`,

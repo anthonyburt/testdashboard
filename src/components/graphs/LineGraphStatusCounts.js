@@ -9,24 +9,48 @@ class LineGraphTestDuration extends React.Component {
         super(props)
 
         this.state = {
-          linegraph_status: [],
-          success: [],
-          failures: [],
-          skipped: [],
-          inconclusive: []
+            linegraph_status: [],
+            success: [],
+            failures: [],
+            skipped: [],
+            inconclusive: []
         }
     }
 
     componentDidMount() {
-        axios.get(`api/stats/linegraphstatus`)
+        axios.get(`api/stats/linegraphstatus`, {
+                params: {
+                    tribe: this.props.tribe,
+                    harness: this.props.harness,
+                    testcase: this.props.testRecord
+                }
+            })
            .then(res => {
-             const linegraph_status = res.data;
-             this.setState({ linegraph_status });
-             this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-             this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-             this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
-             this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
+                const linegraph_status = res.data;
+                this.setState({ linegraph_status });
+                this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
+                this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
+                this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
+                this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
            })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        axios.get(`aapi/stats/linegraphstatus`, {
+                params: {
+                    tribe: this.nextProps.tribe,
+                    harness: this.nextProps.harness,
+                    testcase: this.nextProps.testRecord
+                }
+            })
+              .then(res => {
+                const linegraph_status = res.data;
+                    this.setState({ linegraph_status });
+                    this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
+                    this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
+                    this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
+                    this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
+            })
     }
 
     sortDate(a, b) {

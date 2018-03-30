@@ -7,6 +7,13 @@ import TestDetails from '../components//TestDetails'
 import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
 export default class API_dash extends Component {
+   constructor(props) {
+        super(props)
+
+        this.state = {
+            harness: 'API'
+        }
+    }
 
     render() {
 
@@ -28,7 +35,7 @@ export default class API_dash extends Component {
                                 <center><PiePassFail squad = {this.props.squad} /></center>
                                 <Card.Content>
                                     <Card.Header>
-                                        Address Validation
+                                        Address
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>
@@ -230,7 +237,7 @@ export default class API_dash extends Component {
                 </Grid>
                 <Grid>
                 <Grid.Row>
-                    <TestDetails tribe = {this.props.tribe}/>
+                    <TestDetails tribe = {this.props.tribe} harness={this.props.harness} />
                 </Grid.Row>
             </Grid>
             </Segment>

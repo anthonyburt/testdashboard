@@ -35,8 +35,6 @@ class TestSummary extends Component {
         }
     }
 
-
-
     render() {
 
         if (this.props.includeHistory === 'false')  {

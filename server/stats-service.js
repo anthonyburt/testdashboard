@@ -43,20 +43,23 @@ function getOverallHistory(req, res) {
         ]
     );
 
-
     docquery
-        .exec()
-        .then(stats => {
-            res.json(stats);
-        })
-        .catch(err => {
-        res.status(500).send(err);
-    });
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
 }
 
 function getQuickLookLineGraphTestStatus(req, res) {
+    var tribe_param = req.query.tribe;
+    var harness_param = req.query.harness;
+    var testcase_param = req.query.testcase;
+    var category_param = req.query.category;
 
-    const docquery = TestResults.aggregate(
+    const queryHome = TestResults.aggregate(
         [
             { "$sort": { "result": 1 } },
             {
@@ -79,14 +82,83 @@ function getQuickLookLineGraphTestStatus(req, res) {
         ]
     );
 
-    docquery
-        .exec()
-        .then(stats => {
-            res.json(stats);
-        })
-        .catch(err => {
-        res.status(500).send(err);
-    });
+    const queryHarness = TestResults.aggregate(
+        [
+            { "$sort": { "result": 1 } },
+            {
+                $group: {
+                    _id: { result: "$result", x:  "$date", harness: harness_param, tribe: tribe_param  },
+                    total_status:{ $sum: 1}
+                }
+            },
+                { $group: {
+                    _id: "$_id.result",
+                    v: { $push: {x: "$_id.x", y: "$total_status"}}
+                }
+            },
+            {
+                $group: {
+                    _id: "",
+                    data: {$push: "$$ROOT"}
+                }
+            }
+        ]
+    );
+
+    const queryTestCase = TestResults.aggregate(
+        [
+            { "$sort": { "result": 1 } },
+            {
+                $group: {
+                    _id: { result: "$result", x:  "$date", testcase: testcase_param, harness: harness_param, tribe: tribe_param  },
+                    total_status:{ $sum: 1}
+                }
+            },
+                { $group: {
+                    _id: "$_id.result",
+                    v: { $push: {x: "$_id.x", y: "$total_status"}}
+                }
+            },
+            {
+                $group: {
+                    _id: "",
+                    data: {$push: "$$ROOT"}
+                }
+            }
+        ]
+    );
+
+
+    if(testcase_param !== 'undefined') {
+        queryTestCase
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    } else if(harness_param !='undefined') {
+        queryHarness
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    } else {
+        queryHome
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    }
+
+
 }
 
 function getLastSyncTime(req, res) {
