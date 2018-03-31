@@ -7,12 +7,10 @@ import moment from 'moment'
 import ReactJson from 'react-json-view'
 
 import 'react-datepicker/dist/react-datepicker.css'
-import Comments from './Comments'
 import TestSummary from './TestSummary'
 import TestSteps from './TestSteps'
-import LastRunSummary from './LastRunSummary'
 import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
-import PiePassFail from './graphs/PiePassFail'
+
 
     const optionsCategory = [
         { key: 1, text: 'All', value: 'All'},
@@ -138,7 +136,7 @@ class TestDetails extends Component {
                 <div>
                   <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.state.harness}/>
                   <div>
-                      <Modal  size='large' trigger={
+                      <Modal size='large' trigger={
                           <Button floated ='right' color='purple'>
                               <Icon name='code' />
                               Json

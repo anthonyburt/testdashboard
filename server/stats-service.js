@@ -84,10 +84,16 @@ function getQuickLookLineGraphTestStatus(req, res) {
 
     const queryHarness = TestResults.aggregate(
         [
+            {
+                 $match: {
+                     tribe: tribe_param,
+                     harness: harness_param
+                 }
+            },
             { "$sort": { "result": 1 } },
             {
                 $group: {
-                    _id: { result: "$result", x:  "$date", harness: harness_param, tribe: tribe_param  },
+                    _id: { result: "$result", x:  "$date" },
                     total_status:{ $sum: 1}
                 }
             },
@@ -107,10 +113,17 @@ function getQuickLookLineGraphTestStatus(req, res) {
 
     const queryTestCase = TestResults.aggregate(
         [
+            {
+                 $match: {
+                     tribe: tribe_param,
+                     harness: harness_param,
+                     testcase:  testcase_param
+                 }
+            },
             { "$sort": { "result": 1 } },
             {
                 $group: {
-                    _id: { result: "$result", x:  "$date", testcase: testcase_param, harness: harness_param, tribe: tribe_param  },
+                    _id: { result: "$result", x:  "$date"  },
                     total_status:{ $sum: 1}
                 }
             },
@@ -129,7 +142,8 @@ function getQuickLookLineGraphTestStatus(req, res) {
     );
 
 
-    if(testcase_param !== 'undefined') {
+    if(testcase_param !== undefined) {
+        console.log('testcase_param');
         queryTestCase
             .exec()
             .then(stats => {
@@ -138,7 +152,8 @@ function getQuickLookLineGraphTestStatus(req, res) {
             .catch(err => {
             res.status(500).send(err);
         });
-    } else if(harness_param !='undefined') {
+    } else if(harness_param !== undefined) {
+    console.log('harness_param');
         queryHarness
             .exec()
             .then(stats => {
@@ -148,6 +163,7 @@ function getQuickLookLineGraphTestStatus(req, res) {
             res.status(500).send(err);
         });
     } else {
+            console.log('home');
         queryHome
             .exec()
             .then(stats => {

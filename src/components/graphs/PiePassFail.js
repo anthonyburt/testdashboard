@@ -1,5 +1,5 @@
 import React from 'react'
-import { VictoryPie, VictoryTooltip, VictoryChart } from 'victory'
+import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
 
     const testResults = [
@@ -15,7 +15,6 @@ class PiePassFail extends React.Component {
         super(props)
 
         this.state = {
-          linegraph_status: [],
           success: [],
           failures: [],
           skipped: [],
@@ -24,15 +23,7 @@ class PiePassFail extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`api/stats/linegraphstatus`)
-           .then(res => {
-             const linegraph_status = res.data;
-             this.setState({ linegraph_status });
-             this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-             this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-             this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
-             this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
-           })
+
     }
 
 	render () {

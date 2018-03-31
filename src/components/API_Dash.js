@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Label, Tab, Table, Header, Icon, Card, Grid, Segment } from 'semantic-ui-react'
+import { Table, Card, Grid, Segment, Dimmer, Loader } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import PiePassFail from '../components/graphs/PiePassFail'
@@ -17,6 +17,14 @@ export default class API_dash extends Component {
 
     render() {
 
+         if( this.props.tribe === undefined) {
+            return (
+                <Dimmer inverted active>
+                    <Loader size='tiny'>Loading</Loader>
+                </Dimmer>
+            )
+        }
+
         return (
             <Segment.Group>
                 <Segment>
@@ -24,7 +32,7 @@ export default class API_dash extends Component {
                 <Grid columns={1}>
                     <Grid.Row centered columns={3}>
                         <Grid.Column >
-                            <LineGraphStatusCounts />
+                            <LineGraphStatusCounts harness={this.state.harness} tribe={this.props.tribe} />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

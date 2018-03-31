@@ -23,31 +23,6 @@ class TestSteps extends Component {
             ))
         )
     }
-
-    // This isn't working -- will need to fix once test steps are reporting failures in mongo
-    generateStepRowsWithFailure(steps) {
-        const { value } = this.state.value
-
-        return (
-            <div>
-            {
-                steps.map((item, index, arr) => {
-                    if (arr.length - 1 === index) {
-                        {console.log("in here")}
-                        <Table.Row>
-                            <Table.Cell>{item}</Table.Cell>
-                        </Table.Row>
-                    } else {
-                           {console.log("not in here")}
-                        <Table.Row>
-                            <Table.Cell color='red'>{item}</Table.Cell>
-                        </Table.Row>
-                    }
-                })
-            }
-            </div>
-        )
-    }
 }
 
 export default TestSteps

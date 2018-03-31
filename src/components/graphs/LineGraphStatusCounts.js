@@ -18,6 +18,10 @@ class LineGraphTestDuration extends React.Component {
     }
 
     componentDidMount() {
+        console.log('we in mounting')
+        console.log(this.state)
+        console.log(this.props)
+
         axios.get(`api/stats/linegraphstatus`, {
                 params: {
                     tribe: this.props.tribe,
@@ -28,30 +32,55 @@ class LineGraphTestDuration extends React.Component {
            .then(res => {
                 const linegraph_status = res.data;
                 this.setState({ linegraph_status });
-                this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-                this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-                this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
-                this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
-           })
-    }
+                linegraph_status[0].data.map((item, index, arr) => {
+                    if(item._id === 'Failed') {
+                        console.log('failed')
+                        console.log(item.v)
+                        this.setState({ failures: item.v })
+                    } else if(item._id === 'Inconclusive') {
+                        console.log('Inconclusive')
+                        console.log(item.v)
+                        this.setState({ inconclusive: item.v })
+                    } else if(item._id === 'Passed') {
+                          console.log('success')
+                          console.log(item.v)
+                          this.setState({ success: item.v })
+                    } else if (item._id === 'Skipped') {
+                        console.log('Skipped')
+                        console.log(item.v)
+                        this.setState({ skipped: item.v })
+                    }
+                    })})
+
+
+
+           }
+
 
     componentWillReceiveProps(nextProps) {
-        axios.get(`aapi/stats/linegraphstatus`, {
-                params: {
-                    tribe: this.nextProps.tribe,
-                    harness: this.nextProps.harness,
-                    testcase: this.nextProps.testRecord
-                }
-            })
-              .then(res => {
-                const linegraph_status = res.data;
-                    this.setState({ linegraph_status });
-                    this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-                    this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-                    this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
-                    this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
-            })
+        if(nextProps.harness !== this.props.harness || nextProps.tribe !== this.props.tribe || nextProps.testRecord !== this.props.testRecord) {
+            console.log('we in next')
+            console.log(nextProps)
+                    console.log(this.props)
+            axios.get(`api/stats/linegraphstatus`, {
+                            params: {
+                                tribe: this.props.tribe,
+                                harness: this.props.harness,
+                                testcase: this.props.testRecord
+                            }
+                        })
+                       .then(res => {
+                            const linegraph_status = res.data;
+                            this.setState({ linegraph_status });
+
+                            this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
+                            this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
+                            this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
+                            this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
+                       })
+       }
     }
+
 
     sortDate(a, b) {
         if (a.x < b.x) {
@@ -67,8 +96,7 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    if( this.state.success[0] === undefined || this.state.failures[0] === undefined
-	        || this.state.skipped[0] === undefined || this.state.inconclusive[0] === undefined) {
+	    if( this.state.linegraph_status === [])  {
             return (
                 <Dimmer inverted active>
                     <Loader size='tiny'>Loading</Loader>
@@ -76,10 +104,12 @@ class LineGraphTestDuration extends React.Component {
             )
         }
 
-        if(this.state.success[0]) this.state.success[0].sort(this.sortDate)
-        if(this.state.failures[0]) this.state.failures[0].sort(this.sortDate)
-        if(this.state.skipped[0]) this.state.skipped[0].sort(this.sortDate)
-        if(this.state.inconclusive[0]) this.state.inconclusive[0].sort(this.sortDate)
+        if(this.state.success) this.state.success.sort(this.sortDate)
+        if(this.state.failures) this.state.failures.sort(this.sortDate)
+        if(this.state.skipped) this.state.skipped.sort(this.sortDate)
+        if(this.state.inconclusive) this.state.inconclusive.sort(this.sortDate)
+
+
 
         return (
 
@@ -112,12 +142,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#21ba45" },
                                 parent: { border: "3px solid #ccc"},
                             }}
-                            data={this.state.success[0]}
+                            data={this.state.success}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#21ba45" } }}
                             size={4}
-                            data={this.state.success[0]}
+                            data={this.state.success}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
@@ -130,12 +160,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#db2828" },
                                 parent: { border: "3px solid #ccc"}
                             }}
-                            data={this.state.failures[0]}
+                            data={this.state.failures}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#db2828" } }}
                             size={4}
-                            data={this.state.failures[0]}
+                            data={this.state.failures}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
@@ -147,12 +177,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#FBBD08" },
                                 parent: { border: "3px solid #ccc"}
                             }}
-                            data={this.state.skipped[0]}
+                            data={this.state.skipped}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#FBBD08" } }}
                             size={4}
-                            data={this.state.skipped[0]}
+                            data={this.state.skipped}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }
@@ -164,12 +194,12 @@ class LineGraphTestDuration extends React.Component {
                                 data: { stroke: "#767676" },
                                 parent: { border: "3px solid #ccc"}
                             }}
-                            data={this.state.inconclusive[0]}
+                            data={this.state.inconclusive}
                         />
                         <VictoryScatter
                             style={{ data: { fill: "#767676" } }}
                             size={4}
-                            data={this.state.inconclusive[0]}
+                            data={this.state.inconclusive}
                             animate={{
                                 duration: 2000,
                                 onLoad: { duration: 1000 }

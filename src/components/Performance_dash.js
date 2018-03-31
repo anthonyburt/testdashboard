@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import { Menu, Label, Tab, Table, Header, Icon, Card, Grid, Segment } from 'semantic-ui-react'
+import { Header, Grid, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
-
-import PiePassFail from '../components/graphs/PiePassFail'
-import TestDetails from '../components//TestDetails'
-import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
 export default class Performance_dash extends Component {
 

@@ -17,7 +17,6 @@ class Home extends React.Component {
 
         this.state = {
           overall_stats: [],
-          linegraph_status: [],
           lastSync: []
         }
     }
@@ -64,7 +63,7 @@ class Home extends React.Component {
                                     <Grid centered >
                                         <Grid.Row >
                                             <Grid.Column width={8} floated='left'>
-                                                <LineGraphStatusCount linegraph_status = {this.state.linegraph_duration} />
+                                                <LineGraphStatusCount harness={this.state.harness} tribe={this.state.tribe} />
                                             </Grid.Column>
                                             <Grid.Column width={8} floated='left'>
                                                  <BarGraphPassFail/>

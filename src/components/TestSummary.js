@@ -122,10 +122,10 @@ class TestSummary extends Component {
     compareJson(lastPassed, jsonNew) {
 
 
-        {console.log(lastPassed)}
-        {console.log(jsonNew)}
+        console.log(lastPassed)
+        console.log(jsonNew)
         const result = deepDiff(lastPassed, jsonNew);
-        {console.log(result)}
+        console.log(result)
 
         return (
             <div>

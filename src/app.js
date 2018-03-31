@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Home from './pages/Home'
 import Tribe from './pages/Tribe'
-import UI from './pages/UI'
 import Header from './components/Header'
 
 class App extends Component {

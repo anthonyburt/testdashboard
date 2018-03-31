@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import {  Table, Header, Grid, Segment, Card, Icon, Image } from 'semantic-ui-react'
+import {  Table, Grid, Segment, Card } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import TestDetails from '../components//TestDetails'
 import PiePassFail from '../components/graphs/PiePassFail'
-import LastRunSummary from '../components/LastRunSummary'
 import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
 export default class UI_dash extends Component {
