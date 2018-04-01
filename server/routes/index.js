@@ -20,6 +20,10 @@ router.get('/stats/totaltestruns', (req, res) => {
   statsService.getTotalTestRuns(req, res);
 });
 
+router.get('/stats/pie', (req, res) => {
+  testResultService.pie(req, res);
+});
+
 router.get('/test/', (req, res) => {
   testResultService.getTestResult(req, res);
 });

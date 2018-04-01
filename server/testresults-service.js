@@ -217,9 +217,38 @@ function getTestResult(req, res) {
             res.status(500).send(err);
         });
     }
+}
 
+function pie(req, res) {
+    var tribe_param = req.query.tribe;
+    var harness_param = req.query.harness;
+    var category_param = req.query.category;
 
+    const queryPie = TestResults.aggregate(
+        [
+            {
+                 $match: {
+                     tribe: tribe_param,
+                     harness: harness_param,
+                     category: category_param
+                 }
+            },
+            {"$group":{
+                        "_id":{"result": "$result"},
+                        "test_count":{"$sum": 1}
+            }}
+        ]
+    );
+
+    queryPie
+        .exec()
+        .then(stats => {
+            res.json(stats);
+        })
+        .catch(err => {
+        res.status(500).send(err);
+    });
 
 }
 
-module.exports = { getTestResult };
+module.exports = { getTestResult, pie };

@@ -34,7 +34,7 @@ export default class UI_dash extends Component {
                         </Grid.Column>
                         <Grid.Column>
                             <Card>
-                                <center><PiePassFail squad = {this.props.squad} /></center>
+
                                 <Card.Content>
                                     <Card.Header>
                                         Shop X
@@ -63,7 +63,7 @@ export default class UI_dash extends Component {
                             </Grid.Column>
                             <Grid.Column>
                             <Card>
-                                <center><PiePassFail squad = {this.props.squad} /></center>
+
                                 <Card.Content>
                                     <Card.Header>
                                         Checkout
@@ -92,7 +92,7 @@ export default class UI_dash extends Component {
                             </Grid.Column>
                             <Grid.Column>
                             <Card>
-                                <center><PiePassFail squad = {this.props.squad} /></center>
+
                                 <Card.Content>
                                     <Card.Header>
                                         Order Assist
@@ -121,7 +121,7 @@ export default class UI_dash extends Component {
                             </Grid.Column>
                             <Grid.Column>
                             <Card>
-                                <center><PiePassFail squad = {this.props.squad} /></center>
+
                                 <Card.Content>
                                     <Card.Header>
                                         Order Management

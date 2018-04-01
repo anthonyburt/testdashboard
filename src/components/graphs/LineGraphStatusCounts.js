@@ -1,15 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
-import { Loader, Dimmer } from 'semantic-ui-react'
-
 
 class LineGraphTestDuration extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            linegraph_status: [],
             success: [],
             failures: [],
             skipped: [],
@@ -18,10 +15,6 @@ class LineGraphTestDuration extends React.Component {
     }
 
     componentDidMount() {
-        console.log('we in mounting')
-        console.log(this.state)
-        console.log(this.props)
-
         axios.get(`api/stats/linegraphstatus`, {
                 params: {
                     tribe: this.props.tribe,
@@ -31,56 +24,20 @@ class LineGraphTestDuration extends React.Component {
             })
            .then(res => {
                 const linegraph_status = res.data;
-                this.setState({ linegraph_status });
                 linegraph_status[0].data.map((item, index, arr) => {
                     if(item._id === 'Failed') {
-                        console.log('failed')
-                        console.log(item.v)
                         this.setState({ failures: item.v })
                     } else if(item._id === 'Inconclusive') {
-                        console.log('Inconclusive')
-                        console.log(item.v)
                         this.setState({ inconclusive: item.v })
                     } else if(item._id === 'Passed') {
-                          console.log('success')
-                          console.log(item.v)
                           this.setState({ success: item.v })
                     } else if (item._id === 'Skipped') {
-                        console.log('Skipped')
-                        console.log(item.v)
                         this.setState({ skipped: item.v })
                     }
-                    })})
-
-
-
-           }
-
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.harness !== this.props.harness || nextProps.tribe !== this.props.tribe || nextProps.testRecord !== this.props.testRecord) {
-            console.log('we in next')
-            console.log(nextProps)
-                    console.log(this.props)
-            axios.get(`api/stats/linegraphstatus`, {
-                            params: {
-                                tribe: this.props.tribe,
-                                harness: this.props.harness,
-                                testcase: this.props.testRecord
-                            }
-                        })
-                       .then(res => {
-                            const linegraph_status = res.data;
-                            this.setState({ linegraph_status });
-
-                            this.setState({ failures: this.state.linegraph_status.map((item) =>  item.data[0].v) })
-                            this.setState({ inconclusive: this.state.linegraph_status.map((item) =>  item.data[1].v) })
-                            this.setState({ success: this.state.linegraph_status.map((item) =>  item.data[2].v) })
-                            this.setState({ skipped: this.state.linegraph_status.map((item) =>  item.data[3].v) })
-                       })
-       }
+                })
+            }
+        )
     }
-
 
     sortDate(a, b) {
         if (a.x < b.x) {
@@ -96,20 +53,10 @@ class LineGraphTestDuration extends React.Component {
 
 	render () {
 
-	    if( this.state.linegraph_status === [])  {
-            return (
-                <Dimmer inverted active>
-                    <Loader size='tiny'>Loading</Loader>
-                </Dimmer>
-            )
-        }
-
         if(this.state.success) this.state.success.sort(this.sortDate)
         if(this.state.failures) this.state.failures.sort(this.sortDate)
         if(this.state.skipped) this.state.skipped.sort(this.sortDate)
         if(this.state.inconclusive) this.state.inconclusive.sort(this.sortDate)
-
-
 
         return (
 
