@@ -178,34 +178,6 @@ function getQuickLookLineGraphTestStatus(req, res) {
 
 }
 
-function getLastSyncTime(req, res) {
-    var tribe_param = req.query.tribe;
-    var harness_param = req.query.harness;
-    var category_param = req.query.category;
-
-    const queryPie = TestResults.aggregate(
-        [
-            {
-                 $match: {
-                     tribe: tribe_param,
-                     harness: harness_param,
-                     category: category_param
-                     }
-                     }
-                     ]);
-
-    const docquery = TestResults.find( {}, {"date":1, _id:0}).sort({"date": -1}).limit(1);
-
-    docquery
-        .exec()
-        .then(stats => {
-            res.json(stats);
-        })
-        .catch(err => {
-        res.status(500).send(err);
-    });
-}
-
 function getTotalTestRuns(req, res) {
 
     const docquery = TestResults.aggregate([
@@ -235,4 +207,4 @@ function getTotalTestRuns(req, res) {
 }
 
 
-module.exports = { getOverallHistory, getQuickLookLineGraphTestStatus, getLastSyncTime, getTotalTestRuns };
+module.exports = { getOverallHistory, getQuickLookLineGraphTestStatus, getTotalTestRuns };

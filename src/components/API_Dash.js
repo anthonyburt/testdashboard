@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Card, Grid, Segment, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid, Segment, Dimmer, Loader } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import CategoryCard from '../components/CategoryCard'

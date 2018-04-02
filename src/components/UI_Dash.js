@@ -2,11 +2,18 @@ import React, { Component } from 'react'
 import {  Table, Grid, Segment, Card } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
+import CategoryCard from '../components/CategoryCard'
 import TestDetails from '../components//TestDetails'
-import PiePassFail from '../components/graphs/PiePassFail'
 import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
 
 export default class UI_dash extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            harness: 'Selenium'
+        }
+    }
 
     render() {
 
@@ -18,7 +25,7 @@ export default class UI_dash extends Component {
                 <Grid columns={1}>
                     <Grid.Row centered columns={3}>
                         <Grid.Column >
-                            <LineGraphStatusCounts />
+                            <LineGraphStatusCounts tribe={this.props.tribe} harness={this.state.harness} />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -33,120 +40,16 @@ export default class UI_dash extends Component {
                         <Grid.Column width={1}>
                         </Grid.Column>
                         <Grid.Column>
-                            <Card>
-
-                                <Card.Content>
-                                    <Card.Header>
-                                        Shop X
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>
-                                          Completed 5 hrs ago
-                                        </span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Table>
-                                        <Table.Body>
-                                            <Table.Row>
-                                                <Table.Cell>Last Success Rate:</Table.Cell>
-                                                <Table.Cell>100%</Table.Cell>
-                                            </Table.Row>
-                                            <Table.Row>
-                                                <Table.Cell>Previous Success Rate:</Table.Cell>
-                                                <Table.Cell>100%</Table.Cell>
-                                            </Table.Row>
-                                        </Table.Body>
-                                        </Table>
-                                    </Card.Description>
-                                </Card.Content>
-                            </Card>
-                            </Grid.Column>
-                            <Grid.Column>
-                            <Card>
-
-                                <Card.Content>
-                                    <Card.Header>
-                                        Checkout
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>
-                                          Completed 5 hrs ago
-                                        </span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Table>
-                                        <Table.Body>
-                                            <Table.Row>
-                                                <Table.Cell>Last Success Rate:</Table.Cell>
-                                                <Table.Cell>100%</Table.Cell>
-                                            </Table.Row>
-                                            <Table.Row>
-                                                <Table.Cell>Previous Success Rate:</Table.Cell>
-                                                <Table.Cell>100%</Table.Cell>
-                                            </Table.Row>
-                                        </Table.Body>
-                                        </Table>
-                                    </Card.Description>
-                                </Card.Content>
-                            </Card>
-                            </Grid.Column>
-                            <Grid.Column>
-                            <Card>
-
-                                <Card.Content>
-                                    <Card.Header>
-                                        Order Assist
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>
-                                          Completed 5 hrs ago
-                                        </span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                       <Table>
-                                       <Table.Body>
-                                           <Table.Row>
-                                               <Table.Cell>Last Success Rate:</Table.Cell>
-                                               <Table.Cell>100%</Table.Cell>
-                                           </Table.Row>
-                                           <Table.Row>
-                                               <Table.Cell>Previous Success Rate:</Table.Cell>
-                                               <Table.Cell>100%</Table.Cell>
-                                           </Table.Row>
-                                       </Table.Body>
-                                       </Table>
-                                    </Card.Description>
-                                </Card.Content>
-                            </Card>
-                            </Grid.Column>
-                            <Grid.Column>
-                            <Card>
-
-                                <Card.Content>
-                                    <Card.Header>
-                                        Order Management
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>
-                                          Completed 5 hrs ago
-                                        </span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                       <Table>
-                                       <Table.Body>
-                                           <Table.Row>
-                                               <Table.Cell>Last Success Rate:</Table.Cell>
-                                               <Table.Cell>100%</Table.Cell>
-                                           </Table.Row>
-                                           <Table.Row>
-                                               <Table.Cell>Previous Success Rate:</Table.Cell>
-                                               <Table.Cell>100%</Table.Cell>
-                                           </Table.Row>
-                                       </Table.Body>
-                                       </Table>
-                                    </Card.Description>
-                                </Card.Content>
-                            </Card>
+                        <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Shop X" />
+                        </Grid.Column>
+                        <Grid.Column>
+                        <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Checkout" />
+                        </Grid.Column>
+                        <Grid.Column>
+                        <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Order Assist" />
+                        </Grid.Column>
+                        <Grid.Column>
+                        <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Order Management" />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

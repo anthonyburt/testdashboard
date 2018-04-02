@@ -12,10 +12,6 @@ router.get('/stats/linegraphstatus', (req, res) => {
   statsService.getQuickLookLineGraphTestStatus(req, res);
 });
 
-router.get('/stats/lastsync', (req, res) => {
-  statsService.getLastSyncTime(req, res);
-});
-
 router.get('/stats/totaltestruns', (req, res) => {
   statsService.getTotalTestRuns(req, res);
 });
@@ -26,6 +22,10 @@ router.get('/stats/pie', (req, res) => {
 
 router.get('/test/', (req, res) => {
   testResultService.getTestResult(req, res);
+});
+
+router.get('/test/lastsync', (req, res) => {
+  testResultService.getLastSyncTime(req, res);
 });
 
 module.exports = router;

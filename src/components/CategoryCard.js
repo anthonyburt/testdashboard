@@ -2,6 +2,8 @@ import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
 import { Dimmer, Loader, Card, Table } from 'semantic-ui-react'
+import moment from 'moment'
+import momentDuration from 'moment-duration-format'
 
 class CategoryCard extends React.Component {
     constructor(props) {
@@ -14,7 +16,8 @@ class CategoryCard extends React.Component {
           last_completion_time: '',
           last_success_rate: '',
           previous_success_rate: '',
-          lastsync_category: ''
+          lastsync_category: '',
+          lastsync_time: []
 
         }
     }
@@ -54,27 +57,27 @@ class CategoryCard extends React.Component {
                 }
             })
 
-            axios.get(`api/stats/lastsync`, {
+            axios.get(`api/test/lastsync`, {
                 params: {
                     tribe: this.props.tribe,
                     harness: this.props.harness,
                     category: this.props.category
                 }
             })
-           .then(res => {
-                const lastsync = res.data;
-                this.setState({ lastsync_category: lastsync})
+            .then(res => {
+                const syncTime = res.data
+                this.setState({ lastsync_time: syncTime })
             })
+
+            if ( total_count > 0 ) {
+                this.setState({ last_success_rate: (Number.parseFloat(pass_count / total_count * 100).toFixed(0)) })
+            }
 
             this.setState({
                 pie_results: testResults,
                 pie_colors: colorResults,
                 fetching_data: false
             })
-
-            if ( total_count > 0 ) {
-                this.setState({ last_success_rate: (Number.parseFloat(pass_count / total_count * 100).toFixed(0)) })
-            }
         })
     }
 
@@ -117,7 +120,7 @@ class CategoryCard extends React.Component {
                     </Card.Header>
                     <Card.Meta>
                         <span className='date'>
-                          Completed 5 hrs ago
+                          {this.state.lastsync_time.map((item,i) => this.formatSync(item.date) )}
                         </span>
                     </Card.Meta>
                     <Card.Description>
@@ -142,6 +145,22 @@ class CategoryCard extends React.Component {
 	displayRate(rate) {
         return (rate !== '' ? rate.concat('%') : '')
     }
+
+    formatSyncTime(time) {
+        console.log(time)
+        return (time !== '' ? this.formatSync(time) : '')
+    }
+
+    formatSync(time) {
+        var start = moment(time);
+        var end = moment();
+        const converted = end.to(start);
+
+        return (
+          <div key="sync">Completed {converted}</div>
+        )
+    }
+
 
 
 }

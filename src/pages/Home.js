@@ -2,14 +2,13 @@ import React from 'react'
 import {  Grid, Icon, Label, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import moment from 'moment'
+import axios from 'axios'
 
 import statsService from '../api/Stats.js'
 
 import OverallHistory from '../components/OverallHistory.js'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 import BarGraphPassFail from '../components/graphs/BarGraphPassFail'
-
-
 
 class Home extends React.Component {
     constructor(props) {
@@ -23,7 +22,12 @@ class Home extends React.Component {
 
     componentDidMount() {
         statsService.getOverallHistory().then(json => this.setState({ overall_stats: json }))
-        statsService.getLastSyncTime().then(json => this.setState({ lastSync: json }))
+        axios.get(`api/test/lastsync`, {
+        })
+          .then(res => {
+            const syncTime = res.data
+            this.setState({ lastSync: syncTime })
+        })
     }
 
      formatSync(inTime) {

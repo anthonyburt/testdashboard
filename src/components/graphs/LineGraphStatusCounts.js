@@ -7,6 +7,7 @@ class LineGraphTestDuration extends React.Component {
         super(props)
 
         this.state = {
+            fetching_data: true,
             success: [],
             failures: [],
             skipped: [],
@@ -37,6 +38,8 @@ class LineGraphTestDuration extends React.Component {
                 })
             }
         )
+        
+        this.setState({ fetching_data: false})
     }
 
     sortDate(a, b) {

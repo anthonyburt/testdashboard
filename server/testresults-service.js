@@ -251,4 +251,34 @@ function pie(req, res) {
 
 }
 
-module.exports = { getTestResult, pie };
+function getLastSyncTime(req, res) {
+    var tribe_param = req.query.tribe;
+    var harness_param = req.query.harness;
+    var category_param = req.query.category;
+
+    const all = TestResults.find( {}, {"date":1, _id:0}).sort({"date": -1}).limit(1);
+
+    const categoryLastSync = TestResults.find( {"tribe": tribe_param, "harness": harness_param, "category": category_param}, {date: 1, _id: 0 }).sort({"date": -1}).limit(1);
+
+    if(category_param !== undefined){
+        categoryLastSync
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    } else {
+        all
+            .exec()
+            .then(stats => {
+                res.json(stats);
+            })
+            .catch(err => {
+            res.status(500).send(err);
+        });
+    }
+}
+
+module.exports = { getTestResult, pie, getLastSyncTime };

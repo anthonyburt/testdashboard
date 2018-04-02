@@ -3,14 +3,6 @@ import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
-    const testResults = [
-        { x: "Success", y: 25 },
-        { x: "Failures", y: 25  },
-        { x: "Skipped", y: 25 },
-        { x: "Inconclusive", y: 25 }
-    ]
-
-
 class PiePassFail extends React.Component {
     constructor(props) {
         super(props)
