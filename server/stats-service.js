@@ -87,7 +87,8 @@ function getQuickLookLineGraphTestStatus(req, res) {
             {
                  $match: {
                      tribe: tribe_param,
-                     harness: harness_param
+                     harness: harness_param,
+
                  }
             },
             { "$sort": { "result": 1 } },
@@ -178,6 +179,20 @@ function getQuickLookLineGraphTestStatus(req, res) {
 }
 
 function getLastSyncTime(req, res) {
+    var tribe_param = req.query.tribe;
+    var harness_param = req.query.harness;
+    var category_param = req.query.category;
+
+    const queryPie = TestResults.aggregate(
+        [
+            {
+                 $match: {
+                     tribe: tribe_param,
+                     harness: harness_param,
+                     category: category_param
+                     }
+                     }
+                     ]);
 
     const docquery = TestResults.find( {}, {"date":1, _id:0}).sort({"date": -1}).limit(1);
 

@@ -13,7 +13,8 @@ class CategoryCard extends React.Component {
           fetching_data: true,
           last_completion_time: '',
           last_success_rate: '',
-          previous_success_rate: ''
+          previous_success_rate: '',
+          lastsync_category: ''
 
         }
     }
@@ -52,15 +53,25 @@ class CategoryCard extends React.Component {
                     total_count = total_count + item.test_count
                 }
             })
-            console.log(testResults)
-            console.log(pass_count)
-            console.log(total_count)
+
+            axios.get(`api/stats/lastsync`, {
+                params: {
+                    tribe: this.props.tribe,
+                    harness: this.props.harness,
+                    category: this.props.category
+                }
+            })
+           .then(res => {
+                const lastsync = res.data;
+                this.setState({ lastsync_category: lastsync})
+            })
+
             this.setState({
                 pie_results: testResults,
                 pie_colors: colorResults,
                 fetching_data: false
             })
-            console.log(  (Number.parseFloat(pass_count / total_count * 100).toFixed(0)))
+
             if ( total_count > 0 ) {
                 this.setState({ last_success_rate: (Number.parseFloat(pass_count / total_count * 100).toFixed(0)) })
             }
@@ -114,11 +125,11 @@ class CategoryCard extends React.Component {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell>Last Success Rate:</Table.Cell>
-                                <Table.Cell>{this.state.last_success_rate}%</Table.Cell>
+                                <Table.Cell>{this.displayRate(this.state.last_success_rate)}</Table.Cell>
                             </Table.Row>
                             <Table.Row>
-                                <Table.Cell>Previous Success Rate:</Table.Cell>
-                                <Table.Cell>100%</Table.Cell>
+                                <Table.Cell>Prev Success Rate:</Table.Cell>
+                                <Table.Cell>{this.displayRate(this.state.previous_success_rate)}</Table.Cell>
                             </Table.Row>
                         </Table.Body>
                         </Table>
@@ -128,7 +139,17 @@ class CategoryCard extends React.Component {
         )
 	}
 
+	displayRate(rate) {
+        return (rate !== '' ? rate.concat('%') : '')
+    }
+
+
 }
+
+
+
+
+
 
 export default CategoryCard
 
