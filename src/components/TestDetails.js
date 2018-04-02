@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import {Button, Grid, Icon, Modal, Segment, Dropdown, Accordion, Loader, Dimmer, Label } from 'semantic-ui-react'
+import {Button, Grid, Icon, Segment, Dropdown, Accordion, Loader, Dimmer, Label } from 'semantic-ui-react'
 import axios from 'axios'
 import _ from 'lodash'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import ReactJson from 'react-json-view'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import Comments from './Comments'
 import TestSummary from './TestSummary'
 import TestSteps from './TestSteps'
-import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
+import ModalJson from './ModalJson'
+import ModalHistory from './ModalHistory'
+
 
     const optionsCategoryUI = [
         { key: 1, text: 'All', value: 'All'},
@@ -59,14 +60,6 @@ class TestDetails extends Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    show() {
-        this.setState({ modal_visible: true })
-    }
-
-    hide() {
-        this.setState({ modal_visible: false })
-    }
-
     handleChangeStart(date) {
         this.setState({
             startDate: date
@@ -86,43 +79,7 @@ class TestDetails extends Component {
     handleSearch = () => this.updateTestResults()
 
     componentDidMount() {
-        axios.get(`api/test`, {
-            params: {
-                tribe: this.props.tribe,
-                category: this.state.category,
-                harness: this.props.harness,
-                status: this.state.test_status,
-                startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
-                enddate: moment(this.state.endDate).format('MM-DD-YYYY')
-            }
-        })
-          .then(res => {
-            const test_data = res.data
-            this.setState({
-                test_data,
-                fetching_data: false
-            })
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        axios.get(`api/test`, {
-                params: {
-                    tribe: this.props.tribe,
-                    category: this.state.category,
-                    harness: this.props.harness,
-                    status: this.state.test_status,
-                    startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
-                    enddate: moment(this.state.endDate).format('MM-DD-YYYY')
-                }
-            })
-              .then(res => {
-                const test_data = res.data
-                this.setState({
-                    test_data,
-                    fetching_data: false
-                })
-            })
+        this.updateTestResults()
     }
 
     render() {
@@ -130,16 +87,15 @@ class TestDetails extends Component {
         if( this.state.fetching_data === true ) {
             return (
                 <Grid.Column key={this.state.harness} width={16} >
-                        <Segment.Group>
-                            <Segment color='blue' inverted>Test Details</Segment>
-                            <Segment>
-                               <Dimmer inverted active>
-                                   <Loader size='tiny'></Loader>
-                               </Dimmer>
-                            </Segment>
-                        </Segment.Group>
-                    </Grid.Column>
-
+                    <Segment.Group>
+                        <Segment color='blue' inverted>Test Details</Segment>
+                        <Segment>
+                           <Dimmer inverted active>
+                               <Loader size='tiny'></Loader>
+                           </Dimmer>
+                        </Segment>
+                    </Segment.Group>
+                </Grid.Column>
             )
         }
 
@@ -154,47 +110,14 @@ class TestDetails extends Component {
           content: {
             content: (
                 <div>
-                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
-                  <div>
-                      <Modal  size='large' trigger={
-                          <Button floated ='right' color='purple'>
-                              <Icon name='code' />
-                              Json
-                          </Button>}>
-                          <Modal.Header>JSON response for {this.state.test_data[i].description}</Modal.Header>
-                              <Modal.Content>
-                                <Grid>
-                                    <Grid.Row >
-                                        <Grid.Column width={16} >
-                                            <ReactJson src={this.state.test_data[i].responseJson} theme="summerfruit:inverted" />
-                                        </Grid.Column>
-                                      </Grid.Row>
-                                </Grid>
-                              </Modal.Content>
-                          </Modal>
-                  </div>
-                  <div>
-                    <Modal  size='large' trigger={
-                        <Button floated ='right' color='black'>
-                            <Icon name='history' />
-                            History
-                        </Button>}>
-                        <Modal.Header>{this.state.test_data[i].description}</Modal.Header>
-                            <Modal.Content>
-                              <Grid centered>
-                                  <Grid.Row>
-                                      <Grid.Column width={8} >
-                                          <LineGraphStatusCounts tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[i].testcase} />
-                                      </Grid.Column>
-                                  </Grid.Row>
-                                  <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} category={this.state.test_data[i].category} />
-                                    </Grid.Row>
-                              </Grid>
-                            </Modal.Content>
-                        </Modal>
+                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
+                    <div>
+                        <ModalJson description={this.state.test_data[i].description} responseJson={this.state.test_data[i].responseJson}/>
                     </div>
-                <TestSteps testSteps={this.state.test_data[i].teststeps}/>
+                    <div>
+                        <ModalHistory tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[i]} />
+                    </div>
+                        <TestSteps testSteps={this.state.test_data[i].teststeps}/>
                 </div>
             ),
             key: `content-${i}`,
@@ -219,7 +142,7 @@ class TestDetails extends Component {
                                             selection
                                             value={this.state.category}
                                         />
-                                        <div>Status</div>
+                                    <div>Status</div>
                                         <Dropdown
                                             key='dropDownTestStatus'
                                             onChange={this.handleChangeStatus}
@@ -228,7 +151,7 @@ class TestDetails extends Component {
                                             selection
                                             value={this.state.test_status}
                                         />
-                                        <div>
+                                    <div>
                                         Start Date
                                         <DatePicker
                                             selected={this.state.startDate}
@@ -247,15 +170,15 @@ class TestDetails extends Component {
                                             onChange={this.handleChangeEnd}
                                             placeholderText="End Date"
                                         />
-                                        </div>
-                                        <div className='test-details-search'>
-                                            <Button
-                                                color='black' icon labelPosition='left'
-                                                onClick={this.handleSearch}
-                                            >
-                                                <Icon size='large' name='search' />
-                                                Search
-                                            </Button>
+                                    </div>
+                                    <div className='test-details-search'>
+                                        <Button
+                                            color='black' icon labelPosition='left'
+                                            onClick={this.handleSearch}
+                                        >
+                                            <Icon size='large' name='search' />
+                                            Search
+                                        </Button>
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={13}>
@@ -269,27 +192,25 @@ class TestDetails extends Component {
         )
     }
 
-     updateTestResults() {
+    updateTestResults() {
 
-            axios.get(`api/test`, {
-                        params: {
-                            tribe: this.props.tribe,
-                            category: this.state.category,
-                            harness: this.props.harness,
-                            status: this.state.test_status,
-                            startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
-                            enddate: moment(this.state.endDate).format('MM-DD-YYYY')
-                        }
-                    })
-                      .then(res => {
-                        const test_data = res.data
-                        this.setState({
-                            test_data,
-                            fetching_data: false
-                        })
-                    })
-
-
+        axios.get(`api/test`, {
+            params: {
+                tribe: this.props.tribe,
+                category: this.state.category,
+                harness: this.props.harness,
+                status: this.state.test_status,
+                startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
+                enddate: moment(this.state.endDate).format('MM-DD-YYYY')
+            }
+        })
+          .then(res => {
+            const test_data = res.data
+            this.setState({
+                test_data,
+                fetching_data: false
+            })
+        })
     }
 
     getStatusColor(result) {

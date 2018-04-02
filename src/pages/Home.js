@@ -8,7 +8,6 @@ import statsService from '../api/Stats.js'
 
 import OverallHistory from '../components/OverallHistory.js'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
-import BarGraphPassFail from '../components/graphs/BarGraphPassFail'
 
 class Home extends React.Component {
     constructor(props) {

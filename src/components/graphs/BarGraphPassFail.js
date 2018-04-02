@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
-import { Loader, Dimmer, Icon } from 'semantic-ui-react'
+import { Loader, Dimmer } from 'semantic-ui-react'
 
 class BarGraphPassFail extends React.Component {
     constructor(props) {

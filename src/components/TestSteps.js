@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import {Table} from 'semantic-ui-react'
+import {Table, Icon} from 'semantic-ui-react'
 
 class TestSteps extends Component {
 
     render() {
 
         return (
-            <Table fixed size='small' celled basic='very' striped compact='very'>
+            <Table striped basic='very' celled>
                 <Table.Body>
                     {this.generateStepRows(this.props.testSteps)}
                 </Table.Body>
@@ -18,6 +18,7 @@ class TestSteps extends Component {
         return (
             steps.map((item, index, arr) => (
                 <Table.Row key={index}>
+                    <Table.Cell textAlign='center'><Icon name='thumbs up' color='green'/></Table.Cell>
                     <Table.Cell>{item}</Table.Cell>
                 </Table.Row>
             ))

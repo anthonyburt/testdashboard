@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Modal, Button, Segment, Grid, Table, Dimmer, Icon, Loader } from 'semantic-ui-react'
+import { Segment, Grid, Table, Dimmer, Icon, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
-import ReactJson from 'react-json-view'
-import deepDiff from 'deep-diff-object'
 
-const lastPassed = JSON.parse('{"user_id" : "XXCDBWN","password" :"ABCDBWN" ,"date_of_join" : "15/10/2010" ,"education" :"B.C.A." , "profession" : "DEVELOPER","interest" : "MUSIC","community_name" :["MODERN MUSIC", "CLASSICAL MUSIC","WESTERN MUSIC"],"community_moder_id" : ["MR. BBB","MR. JJJ","MR MMM"],"community_members" : [500,200,1500],"friends_id" : ["MMM123","NNN123","OOO123"],"ban_friends_id" :["BAN123","BAN456","BAN789"]}')
+import ModalJson from './ModalJson'
+import TestSteps from './TestSteps'
 
 class TestSummary extends Component {
     constructor(props) {
@@ -56,62 +55,37 @@ class TestSummary extends Component {
         }
 
         if (this.props.includeHistory === 'true')  {
-                    return (
-
-                        this.state.test_data.map((item, index, arr) => (
-                            <Segment>
-                            <Grid>
-                                <Grid.Row columns={1}>
-                                    <Grid.Column>
-                                      <Table celled color={this.getStatusColor(item.result)}>
-                                          {this.tableHeader()}
-                                          {this.tableBody(item)}
-                                      </Table>
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column floated='right'>
-                                      <Modal size='large' trigger={
-                                          <Button floated ='right' color='purple'>
-                                              <Icon name='code' />
-                                              Json
-                                          </Button>}>
-                                          <Modal.Header>JSON response for {item.description}</Modal.Header>
-                                              <Modal.Content>
-                                                <Table celled>
-                                                    <Table.Header>
-                                                       <Table.Row>
-                                                           <Table.HeaderCell>Last Passed Response</Table.HeaderCell>
-                                                           <Table.HeaderCell>Diff</Table.HeaderCell>
-                                                           <Table.HeaderCell>Current Test Response</Table.HeaderCell>
-                                                       </Table.Row>
-                                                   </Table.Header>
-                                                   <Table.Body>
-                                                       <Table.Row>
-                                                           <Table.Cell verticalAlign='top'><ReactJson src={item.responseJson} theme="summerfruit:inverted" /></Table.Cell>
-                                                           <Table.Cell verticalAlign='top'>{this.compareJson(lastPassed, item.responseJson)}</Table.Cell>
-                                                           <Table.Cell verticalAlign='top'><ReactJson src={lastPassed} theme="summerfruit:inverted" /></Table.Cell>
-                                                       </Table.Row>
-                                                   </Table.Body>
-                                               </Table>
-                                              </Modal.Content>
-                                          </Modal>
-                                      </Grid.Column>
-                                 </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column>
-                                        <Table striped basic='very' celled>
-                                            <Table.Body>
-                                                {this.testSteps(item.teststeps)}
-                                            </Table.Body>
-                                        </Table>
-                                    </Grid.Column>
-                                </Grid.Row>
-                              </Grid>
-                          </Segment>
-                        ))
-                    )
-                }
+            return (
+                this.state.test_data.map((item, index, arr) => (
+                    <Segment>
+                    <Grid>
+                        <Grid.Row columns={1}>
+                            <Grid.Column>
+                              <Table celled color={this.getStatusColor(item.result)}>
+                                  {this.tableHeader()}
+                                  {this.tableBody(item)}
+                              </Table>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column floated='right'>
+                                <ModalJson description={this.state.test_data[index].description} responseJson={this.state.test_data[index].responseJson}/>
+                            </Grid.Column>
+                         </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Table striped basic='very' celled>
+                                    <Table.Body>
+                                        <TestSteps testSteps={this.state.test_data[index].teststeps}/>
+                                    </Table.Body>
+                                </Table>
+                            </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                  </Segment>
+                ))
+            )
+        }
 
         return (
             <div>
@@ -120,20 +94,7 @@ class TestSummary extends Component {
         )
     }
 
-    compareJson(lastPassed, jsonNew) {
 
-
-        console.log(lastPassed)
-        console.log(jsonNew)
-        const result = deepDiff(lastPassed, jsonNew);
-        console.log(result)
-
-        return (
-            <div>
-                <ReactJson src={result} theme="chalk" />
-            </div>
-        )
-    }
 
     tableHeader() {
         return (

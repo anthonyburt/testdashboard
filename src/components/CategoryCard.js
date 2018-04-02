@@ -1,7 +1,7 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
-import { Dimmer, Loader, Card, Table, Segment } from 'semantic-ui-react'
+import { Card, Table } from 'semantic-ui-react'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
 

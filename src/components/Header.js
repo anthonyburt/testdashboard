@@ -36,16 +36,16 @@ class Header extends Component {
 
         return (
 
-                <Menu labeled="true" color='blue'  size='massive'>
-                    <Menu.Item as={ Link } name='home' active={this.state.activeItem === 'home'} onClick={this.handleItemClick} to='/'>
-                        <Icon name='home' />
-                        Home
-                    </Menu.Item>
-                    <Menu.Item as={ Link } name='ecommerce' active={this.state.activeItem === 'ecommerce'} onClick={this.handleItemClick} to='/ecommerce'>
-                        <Icon name='cart' />
-                        E-commerce
-                    </Menu.Item>
-                </Menu>
+            <Menu labeled="true" color='blue'  size='massive'>
+                <Menu.Item as={ Link } name='home' active={this.state.activeItem === 'home'} onClick={this.handleItemClick} to='/'>
+                    <Icon name='home' />
+                    Home
+                </Menu.Item>
+                <Menu.Item as={ Link } name='ecommerce' active={this.state.activeItem === 'ecommerce'} onClick={this.handleItemClick} to='/ecommerce'>
+                    <Icon name='cart' />
+                    E-commerce
+                </Menu.Item>
+            </Menu>
 
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {  Table, Grid, Segment, Card } from 'semantic-ui-react'
+import {  Grid, Segment } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
 import CategoryCard from '../components/CategoryCard'
@@ -29,17 +29,9 @@ export default class UI_dash extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <Grid columns={1}>
-                    <Grid.Row columns={7}>
-                        <Grid.Column width={1}>
-                        </Grid.Column>
-                        <Grid.Column width={1}>
-                        </Grid.Column>
-                        <Grid.Column width={1}>
-                        </Grid.Column>
-                        <Grid.Column width={1}>
-                        </Grid.Column>
-                        <Grid.Column>
+                <Grid centered columns={6}>
+                    <Grid.Row >
+                    <Grid.Column>
                         <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Shop X" />
                         </Grid.Column>
                         <Grid.Column>

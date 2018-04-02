@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import { VictoryChart, VictoryLine, VictoryAxis, VictoryScatter, VictoryLabel } from 'victory'
+import {  Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryScatter } from 'victory'
 
 class LineGraphTestDuration extends React.Component {
     constructor(props) {
@@ -60,6 +61,16 @@ class LineGraphTestDuration extends React.Component {
         if(this.state.failures) this.state.failures.sort(this.sortDate)
         if(this.state.skipped) this.state.skipped.sort(this.sortDate)
         if(this.state.inconclusive) this.state.inconclusive.sort(this.sortDate)
+
+        if( this.state.fetching_data === true ) {
+            return (
+                <Grid.Column key={this.props.harness} width={16} >
+                   <Dimmer inverted active>
+                       <Loader size='tiny'></Loader>
+                   </Dimmer>
+                </Grid.Column>
+                )
+        }
 
         return (
 
