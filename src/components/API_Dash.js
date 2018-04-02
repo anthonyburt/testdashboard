@@ -63,7 +63,7 @@ export default class API_dash extends Component {
                 </Grid>
                 <Grid>
                 <Grid.Row>
-                    <TestDetails tribe = {this.props.tribe} harness={this.props.harness} />
+                    <TestDetails tribe = {this.props.tribe} harness = {this.state.harness} />
                 </Grid.Row>
             </Grid>
             </Segment>

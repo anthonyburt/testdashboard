@@ -12,7 +12,15 @@ import TestSummary from './TestSummary'
 import TestSteps from './TestSteps'
 import LineGraphStatusCounts from './graphs/LineGraphStatusCounts'
 
-    const optionsCategory = [
+    const optionsCategoryUI = [
+        { key: 1, text: 'All', value: 'All'},
+        { key: 2, text: 'Shop X', value: 'Shop X' },
+        { key: 3, text: 'Checkout', value: 'Checkout' },
+        { key: 4, text: 'Order Assist', value: 'Order Assist' },
+        { key: 5, text: 'Order Management', value: 'Order Management' },
+    ]
+
+    const optionsCategoryAPI = [
         { key: 1, text: 'All', value: 'All'},
         { key: 2, text: 'Address', value: 'Address' },
         { key: 3, text: 'Direct', value: 'Direct' },
@@ -35,15 +43,13 @@ class TestDetails extends Component {
    constructor(props) {
 
         super(props)
-
         this.state = {
             test_data: [],
-            harness: 'API',
             category: 'All',
             test_status: 'All',
             startDate: moment().subtract(30, 'd'),
             endDate: moment().add(7, 'd'),
-            modal_visible : false
+            fetching_data: true,
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -84,7 +90,7 @@ class TestDetails extends Component {
             params: {
                 tribe: this.props.tribe,
                 category: this.state.category,
-                harness: this.state.harness,
+                harness: this.props.harness,
                 status: this.state.test_status,
                 startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
                 enddate: moment(this.state.endDate).format('MM-DD-YYYY')
@@ -92,7 +98,10 @@ class TestDetails extends Component {
         })
           .then(res => {
             const test_data = res.data
-            this.setState({ test_data })
+            this.setState({
+                test_data,
+                fetching_data: false
+            })
         })
     }
 
@@ -101,7 +110,7 @@ class TestDetails extends Component {
                 params: {
                     tribe: this.props.tribe,
                     category: this.state.category,
-                    harness: this.state.harness,
+                    harness: this.props.harness,
                     status: this.state.test_status,
                     startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
                     enddate: moment(this.state.endDate).format('MM-DD-YYYY')
@@ -109,16 +118,19 @@ class TestDetails extends Component {
             })
               .then(res => {
                 const test_data = res.data
-                this.setState({ test_data })
+                this.setState({
+                    test_data,
+                    fetching_data: false
+                })
             })
     }
 
     render() {
 
-        if( this.state.test_data === undefined ) {
+        if( this.state.fetching_data === true ) {
             return (
                 <Dimmer inverted active>
-                    <Loader size='tiny'>Loading</Loader>
+                <Loader size='tiny'>Loading</Loader>
                 </Dimmer>
             )
         }
@@ -134,7 +146,7 @@ class TestDetails extends Component {
           content: {
             content: (
                 <div>
-                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.state.harness}/>
+                  <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
                   <div>
                       <Modal  size='large' trigger={
                           <Button floated ='right' color='purple'>
@@ -164,11 +176,11 @@ class TestDetails extends Component {
                               <Grid centered>
                                   <Grid.Row>
                                       <Grid.Column width={8} >
-                                          <LineGraphStatusCounts tribe={this.props.tribe} harness={this.state.harness} testRecord={this.state.test_data[i].testcase} />
+                                          <LineGraphStatusCounts tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[i].testcase} />
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.state.harness} tribe={this.props.tribe} />
+                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} />
                                     </Grid.Row>
                               </Grid>
                             </Modal.Content>
@@ -182,7 +194,8 @@ class TestDetails extends Component {
         }))
 
         return (
-            <Grid.Column width={16} >
+
+            <Grid.Column key={this.state.harness} width={16} >
                 <Segment.Group >
                     <Segment color='blue' inverted>Test Details</Segment>
                         <Segment>
@@ -193,7 +206,7 @@ class TestDetails extends Component {
                                         <Dropdown
                                             key='dropDownService'
                                             onChange={this.handleChangeService}
-                                            options={optionsCategory}
+                                            options={this.getCategoriesForHarness(this.props.harness)}
                                             placeholder='Choose a service'
                                             selection
                                             value={this.state.category}
@@ -238,6 +251,7 @@ class TestDetails extends Component {
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={13}>
+
                                      <Accordion fluid styled exclusive={false} panels={rootPanels}/>
                               </Grid.Column>
                             </Grid>
@@ -254,7 +268,7 @@ class TestDetails extends Component {
                         params: {
                             tribe: this.props.tribe,
                             category: this.state.category,
-                            harness: this.state.harness,
+                            harness: this.props.harness,
                             status: this.state.test_status,
                             startdate: moment(this.state.startDate).format('MM-DD-YYYY'),
                             enddate: moment(this.state.endDate).format('MM-DD-YYYY')
@@ -262,7 +276,10 @@ class TestDetails extends Component {
                     })
                       .then(res => {
                         const test_data = res.data
-                        this.setState({ test_data })
+                        this.setState({
+                            test_data,
+                            fetching_data: false
+                        })
                     })
 
 
@@ -281,7 +298,14 @@ class TestDetails extends Component {
             color = 'grey'
         }
         return color;
+    }
 
+    getCategoriesForHarness(harness) {
+        if(harness==='API') {
+            return optionsCategoryAPI
+        } else if (harness==='Selenium') {
+            return optionsCategoryUI
+        }
     }
 }
 

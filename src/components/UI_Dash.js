@@ -55,7 +55,7 @@ export default class UI_dash extends Component {
                 </Grid>
                 <Grid>
                 <Grid.Row>
-                    <TestDetails tribe = {this.props.tribe}/>
+                    <TestDetails tribe = {this.props.tribe} harness = {this.state.harness}/>
                 </Grid.Row>
             </Grid>
             </Segment>
