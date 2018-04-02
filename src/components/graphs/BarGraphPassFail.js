@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryTooltip, VictoryLabel } from 'victory'
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader, Dimmer, Icon } from 'semantic-ui-react'
 
 class BarGraphPassFail extends React.Component {
     constructor(props) {
@@ -47,8 +47,8 @@ class BarGraphPassFail extends React.Component {
                 <VictoryAxis
                     // tickValues specifies both the number of ticks and where
                     // they are placed on the axis
-                    tickValues={[1, 2, 3, 4]}
-                    tickFormat={["Checkout", "Inventory Mgmt", "OA", "Shop X"]}
+                    tickValues={[1, 2]}
+                    tickFormat={["E-comm", "Payments"]}
                 />
                 <VictoryAxis
                     dependentAxis
@@ -71,17 +71,19 @@ class BarGraphPassFail extends React.Component {
 
                         data={this.state.selenium[0]}
                         labelComponent={<VictoryTooltip/>}
-                        x="squad"
+                        x="tribe"
                         y="test_count"
                     />
                     <VictoryBar
                         labelComponent={<VictoryTooltip/>}
                         data={this.state.api[0]}
-                        x="squad"
+                        x="tribe"
                         y="test_count"
                     />
                 </VictoryGroup>
             </VictoryChart>
+
+
         )
 	}
 }

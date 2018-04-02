@@ -1,7 +1,7 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
-import { Dimmer, Loader, Card, Table } from 'semantic-ui-react'
+import { Dimmer, Loader, Card, Table, Segment } from 'semantic-ui-react'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
 
@@ -85,9 +85,16 @@ class CategoryCard extends React.Component {
 
         if( this.state.fetching_data === true ) {
            return (
-                <Dimmer inverted active>
-                    <Loader size='tiny'>Loading</Loader>
-                </Dimmer>
+                <Card>
+                    <Card.Content>
+                        <Card.Header>
+                            Loading...
+                        </Card.Header>
+                        <Card.Description>
+                        {this.props.category}
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
             )
         }
 

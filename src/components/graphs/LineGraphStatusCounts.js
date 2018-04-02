@@ -38,7 +38,7 @@ class LineGraphTestDuration extends React.Component {
                 })
             }
         )
-        
+
         this.setState({ fetching_data: false})
     }
 
@@ -70,7 +70,7 @@ class LineGraphTestDuration extends React.Component {
                         onLoad: { duration: 1000 }
                     }}
                 >
-                    <VictoryLabel text="Test Status" x={225} y={12} textAnchor="middle" />
+
                     <VictoryAxis axisLabelComponent
                         style={{
                                 tickLabels: { angle: -40, fontSize: 10, padding: 15}
@@ -78,7 +78,6 @@ class LineGraphTestDuration extends React.Component {
                             offsetX={-100}
                         />
                         <VictoryAxis dependentAxis
-                            label="Status"
                             style={{
                                 axisLabel: {fontSize: 10, padding: 40}
                             }}

@@ -129,9 +129,17 @@ class TestDetails extends Component {
 
         if( this.state.fetching_data === true ) {
             return (
-                <Dimmer inverted active>
-                <Loader size='tiny'>Loading</Loader>
-                </Dimmer>
+                <Grid.Column key={this.state.harness} width={16} >
+                        <Segment.Group>
+                            <Segment color='blue' inverted>Test Details</Segment>
+                            <Segment>
+                               <Dimmer inverted active>
+                                   <Loader size='tiny'></Loader>
+                               </Dimmer>
+                            </Segment>
+                        </Segment.Group>
+                    </Grid.Column>
+
             )
         }
 
@@ -180,7 +188,7 @@ class TestDetails extends Component {
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} category={this.state.category} />
+                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} category={this.state.test_data[i].category} />
                                     </Grid.Row>
                               </Grid>
                             </Modal.Content>
@@ -251,7 +259,6 @@ class TestDetails extends Component {
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={13}>
-
                                      <Accordion fluid styled exclusive={false} panels={rootPanels}/>
                               </Grid.Column>
                             </Grid>

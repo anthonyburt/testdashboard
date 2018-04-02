@@ -66,11 +66,8 @@ class Home extends React.Component {
                                 <div>
                                     <Grid centered >
                                         <Grid.Row >
-                                            <Grid.Column width={8} floated='left'>
-                                                <LineGraphStatusCount harness={this.state.harness} tribe={this.state.tribe} />
-                                            </Grid.Column>
-                                            <Grid.Column width={8} floated='left'>
-                                                 <BarGraphPassFail/>
+                                            <Grid.Column width={8} >
+                                                <LineGraphStatusCount />
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
