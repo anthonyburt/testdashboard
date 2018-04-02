@@ -180,7 +180,7 @@ class TestDetails extends Component {
                                       </Grid.Column>
                                   </Grid.Row>
                                   <Grid.Row>
-                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} />
+                                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} category={this.state.category} />
                                     </Grid.Row>
                               </Grid>
                             </Modal.Content>
@@ -202,7 +202,7 @@ class TestDetails extends Component {
                             <Segment>
                             <Grid columns={2} verticalAlign='top'>
                                 <Grid.Column width={3}>
-                                    <div>Service</div>
+                                    <div>Category</div>
                                         <Dropdown
                                             key='dropDownService'
                                             onChange={this.handleChangeService}

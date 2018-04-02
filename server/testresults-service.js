@@ -145,7 +145,8 @@ function getTestResult(req, res) {
                 $match: {
                     tribe: tribe_param,
                     harness: harness_param,
-                    testcase: testcase_param
+                    testcase: testcase_param,
+                    category: category_param
                }
             }, {
                 $sort: {

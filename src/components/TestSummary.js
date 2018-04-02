@@ -23,6 +23,7 @@ class TestSummary extends Component {
                 params: {
                     tribe: this.props.tribe,
                     harness: this.props.harness,
+                    category: this.props.category,
                     status: 'All',
                     testcase: this.props.testRecord.testcase
 
