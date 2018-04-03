@@ -99,28 +99,28 @@ class TestDetails extends Component {
             )
         }
 
-        const rootPanels = _.times(this.state.test_data.length, i => ({
+        const rootPanels = _.times(this.state.test_data.length, index => ({
           title: {
-            content: <Label color={this.getStatusColor(this.state.test_data[i].result)}>
-                        {this.state.test_data[i].dateofexecution}
-                        <div>{this.state.test_data[i].description}</div>
+            content: <Label color={this.getStatusColor(this.state.test_data[index].result)}>
+                        {this.state.test_data[index].dateofexecution}
+                        <div>{this.state.test_data[index].description}</div>
                       </Label>,
-            key: `title-${i}`,
+            key: `title-${index}`,
           },
           content: {
             content: (
                 <div>
-                    <TestSummary testRecord={this.state.test_data[i]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
+                    <TestSummary testRecord={this.state.test_data[index]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
                     <div>
-                        <ModalJson description={this.state.test_data[i].description} responseJson={this.state.test_data[i].responseJson}/>
+                        <ModalJson testRecord={this.state.test_data[index]}/>
                     </div>
                     <div>
-                        <ModalHistory tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[i]} />
+                        <ModalHistory tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[index]} />
                     </div>
-                        <TestSteps testSteps={this.state.test_data[i].teststeps}/>
+                        <TestSteps testSteps={this.state.test_data[index].teststeps}/>
                 </div>
             ),
-            key: `content-${i}`,
+            key: `content-${index}`,
           },
         }))
 

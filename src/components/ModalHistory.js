@@ -23,7 +23,7 @@ class MoldaHistory extends Component {
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
-                                <TestSummary testRecord={this.props.testRecord} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} category={this.props.testRecord.category} />
+                                <TestSummary testRecord={this.props.testRecord} includeHistory='true' harness={this.props.harness} tribe={this.props.tribe} key={this.props.testRecord._id} />
                             </Grid.Row>
                       </Grid>
                     </Modal.Content>

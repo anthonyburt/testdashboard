@@ -15,7 +15,7 @@ class ModalJson extends Component {
                     <Icon name='code' />
                     Json
                 </Button>}>
-                <Modal.Header>JSON response for {this.props.description}</Modal.Header>
+                <Modal.Header>JSON response for {this.props.testRecord.description}</Modal.Header>
                 <Modal.Content>
                     <Table celled>
                         <Table.Header>
@@ -27,8 +27,8 @@ class ModalJson extends Component {
                         </Table.Header>
                         <Table.Body>
                             <Table.Row>
-                                <Table.Cell verticalAlign='top'><ReactJson src={this.props.responseJson} theme="summerfruit:inverted" /></Table.Cell>
-                                <Table.Cell verticalAlign='top'>{this.compareJson(lastPassed, this.props.responseJson)}</Table.Cell>
+                                <Table.Cell verticalAlign='top'><ReactJson src={this.props.testRecord.responseJson} theme="summerfruit:inverted" /></Table.Cell>
+                                <Table.Cell verticalAlign='top'>{this.compareJson(lastPassed, this.props.testRecord.responseJson, this.props.testRecord._id)}</Table.Cell>
                                 <Table.Cell verticalAlign='top'><ReactJson src={lastPassed} theme="summerfruit:inverted" /></Table.Cell>
                             </Table.Row>
                         </Table.Body>
@@ -38,8 +38,9 @@ class ModalJson extends Component {
         )
     }
 
-    compareJson(lastPassed, jsonNew) {
+    compareJson(lastPassed, jsonNew, testRecord) {
         const result = deepDiff(lastPassed, jsonNew);
+        console.log(testRecord)
 
         return (
             <div>

@@ -28,6 +28,7 @@ class LineGraphTestDuration extends React.Component {
                 const linegraph_status = res.data;
                 linegraph_status[0].data.map((item, index, arr) => {
                     if(item._id === 'Failed') {
+
                         this.setState({ failures: item.v })
                     } else if(item._id === 'Inconclusive') {
                         this.setState({ inconclusive: item.v })
@@ -78,11 +79,10 @@ class LineGraphTestDuration extends React.Component {
                 <VictoryChart
                     animate={{
                         duration: 1000,
-                        onLoad: { duration: 1000 }
+                        onLoad: { duration: 1200 }
                     }}
                 >
-
-                    <VictoryAxis axisLabelComponent
+                    <VictoryAxis
                         style={{
                                 tickLabels: { angle: -40, fontSize: 10, padding: 15}
                             }}
@@ -94,7 +94,6 @@ class LineGraphTestDuration extends React.Component {
                             }}
                             tickFormat={(x) => (`${x}`)}
                          />
-
 
                         <VictoryLine
                             interpolation='natural'
@@ -108,12 +107,7 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#21ba45" } }}
                             size={4}
                             data={this.state.success}
-                            animate={{
-                                duration: 2000,
-                                onLoad: { duration: 1000 }
-                            }}
                         />
-
                         <VictoryLine
                             interpolation='natural'
                             style={{
@@ -126,10 +120,7 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#db2828" } }}
                             size={4}
                             data={this.state.failures}
-                            animate={{
-                                duration: 2000,
-                                onLoad: { duration: 1000 }
-                            }}
+                            a
                         />
                         <VictoryLine
                             interpolation='natural'
@@ -143,10 +134,7 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#FBBD08" } }}
                             size={4}
                             data={this.state.skipped}
-                            animate={{
-                                duration: 2000,
-                                onLoad: { duration: 1000 }
-                            }}
+
                         />
                          <VictoryLine
                             interpolation='natural'
@@ -160,10 +148,6 @@ class LineGraphTestDuration extends React.Component {
                             style={{ data: { fill: "#767676" } }}
                             size={4}
                             data={this.state.inconclusive}
-                            animate={{
-                                duration: 2000,
-                                onLoad: { duration: 1000 }
-                            }}
                         />
                     </VictoryChart>
                 </div>

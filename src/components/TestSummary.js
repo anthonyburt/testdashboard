@@ -22,7 +22,7 @@ class TestSummary extends Component {
                 params: {
                     tribe: this.props.tribe,
                     harness: this.props.harness,
-                    category: this.props.category,
+                    category: this.props.testRecord.category,
                     status: 'All',
                     testcase: this.props.testRecord.testcase
 
@@ -68,17 +68,13 @@ class TestSummary extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column floated='right'>
-                                <ModalJson description={this.state.test_data[index].description} responseJson={this.state.test_data[index].responseJson}/>
+                            <Grid.Column>
+                               <ModalJson testRecord={item}/>
                             </Grid.Column>
                          </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <Table striped basic='very' celled>
-                                    <Table.Body>
-                                        <TestSteps testSteps={this.state.test_data[index].teststeps}/>
-                                    </Table.Body>
-                                </Table>
+                                <TestSteps testSteps={item.teststeps}/>
                             </Grid.Column>
                         </Grid.Row>
                       </Grid>
