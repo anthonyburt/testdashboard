@@ -36,8 +36,8 @@ export default class API_dash extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <Grid columns={1}>
-                    <Grid.Row columns={7}>
+                <Grid>
+                    <Grid.Row centered columns={6}>
                         <Grid.Column>
                             <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Address" />
                         </Grid.Column>
@@ -47,6 +47,11 @@ export default class API_dash extends Component {
                         <Grid.Column>
                             <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Email" />
                         </Grid.Column>
+                        <Grid.Column>
+                            <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Inventory" />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row centered columns={6}>
                         <Grid.Column>
                             <CategoryCard tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
                         </Grid.Column>
