@@ -21,7 +21,8 @@ class LineGraphTestDuration extends React.Component {
                 params: {
                     tribe: this.props.tribe,
                     harness: this.props.harness,
-                    testcase: this.props.testRecord
+                    testcase: this.props.testRecord,
+                    category: this.props.testCategory
                 }
             })
            .then(res => {

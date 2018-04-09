@@ -88,7 +88,6 @@ function getQuickLookLineGraphTestStatus(req, res) {
                  $match: {
                      tribe: tribe_param,
                      harness: harness_param,
-
                  }
             },
             { "$sort": { "result": 1 } },
@@ -118,7 +117,8 @@ function getQuickLookLineGraphTestStatus(req, res) {
                  $match: {
                      tribe: tribe_param,
                      harness: harness_param,
-                     testcase:  testcase_param
+                     testcase:  testcase_param,
+                     category: category_param
                  }
             },
             { "$sort": { "result": 1 } },

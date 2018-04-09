@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Modal, Button, Icon, Table} from 'semantic-ui-react'
+import {Grid, Modal, Button, Icon, Table} from 'semantic-ui-react'
 import ReactJson from 'react-json-view'
 import deepDiff from 'deep-diff-object'
 
@@ -7,14 +7,19 @@ const lastPassed = JSON.parse('{"user_id" : "XXCDBWN","password" :"ABCDBWN" ,"da
 
 class ModalJson extends Component {
 
+
     render() {
 
         return (
-            <Modal size='large' trigger={
-                <Button floated ='right' color='purple'>
-                    <Icon name='code' />
-                    Json
-                </Button>}>
+            <div>
+            <Modal
+                size='large'
+                trigger={
+                    <Button floated ='right' color='purple'>
+                        <Icon name='code' />
+                        Json
+                    </Button>
+                }>
                 <Modal.Header>JSON response for {this.props.testRecord.description}</Modal.Header>
                 <Modal.Content>
                     <Table celled>
@@ -28,19 +33,24 @@ class ModalJson extends Component {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell verticalAlign='top'><ReactJson src={this.props.testRecord.responseJson} theme="summerfruit:inverted" /></Table.Cell>
-                                <Table.Cell verticalAlign='top'>{this.compareJson(lastPassed, this.props.testRecord.responseJson, this.props.testRecord._id)}</Table.Cell>
+                                <Table.Cell verticalAlign='top'>{this.compareJson(lastPassed, this.props.testRecord.responseJson)}</Table.Cell>
                                 <Table.Cell verticalAlign='top'><ReactJson src={lastPassed} theme="summerfruit:inverted" /></Table.Cell>
                             </Table.Row>
                         </Table.Body>
                     </Table>
                 </Modal.Content>
               </Modal>
+              </div>
         )
     }
 
-    compareJson(lastPassed, jsonNew, testRecord) {
-        const result = deepDiff(lastPassed, jsonNew);
-        console.log(testRecord)
+    compareJson(lastPassed, jsonNew) {
+        console.log(lastPassed)
+        console.log(jsonNew)
+        var result = ''
+        result = deepDiff(lastPassed, jsonNew)
+        console.log("result")
+        console.log(result)
 
         return (
             <div>
