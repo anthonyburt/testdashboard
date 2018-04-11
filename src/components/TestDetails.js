@@ -41,7 +41,7 @@ import ModalHistory from './ModalHistory'
     ]
 
 class TestDetails extends Component {
-   constructor(props) {
+    constructor(props) {
 
         super(props)
         this.state = {
@@ -50,7 +50,7 @@ class TestDetails extends Component {
             test_status: 'All',
             startDate: moment().subtract(30, 'd'),
             endDate: moment().add(7, 'd'),
-            fetching_data: true,
+            fetching_data: false,
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -78,38 +78,36 @@ class TestDetails extends Component {
 
     handleSearch = () => this.updateTestResults()
 
-
-
     render() {
 
-
-
         const rootPanels = _.times(this.state.test_data.length, index => ({
-          title: {
-            content: <Label color={this.getStatusColor(this.state.test_data[index].result)}>
-                        {this.state.test_data[index].dateofexecution}
-                        <div>{this.state.test_data[index].description}</div>
-                      </Label>,
-            key: `title-${index}`,
-          },
-          content: {
-            content: (
-                <div>
-                    <TestSummary testRecord={this.state.test_data[index]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
-                    <div>
-                        <ModalJson testRecord={this.state.test_data[index]}/>
-                    </div>
-                    <div>
-                        <ModalHistory tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[index]} />
-                    </div>
-                        <TestSteps testSteps={this.state.test_data[index].teststeps}/>
-                </div>
-            ),
-            key: `content-${index}`,
-          },
-        }))
+                            title: {
+                            content: <Label color={this.getStatusColor(this.state.test_data[index].result)}>
+                                        {this.state.test_data[index].dateofexecution}
+                                        <div>{this.state.test_data[index].description}</div>
+                                      </Label>,
+                            key: `title-${index}`,
+                            },
+                            content: {
+                                content: (
+                                    <div>
+                                        <TestSummary testRecord={this.state.test_data[index]} includeHistory='false' tribe={this.props.tribe} harness={this.props.harness}/>
+                                        <div>
+                                            <ModalJson testRecord={this.state.test_data[index]}/>
+                                        </div>
+                                        <div>
+                                            <ModalHistory tribe={this.props.tribe} harness={this.props.harness} testRecord={this.state.test_data[index]} />
+                                        </div>
+                                            <TestSteps testSteps={this.state.test_data[index].teststeps}/>
+                                    </div>
+                                ),
+                                    key: `content-${index}`,
+                                },
+                            }))
 
         return (
+
+
 
             <Grid.Column key={this.state.harness} width={16} >
                 <Segment.Group >
@@ -167,7 +165,7 @@ class TestDetails extends Component {
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={13}>
-                                     <Accordion fluid styled exclusive={false} panels={rootPanels}/>
+                                     {this.getAccordion(rootPanels)}
                               </Grid.Column>
                             </Grid>
                         </Segment>
@@ -177,7 +175,24 @@ class TestDetails extends Component {
         )
     }
 
+    getAccordion(rootPanels) {
+        if(this.state.test_data.length !== 0) {
+            console.log(this.state.test_data)
+            return <Accordion fluid styled exclusive={false} panels={rootPanels}/>
+        } else if( this.state.fetching_data === true ) {
+            return (
+                <Dimmer inverted active>
+                    <Loader size='tiny'></Loader>
+                </Dimmer>
+                )
+        } else {
+            return 'Click Search for test details.'
+        }
+    }
+
+
     updateTestResults() {
+        this.setState({ fetching_data: true})
 
         axios.get(`api/test`, {
             params: {

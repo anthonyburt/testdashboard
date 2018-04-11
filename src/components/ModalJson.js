@@ -15,7 +15,8 @@ class ModalJson extends Component {
     }
 
     handleOpen = () => {
-        this.compareJson(this.state.lastPassed, this.props.testRecord.responseJson)
+
+        this.setState({ diff: deepDiff(this.state.lastPassed, this.props.testRecord.responseJson) })
         console.log('in open')
         console.log(this.state.diff)
     }
@@ -66,8 +67,7 @@ class ModalJson extends Component {
     }
 
     compareJson(lastPassed, jsonNew) {
-        this.setState({ diff: deepDiff(lastPassed, jsonNew) })
-        console.log(this.state.diff)
+        return deepDiff(lastPassed, jsonNew)
     }
 
 }
