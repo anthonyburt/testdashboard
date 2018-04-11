@@ -73,12 +73,3 @@ class ModalJson extends Component {
 }
 
 export default ModalJson
-
-
-
-
-
-
-
-
-
