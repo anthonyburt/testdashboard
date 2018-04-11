@@ -10,7 +10,7 @@ class ModalJson extends Component {
 
         this.state = {
            lastPassed: JSON.parse('{"user_id" : "XXCDBWN","password" :"ABCDBWN" ,"date_of_join" : "15/10/2010" ,"education" :"B.C.A." , "profession" : "DEVELOPER","interest" : "MUSIC","community_name" :["MODERN MUSIC", "CLASSICAL MUSIC","WESTERN MUSIC"],"community_moder_id" : ["MR. BBB","MR. JJJ","MR MMM"],"community_members" : [500,200,1500],"friends_id" : ["MMM123","NNN123","OOO123"],"ban_friends_id" :["BAN123","BAN456","BAN789"]}'),
-           diff: ''
+           diff: {}
         }
     }
 
