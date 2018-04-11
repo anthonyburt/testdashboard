@@ -78,26 +78,11 @@ class TestDetails extends Component {
 
     handleSearch = () => this.updateTestResults()
 
-    componentDidMount() {
-        this.updateTestResults()
-    }
+
 
     render() {
 
-        if( this.state.fetching_data === true ) {
-            return (
-                <Grid.Column key={this.state.harness} width={16} >
-                    <Segment.Group>
-                        <Segment color='blue' inverted>Test Details</Segment>
-                        <Segment>
-                           <Dimmer inverted active>
-                               <Loader size='tiny'></Loader>
-                           </Dimmer>
-                        </Segment>
-                    </Segment.Group>
-                </Grid.Column>
-            )
-        }
+
 
         const rootPanels = _.times(this.state.test_data.length, index => ({
           title: {
