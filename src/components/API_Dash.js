@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Grid, Segment, Dimmer, Loader } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 
-import TimerX from './Timer'
 import CategoryCard from '../components/CategoryCard'
 import TestDetails from '../components//TestDetails'
 import LineGraphStatusCounts from '../components/graphs/LineGraphStatusCounts'
@@ -69,7 +68,6 @@ export default class API_dash extends Component {
                 </Grid>
                 <Grid>
                 <Grid.Row>
-                     <TimerX start={Date.now()} />
                     <TestDetails tribe = {this.props.tribe} harness = {this.state.harness} />
                 </Grid.Row>
             </Grid>

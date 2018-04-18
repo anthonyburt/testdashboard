@@ -51,6 +51,7 @@ class TestDetails extends Component {
             startDate: moment().subtract(30, 'd'),
             endDate: moment().add(7, 'd'),
             fetching_data: false,
+            results_found: ''
         }
 
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -177,7 +178,6 @@ class TestDetails extends Component {
 
     getAccordion(rootPanels) {
         if(this.state.test_data.length !== 0) {
-            console.log(this.state.test_data)
             return <Accordion fluid styled exclusive={false} panels={rootPanels}/>
         } else if( this.state.fetching_data === true ) {
             return (
@@ -185,8 +185,10 @@ class TestDetails extends Component {
                     <Loader size='tiny'></Loader>
                 </Dimmer>
                 )
+        } else if( this.state.results_found === false) {
+            return 'No results found. Try updating your filters.'
         } else {
-            return 'Click Search for test details.'
+            return "Click search to find test details."
         }
     }
 
@@ -210,6 +212,15 @@ class TestDetails extends Component {
                 test_data,
                 fetching_data: false
             })
+            if( this.state.test_data.length !== 0) {
+                this.setState({
+                    results_found: true
+                })
+            } else {
+                this.setState({
+                    results_found: false
+                })
+            }
         })
     }
 
