@@ -109,7 +109,7 @@ class DashPassFailRate extends React.Component {
                   <Feed>
                     <Feed.Event>
                       <Feed.Content>
-                        <Feed.Date content='Today' />
+                        <Feed.Date className="ui" content='Today' />
                         <Feed.Summary>
                             <Table>
                                 <Table.Body>

@@ -32,3 +32,12 @@ html {
 {
   padding-top: 15px;
 }
+
+.ui.feed > .event > .content .date {
+  margin: -0.5rem 0em 0em;
+  padding: 0em;
+  font-weight: bold;
+  font-size: 1em;
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.6);
+}
