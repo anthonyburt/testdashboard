@@ -7,6 +7,7 @@ import axios from 'axios'
 import statsService from '../api/Stats.js'
 
 import OverallHistory from '../components/OverallHistory.js'
+import DashPassFailRate from '../components/DashPassFailRate'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 
 class Home extends React.Component {
@@ -64,6 +65,20 @@ class Home extends React.Component {
                             <Segment>
                                 <div>
                                     <Grid centered >
+                                        <Grid.Row centered columns={6}>
+                                            <Grid.Column>
+                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Product" />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Store" />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                              <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Salesforce" />
+                                            </Grid.Column>
+                                        </Grid.Row>
                                         <Grid.Row >
                                             <Grid.Column width={8} >
                                                 <LineGraphStatusCount />
