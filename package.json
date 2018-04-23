@@ -28,6 +28,7 @@
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-datepicker": "^1.2.2",
+    "react-dazzle": "^1.4.0",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-json-view": "^1.16.1",

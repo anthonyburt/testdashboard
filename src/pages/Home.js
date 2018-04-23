@@ -6,8 +6,9 @@ import axios from 'axios'
 
 import statsService from '../api/Stats.js'
 
-import OverallHistory from '../components/OverallHistory.js'
+import OverallHistory from '../components/OverallHistory'
 import DashPassFailRate from '../components/DashPassFailRate'
+import RecentFailedTests from '../components/RecentFailedTests'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 
 class Home extends React.Component {
@@ -15,8 +16,8 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-          overall_stats: [],
-          lastSync: []
+            overall_stats: [],
+            lastSync: []
         }
     }
 
@@ -70,13 +71,7 @@ class Home extends React.Component {
                                                 <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
                                             </Grid.Column>
                                             <Grid.Column>
-                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Product" />
-                                            </Grid.Column>
-                                            <Grid.Column>
-                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Store" />
-                                            </Grid.Column>
-                                            <Grid.Column>
-                                              <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Salesforce" />
+                                                <RecentFailedTests />
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row >
