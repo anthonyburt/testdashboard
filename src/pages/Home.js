@@ -9,6 +9,7 @@ import statsService from '../api/Stats.js'
 import OverallHistory from '../components/OverallHistory'
 import DashPassFailRate from '../components/DashPassFailRate'
 import RecentFailedTests from '../components/RecentFailedTests'
+import RecurringFailures from '../components/RecurringFailures'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 
 class Home extends React.Component {
@@ -72,6 +73,9 @@ class Home extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column>
                                                 <RecentFailedTests />
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <RecurringFailures />
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'semantic-ui-react'
+import { Menu, Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 class Header extends Component {
@@ -31,11 +31,13 @@ class Header extends Component {
        }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleSignIn = (e, { name }) => {
+
+    }
 
     render() {
 
         return (
-
             <Menu labeled="true" color='blue'  size='massive'>
                 <Menu.Item as={ Link } name='home' active={this.state.activeItem === 'home'} onClick={this.handleItemClick} to='/'>
                     <Icon name='home' />
@@ -45,8 +47,22 @@ class Header extends Component {
                     <Icon name='cart' />
                     E-commerce
                 </Menu.Item>
-            </Menu>
+                <Menu.Menu position='right'>
 
+                    <Menu.Item>
+                        <Button
+                            primary
+                            animated
+                            onClick={this.handleSignIn}
+                        >
+                            <Button.Content visible>Sign in</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='sign in' />
+                            </Button.Content>
+                        </Button>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
         )
     }
 }
