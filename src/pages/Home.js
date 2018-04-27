@@ -10,7 +10,6 @@ import OverallHistory from '../components/OverallHistory'
 import DashPassFailRate from '../components/DashPassFailRate'
 import RecentFailedTests from '../components/RecentFailedTests'
 import RecurringFailures from '../components/RecurringFailures'
-import TreemapWidget from '../components/TreemapWidget'
 import TreemapWidget2 from '../components/TreemapWidget2'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 
@@ -62,51 +61,25 @@ class Home extends React.Component {
                                 <Segment>
                                     <OverallHistory overall_stats = {this.state.overall_stats} />
                                 </Segment>
-                        </Segment.Group >
-
-                        <Segment.Group >
+                        </Segment.Group>
+                        <Segment.Group>
                         <Segment color="blue" inverted >Quick Look</Segment>
-                            <Segment>
-                                  <Grid columns={2} divided>
-                                    <Grid.Row stretched>
-                                      <Grid.Column>
-                                        <Segment>
-                                                <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
-                                                <RecurringFailures />
-                                        </Segment>
-
-                                      </Grid.Column>
-                                      <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                        <Segment>3</Segment>
-                                      </Grid.Column>
-                                    </Grid.Row>
-                                  </Grid>
-                                    <Grid  >
-                                        <Grid.Row  columns={6}>
-                                            <Grid.Column>
-
-                                            </Grid.Column>
-
-                                        </Grid.Row>
-                                        <Grid.Row>
-                                            <Grid.Column>
-
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row >
-                                            <Grid.Column width={8} >
-                                                <TreemapWidget2 />
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row >
-                                            <Grid.Column width={8} >
-                                                <LineGraphStatusCount />
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                    </Grid>
-                            </Segment>
+                            <Grid padded>
+                                <Grid.Row>
+                                <Grid.Column width={2} >
+                                  <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
+                                </Grid.Column>
+                                <Grid.Column width={5}>
+                                    <LineGraphStatusCount />
+                                </Grid.Column>
+                                <Grid.Column width= {5}>
+                                    <TreemapWidget2 />
+                                </Grid.Column>
+                                <Grid.Column width ={3} floated='right'>
+                                    <RecurringFailures />
+                                </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
                         </Segment.Group>
                     </Segment>
                 </Segment.Group>

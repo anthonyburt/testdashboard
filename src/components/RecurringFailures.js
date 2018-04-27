@@ -1,7 +1,7 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
-import { Grid, Card, List, Icon, Segment, Header } from 'semantic-ui-react'
+import { Table, Grid, Card, List, Icon, Segment, Header, Pagination } from 'semantic-ui-react'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
 
@@ -14,44 +14,71 @@ class RecurringFailures extends React.Component {
     }
 
 	render () {
-
         return (
-            <Card>
-                <Card.Content>
-                <Card.Header>
-                    Recurring Failures
-                    <div className="recurringthreshhold">current threshold: 5% of runs</div>
-                </Card.Header>
-                </Card.Content>
-                <Card.Content>
-                   <List>
-                      <List.Item>
-                        <List.Icon name='settings' />
-                        <List.Content>
-                          <List.Header as='a'>Basic Product Info</List.Header>
-                          <List.Description><b>20%</b></List.Description>
-                        </List.Content>
-                      </List.Item>
-                      <List.Item>
-                        <List.Icon name='browser' />
-                        <List.Content>
-                          <List.Header as='a'>Email Postal Code</List.Header>
-                          <List.Description><b>50%</b></List.Description>
-                        </List.Content>
-                      </List.Item>
-                      <List.Item>
-                        <List.Icon name='browser' />
-                        <List.Content>
-                          <List.Header as='a'>Single Sku Products Info</List.Header>
-                          <List.Description><b>13%</b></List.Description>
-                        </List.Content>
-                      </List.Item>
-                    </List>
-                </Card.Content>
-            </Card>
+        <div>
+          <Header as='h3' dividing>
+              Recurring Failures
+            </Header>
+              <Table celled compact collapsing striped>
+                <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>Test</Table.HeaderCell>
+                      <Table.HeaderCell>Failure Rate</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                    <Table.Cell textAlign='center'>20%</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                    <Table.Cell textAlign='center'>20%</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                    <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                      <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><Icon name='settings'></Icon> Basic Product Info</Table.Cell>
+                        <Table.Cell textAlign='center'>20%</Table.Cell>
+                    </Table.Row>
+                    </Table.Body>
+                <Table.Footer fullWidth>
+                  <Table.Row>
+                    <Table.HeaderCell colSpan='3' textAlign='center'>
+                      <Pagination defaultActivePage={1} firstItem={null} lastItem={null} pointing secondary totalPages={3} />
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Footer>
+            </Table>
+        </div>
         )
-	}
-
+    }
 }
 
 export default RecurringFailures

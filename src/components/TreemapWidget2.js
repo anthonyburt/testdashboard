@@ -13,8 +13,8 @@ class TreemapWidget2 extends React.Component {
 
         return (
              <TreeMap
-                  height={500}
-                  width={800}
+                  height={400}
+                  width={600}
                   data={data}
                   valueUnit={"Tests"}
               />

@@ -27,6 +27,7 @@
     "npm": "^5.6.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
+    "react-d3-treemap": "^1.0.14",
     "react-datepicker": "^1.2.2",
     "react-dazzle": "^1.4.0",
     "react-dom": "^16.2.0",
