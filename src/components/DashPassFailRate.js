@@ -129,14 +129,14 @@ class DashPassFailRate extends React.Component {
                         <Feed.Date content='Yesterday' />
                         <Feed.Summary>
                             <Table>
-                                                        <Table.Body>
-                                                        <Table.Row textAlign='center'>
-                                                        <Table.Cell><Icon color='green' name='thumbs up' /> 88</Table.Cell>
+                                <Table.Body>
+                                <Table.Row textAlign='center'>
+                                <Table.Cell><Icon color='green' name='thumbs up' /> 88</Table.Cell>
 
-                                                        <Table.Cell><Icon color='red' name='thumbs down' /> 66</Table.Cell>
-                                                        </Table.Row>
-                                                        </Table.Body>
-                                                        </Table>
+                                <Table.Cell><Icon color='red' name='thumbs down' /> 66</Table.Cell>
+                                </Table.Row>
+                                </Table.Body>
+                                </Table>
                         </Feed.Summary>
                       </Feed.Content>
                     </Feed.Event>

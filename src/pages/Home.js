@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Grid, Icon, Label, Segment } from 'semantic-ui-react'
+import {  Grid, Icon, Label, Segment, Card } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import moment from 'moment'
 import axios from 'axios'
@@ -10,6 +10,8 @@ import OverallHistory from '../components/OverallHistory'
 import DashPassFailRate from '../components/DashPassFailRate'
 import RecentFailedTests from '../components/RecentFailedTests'
 import RecurringFailures from '../components/RecurringFailures'
+import TreemapWidget from '../components/TreemapWidget'
+import TreemapWidget2 from '../components/TreemapWidget2'
 import LineGraphStatusCount from '../components/graphs/LineGraphStatusCounts'
 
 class Home extends React.Component {
@@ -65,17 +67,37 @@ class Home extends React.Component {
                         <Segment.Group >
                         <Segment color="blue" inverted >Quick Look</Segment>
                             <Segment>
-                                <div>
-                                    <Grid centered >
-                                        <Grid.Row centered columns={6}>
-                                            <Grid.Column>
+                                  <Grid columns={2} divided>
+                                    <Grid.Row stretched>
+                                      <Grid.Column>
+                                        <Segment>
                                                 <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
-                                            </Grid.Column>
-                                            <Grid.Column>
-                                                <RecentFailedTests />
-                                            </Grid.Column>
-                                            <Grid.Column>
                                                 <RecurringFailures />
+                                        </Segment>
+
+                                      </Grid.Column>
+                                      <Grid.Column>
+                                        <Segment>1</Segment>
+                                        <Segment>2</Segment>
+                                        <Segment>3</Segment>
+                                      </Grid.Column>
+                                    </Grid.Row>
+                                  </Grid>
+                                    <Grid  >
+                                        <Grid.Row  columns={6}>
+                                            <Grid.Column>
+
+                                            </Grid.Column>
+
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column>
+
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row >
+                                            <Grid.Column width={8} >
+                                                <TreemapWidget2 />
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row >
@@ -84,7 +106,6 @@ class Home extends React.Component {
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
-                                </div>
                             </Segment>
                         </Segment.Group>
                     </Segment>
