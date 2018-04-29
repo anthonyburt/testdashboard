@@ -1,7 +1,7 @@
 import React from 'react'
 import { VictoryPie, VictoryTooltip } from 'victory'
 import axios from 'axios'
-import { Grid, Card, List, Icon, Segment, Header } from 'semantic-ui-react'
+import { Pagination, Grid, Card, List, Icon, Segment, Header } from 'semantic-ui-react'
 import moment from 'moment'
 import momentDuration from 'moment-duration-format'
 
@@ -83,6 +83,7 @@ class RecentFailedTests extends React.Component {
                         </List.Content>
                       </List.Item>
                     </List>
+                    <center><Pagination defaultActivePage={1} firstItem={null} lastItem={null} pointing secondary totalPages={3} /></center>
                 </Card.Content>
             </Card>
         )

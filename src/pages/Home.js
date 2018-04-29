@@ -3,6 +3,7 @@ import {  Grid, Icon, Label, Segment, Card } from 'semantic-ui-react'
 import Helmet from 'react-helmet'
 import moment from 'moment'
 import axios from 'axios'
+import GridLayout from 'react-grid-layout'
 
 import statsService from '../api/Stats.js'
 
@@ -44,6 +45,13 @@ class Home extends React.Component {
     }
 
     render () {
+        var layout = [
+              {i: 'a', x: 0, y: 0, w: 1, h: 1, isResizable: false},
+              {i: 'b', x: 1, y: 0, w: 2, h: 1, minW: 2, maxW: 3, minH: 2, maxH:2},
+              {i: 'c', x: 6, y: 0, w: 2, h: 2, isResizable: false},
+              {i: 'd', x: 8, y: 0, w: 2, h: 2, isResizable: false},
+              {i: 'e', x: 0, y: 5, w: 4, h: 2, isResizable: false},
+            ];
 
         return (
             <div >
@@ -64,22 +72,13 @@ class Home extends React.Component {
                         </Segment.Group>
                         <Segment.Group>
                         <Segment color="blue" inverted >Quick Look</Segment>
-                            <Grid padded>
-                                <Grid.Row>
-                                <Grid.Column width={2} >
-                                  <DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" />
-                                </Grid.Column>
-                                <Grid.Column width={5}>
-                                    <LineGraphStatusCount />
-                                </Grid.Column>
-                                <Grid.Column width= {5}>
-                                    <TreemapWidget2 />
-                                </Grid.Column>
-                                <Grid.Column width ={3} floated='right'>
-                                    <RecurringFailures />
-                                </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
+                            <GridLayout className="layout" layout={layout} cols={10} rowHeight={250} width={1800}>
+                                            <div key="a"><DashPassFailRate tribe={this.props.tribe} harness={this.state.harness} category="Pricing" /></div>
+                                            <div key="b"><LineGraphStatusCount /></div>
+                                            <div key="c"><RecentFailedTests /></div>
+                                            <div key="d"><RecurringFailures /></div>
+                                            <div key="e"><TreemapWidget2 /></div>
+                            </GridLayout>
                         </Segment.Group>
                     </Segment>
                 </Segment.Group>
